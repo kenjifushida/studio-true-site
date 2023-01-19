@@ -1,0 +1,42 @@
+.links {
+    display: flex;
+    justify-content: space-between;
+    padding: 3.25rem 2rem;
+    width: 100%;
+    .other {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .insta, .other > div {
+        width: 5rem;
+        height: 5rem;
+        background: var(--box-bg);
+        border: 1px solid var(--color-border);
+        position: relative;
+        transition: background-color 0.4s ease;
+    }
+    .insta:hover, .other > div:hover {
+        background: var(--primary-color);
+        cursor: pointer;
+    }
+    span {
+        position: absolute;
+        font-size: 0.875rem;
+        font-style: italic;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .links {
+        padding: 3.25rem 1rem 3.25rem 3.875rem;
+        .other {
+            gap: 7.5rem;
+        }
+        .insta, .other > div {
+            width: 7.5rem;
+            height: 7.5rem;
+        }
+    }
+}

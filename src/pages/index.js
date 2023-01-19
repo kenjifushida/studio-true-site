@@ -1,128 +1,148 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { graphql, Link } from "gatsby"
+import * as styles from "../styles/index.module.scss"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
+import Links from "../components/links"
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-  },
-  {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
-    description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-  },
-]
+import { visionContent } from "../components/vision"
+import { approaches } from "../components/approaches"
+import { actions } from "../components/actions"
 
-const samplePageLinks = [
+const menuOptions = [
   {
-    text: "Page 2",
-    url: "page-2",
-    badge: false,
-    description:
-      "A simple example of linking to another page within a Gatsby site",
+    option: "news",
+    posts: []
   },
-  { text: "TypeScript", url: "using-typescript" },
-  { text: "Server Side Rendering", url: "using-ssr" },
-  { text: "Deferred Static Generation", url: "using-dsg" },
-]
+  {
+    option: "projects",
+    posts: []
+  },
+  {
+    option: "archives",
+    posts: []
+  },
+];
 
-const moreLinks = [
-  { text: "Join us on Discord", url: "https://gatsby.dev/discord" },
-  {
-    text: "Documentation",
-    url: "https://gatsbyjs.com/docs/",
-  },
-  {
-    text: "Starters",
-    url: "https://gatsbyjs.com/starters/",
-  },
-  {
-    text: "Showcase",
-    url: "https://gatsbyjs.com/showcase/",
-  },
-  {
-    text: "Contributing",
-    url: "https://www.gatsbyjs.com/contributing/",
-  },
-  { text: "Issues", url: "https://github.com/gatsbyjs/gatsby/issues" },
-]
+const aboutPosts = [];
+aboutPosts.push({
+  name: "vision",
+  ...visionContent
+})
 
-const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
+approaches.forEach(approach => {
+  aboutPosts.push({
+    name: "approaches",
+    ...approach
+  })
+})
+actions.forEach(action => {
+  aboutPosts.push({
+    name: "actions",
+    ...action
+  })
+})
 
-const IndexPage = () => (
-  <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
+const IndexPage = ({ data: { news, projects, archives } }) => {
+  menuOptions[0].posts = news.edges;
+  menuOptions[1].posts = projects.edges;
+  menuOptions[2].posts = archives.edges;
+  return (
+    <Layout>
+      <div className={styles.content}>
+        <div className={styles.optionsContainer}>
+          <div className={styles.optionsContent}>
+            <Link to={"/about"} className={styles.option}>about</Link>
+            {aboutPosts.map((post, idx) => (
+              <Link key={idx} to={"/about"} className={styles.post}>
+                <div className={styles.innerAbout}>
+                  <p className={styles.postName}>{post.name}</p>
+                  <p className={styles.postDesc}>{post.desc}</p>
+                </div>
+                <div className={styles.postOverlay}></div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        {menuOptions.map((option, idx) => (
+          <div key={idx} className={styles.optionsContainer}>
+            <div className={styles.optionsContent}>
+              <Link to={`/${option.option}`} className={styles.option}>{option.option}</Link>
+              {option.posts.map((post, idx) => (
+                <Link key={idx} to="#" className={styles.post}>
+                  <div className={styles.innerPost}>
+                    <span className={styles.postDesc} dangerouslySetInnerHTML={{__html: post.node.excerpt}}></span>
+                    <span className={styles.postDate}>{post.node.date.replaceAll("-",".")}</span>
+                    <span className={styles.postName}>{post.node.title.length > 8 ? post.node.title.slice(0,8)+"...": post.node.title}</span>
+                  </div>
+                  <div className={styles.postOverlay}>{post.node.date.replaceAll("-",".").slice(2)}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
         ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
-      ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
-)
-
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
+      </div>
+      <Links />
+    </Layout>
+  )
+}
 export const Head = () => <Seo title="Home" />
 
 export default IndexPage
+
+export const query = graphql`
+  query MyQuery {
+    news: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          title
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          excerpt
+        }
+      }
+    }
+    projects: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          title
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          excerpt
+        }
+      }
+    }
+    archives: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          title
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          excerpt
+        }
+      }
+    }
+  }
+`

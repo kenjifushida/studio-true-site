@@ -1,0 +1,198 @@
+.graph {
+    width: 10rem;
+    height: auto;
+    aspect-ratio: 1.9;
+    background: var(--box-bg);
+    border: 1px solid var(--color-border);
+    margin: 1rem 0;
+    clear: right;
+}
+
+.members {
+    display: flex;
+    justify-content: space-between;
+    .member {
+        width: 50%;
+        height: 11rem;
+        background: var(--box-bg);
+        border: 1px solid var(--color-border);
+        .inner-member {
+            opacity: 0;
+            height: 100%;
+            font-family: "Avenir Next";
+            font-size: 0.65rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background: var(--primary-color);
+            transition: opacity 0.4s ease;
+            .name {
+                position: absolute;
+                top: 0;
+                right: 0;
+                writing-mode: vertical-rl;
+                text-orientation: sideways;
+                margin-top: 0.425rem;
+            }
+        }
+        .inner-member:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+}
+
+.member-content {
+    .profile {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 3rem;
+        .profile-pic {
+            flex: 1 1 0px;
+            width: 0;
+            aspect-ratio: 1;
+            background: var(--box-bg);
+            img {
+                object-fit: cover;
+            }
+        }
+        .info {
+            flex: 1 1 0px;
+            width: 0;
+            font-size: 0.825rem;
+            font-family: "Avenir Next";
+            align-self: flex-end;
+            div {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.link {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.825rem;
+    .box {
+        display: grid;
+        place-items: center;
+        width: 25%;
+        aspect-ratio: 1;
+        background: var(--box-bg);
+        border: 1px solid var(--color-border);
+        font-family: "Avenir Next";
+        font-style: italic;
+        color: var(--secondary-txt);
+        z-index: 1;
+        transition: background-color 0.4s ease;
+    }
+    .inner-box {
+        background: var(--primary-color);
+        width: 0;
+        max-height: inherit;
+        overflow: hidden;
+        white-space: nowrap;
+        display: grid;
+        place-items: center start;
+        transition: width 0.4s ease;
+    }
+}
+
+.link:hover {
+    .box {
+        border-color: var(--primary-color);
+        background: var(--primary-color);
+    }
+    .inner-box {
+        width: 50%;
+        white-space: normal;
+    }
+}
+
+.left, .center {
+    .link {
+        justify-content: flex-start;
+    }
+}
+.center .link {
+    .box {
+        transform: translateX(100%);
+    }
+    .inner-box {
+        transform: translateX(50%);
+
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .graph {
+        width: 14rem;
+    }
+    .members {
+        max-width: 78%;
+        .member {
+            height: 13rem;
+            .inner-member {
+                font-size: 0.75rem;
+            }
+        }
+    }
+    .member-content {
+        max-width: 35rem;
+        .profile {
+            .info {
+                div {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+    .link {
+        .box {
+            width: 25%;
+        }
+        .inner-box {
+            place-items: center start;
+        }
+    }
+    .link:hover {
+        .inner-box {
+            width: 50%;
+            padding: 0.5rem;
+        }
+    }
+    .top {
+        .link {
+            justify-content: flex-start;
+            .box {
+                transform: translateX(200%);
+                transition: all 0.4s ease;
+            }
+            .inner-box {
+                transform: translateX(50%);
+                transition: width 0.4s ease;
+            }
+        }
+        .link:hover {
+            .box {
+                transform: translateX(100%);
+            }
+        }
+    }
+    .left {
+        .link:hover {
+            .inner-box {
+                width: 75%;
+            }
+        }
+    }
+    .center {
+        .link {
+            .inner-box {
+                transform: translateX(50%);
+            }
+        }
+    }
+}

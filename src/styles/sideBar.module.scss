@@ -1,0 +1,32 @@
+.sidebar {
+    display: none;
+}
+
+@media only screen and (min-width:720px) {
+    .sidebar {
+        display: flex;
+        gap: 15%;
+        width: 20%;
+        ul {
+            padding: 0;
+            list-style-type: none;
+            li {
+                line-height: 0.9rem;
+                border: 1px solid var(--color-border);
+                background: var(--box-bg);
+                width: 3.25rem;
+                height: auto;
+                aspect-ratio: 1;
+                display: flex;
+                align-items: flex-end;
+                white-space: nowrap;
+            }
+            li + li {
+                margin-top: 1.5rem;
+            }
+            li:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+.toggle {
+    display: none;
+}
+
+@media only screen and (min-width: 720px) {
+    .toggle {
+        margin-top: 1rem;
+        display: block;
+        position: relative;
+        width: 4.635rem;
+        span {
+            position: absolute;
+            font-size: 1.25rem;
+        }
+        .language-top {
+            top: 0.5rem;
+            left: 0.75rem;
+        }
+        .language-bottom {
+            bottom: 0.75rem;
+            right: 0.75rem;
+        }
+    }
+}

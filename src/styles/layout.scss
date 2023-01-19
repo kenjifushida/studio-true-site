@@ -1,0 +1,71 @@
+@import url("./typography.css");
+
+:root {
+    --primary-color: #FF1AB4;
+    --primary-txt: #000000;
+    --secondary-txt: #FF9814;
+    --bg-color: #D9EBEB;
+    --box-bg: #FFFFFF;
+    --lightgray-overlay: #BABABA;
+    --gray-overlay: #6E6E6E;
+    --color-border: #808080;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    font-family: "Avenir Next Bold";
+    font-size: 16px;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-color);
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#root, #__next {
+    isolation: isolate;
+}
+
+.emphasized {
+    font-style: italic;
+}
+
+.bgChange {
+    background: var(--box-bg);
+    transition: all 0.4s ease;
+}
+
+.bgChange:hover {
+    background: var(--primary-color);
+    cursor: pointer;
+}

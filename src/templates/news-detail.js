@@ -45,11 +45,11 @@ const NewsDetail = ({ data }) => {
     }
 
     const handleFilter = (pos) => {
-        if(pos == 0) {
+        if(pos === 0) {
             return handleFilterAll()
         }
         const updatedFilterState = filters.map((item, index) => {
-            if(index==0) {
+            if(index===0) {
                 return item
             }
             if(filters[0]) {
@@ -62,7 +62,7 @@ const NewsDetail = ({ data }) => {
 
     useEffect(() => {
         setHeight(ref.current.clientHeight);
-    })
+    }, [])
 
     return (
         <Layout>

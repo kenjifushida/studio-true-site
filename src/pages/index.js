@@ -45,9 +45,24 @@ actions.forEach(action => {
 })
 
 const IndexPage = ({ data: { news, projects, archives } }) => {
-  menuOptions[0].posts = news.edges;
-  menuOptions[1].posts = projects.edges;
-  menuOptions[2].posts = archives.edges;
+  menuOptions[0].posts = news.edges.map(post=> ({
+    title: post.node.title,
+    desc: post.node.excerpt,
+    date: post.node.date,
+    slug: `/news/${post.node.slug}`
+  }));
+  menuOptions[1].posts = projects.edges.map(post=> ({
+    title: post.node.title,
+    desc: post.node.excerpt,
+    date: post.node.date,
+    slug: `/projects/${post.node.slug}`
+  }));
+  menuOptions[2].posts = archives.edges.map(post=> ({
+    title: post.node.title,
+    desc: post.node.excerpt,
+    date: post.node.date,
+    slug: `/archives/${post.node.slug}`
+  }));
   return (
     <Layout>
       <div className={styles.content}>
@@ -70,13 +85,13 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
             <div className={styles.optionsContent}>
               <Link to={`/${option.option}`} className={styles.option}>{option.option}</Link>
               {option.posts.map((post, idx) => (
-                <Link key={idx} to="#" className={styles.post}>
+                <Link key={idx} to={post.slug} className={styles.post}>
                   <div className={styles.innerPost}>
-                    <span className={styles.postDesc} dangerouslySetInnerHTML={{__html: post.node.excerpt}}></span>
-                    <span>{post.node.date.replaceAll("-",".")}</span>
-                    <span className={styles.postName}>{post.node.title.length > 8 ? post.node.title.slice(0,8)+"...": post.node.title}</span>
+                    <span className={styles.postDesc} dangerouslySetInnerHTML={{__html: post.desc}}></span>
+                    <span>{post.date.replaceAll("-",".")}</span>
+                    <span className={styles.postName}>{post.title.length > 8 ? post.title.slice(0,8)+"...": post.title}</span>
                   </div>
-                  <div className={styles.postOverlay}>{post.node.date.replaceAll("-",".").slice(2)}</div>
+                  <div className={styles.postOverlay}>{post.date.replaceAll("-",".").slice(2)}</div>
                 </Link>
               ))}
             </div>
@@ -100,6 +115,7 @@ export const query = graphql`
         node {
           date(formatString: "YYYY-MM-DD")
           title
+          slug
           author {
             node {
               firstName
@@ -117,6 +133,7 @@ export const query = graphql`
         node {
           date(formatString: "YYYY-MM-DD")
           title
+          slug
           author {
             node {
               firstName
@@ -134,6 +151,7 @@ export const query = graphql`
         node {
           date(formatString: "YYYY-MM-DD")
           title
+          slug
           author {
             node {
               firstName

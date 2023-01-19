@@ -27,6 +27,8 @@
             .post {
                 display: inline-block;
                 min-width: 10rem;
+                max-width: 10rem;
+                height: 7rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -84,7 +86,7 @@
                     font-family: "Avenir Next";
                     position: relative;
                     background: var(--primary-color);
-                    padding: 2rem;
+                    padding: 1rem;
                     .post-desc {
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -164,6 +166,10 @@
                 .post {
                     width: 12.65rem;
                     min-width: 12.65rem;
+                    height: 9.5rem;
+                    .inner-post {
+                        padding: 1rem 2rem;
+                    }
                 }
             }
             .options-content::-webkit-scrollbar {

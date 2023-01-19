@@ -111,7 +111,7 @@ const members = [
     }
 ]
 
-const Members = ({ memberState }) => {
+const Members = ({ memberState, changeSelectedMember }) => {
     return (
       <div>
           {memberState >= 0 ?
@@ -149,7 +149,7 @@ const Members = ({ memberState }) => {
               <div className={styles.members}>
                   {members.map((member, idx) => (
                   <div key={idx} className={styles.member}>
-                      <Link to="#" className={styles.innerMember}>
+                      <div onClick={()=>changeSelectedMember(idx)} className={styles.innerMember}>
                       <div>{member.kanji}</div>
                       <div>
                           <p>{member.birth}生まれ</p>
@@ -159,7 +159,7 @@ const Members = ({ memberState }) => {
                           ))}
                       </div>
                       <div className={styles.name}>{member.name}</div>
-                      </Link>
+                      </div>
                   </div>
                   ))}
               </div>

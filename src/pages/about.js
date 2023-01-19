@@ -23,7 +23,7 @@ const About = () => {
     <Vision />,
     <Approaches />,
     <Actions />,
-    <Members memberState={selectedMember} />
+    <Members memberState={selectedMember} changeSelectedMember={changeSelectedMember} />
   ]
   const [filteredComponents, setFilteredComponents] = useState(sections);
 

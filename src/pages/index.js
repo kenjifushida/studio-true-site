@@ -73,7 +73,7 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
                 <Link key={idx} to="#" className={styles.post}>
                   <div className={styles.innerPost}>
                     <span className={styles.postDesc} dangerouslySetInnerHTML={{__html: post.node.excerpt}}></span>
-                    <span className={styles.postDate}>{post.node.date.replaceAll("-",".")}</span>
+                    <span>{post.node.date.replaceAll("-",".")}</span>
                     <span className={styles.postName}>{post.node.title.length > 8 ? post.node.title.slice(0,8)+"...": post.node.title}</span>
                   </div>
                   <div className={styles.postOverlay}>{post.node.date.replaceAll("-",".").slice(2)}</div>

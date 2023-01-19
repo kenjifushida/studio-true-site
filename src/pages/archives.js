@@ -213,7 +213,7 @@ const Archives = ({data}) => {
                                                 </div>
                                             </div>
                                             <div className={styles.readMore}>read more...</div>
-                                            <div className={styles.engTitle}>{archive.engTitle}</div>
+                                            <div>{archive.engTitle}</div>
                                             <div className={styles.author}>{archive.by}</div>
                                         </div>
                                     </div>

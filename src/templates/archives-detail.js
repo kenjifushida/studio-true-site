@@ -9,7 +9,7 @@ import Seo from "../components/seo"
 import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
-import { activeFilter, newsArticles } from "../pages/news"
+import { activeFilter } from "../pages/news"
 
 const categories = [
     "all",
@@ -31,7 +31,7 @@ const NewsDetail = ({ data }) => {
 
     const [ dateSort, setDateSort ] = useState(false);
     const [filters, setFilters] = useState([true, true, true, true, true]);
-    const [filteredNews, setFilteredNews] = useState(newsArticles);
+    const [filteredNews, setFilteredNews] = useState();
     const { height, width } = useWindowDimensions();
     const [ titleHeight, setHeight] = useState(0)
     const ref = useRef(null)

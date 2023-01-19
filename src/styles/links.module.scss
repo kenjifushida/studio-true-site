@@ -7,7 +7,8 @@
         display: flex;
         justify-content: flex-start;
     }
-    .insta, .other > div {
+    .insta, .other > a {
+        display: block;
         width: 5rem;
         height: 5rem;
         background: var(--box-bg);
@@ -15,7 +16,7 @@
         position: relative;
         transition: background-color 0.4s ease;
     }
-    .insta:hover, .other > div:hover {
+    .insta:hover, .other > a:hover {
         background: var(--primary-color);
         cursor: pointer;
     }
@@ -34,7 +35,7 @@
         .other {
             gap: 7.5rem;
         }
-        .insta, .other > div {
+        .insta, .other > a {
             width: 7.5rem;
             height: 7.5rem;
         }

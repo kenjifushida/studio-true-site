@@ -10,31 +10,38 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
+import { useCategory } from "../hooks/useCategories"
 
-const categories = [
-    "all",
-    "announcing",
-    "writing",
-    "speaking",
-    "participating"
-]
-
-const NewsDetail = ({ data }) => {
+const NewsDetail = ({ data: {post, posts} }) => {
+    const categories = useCategory("news")[0].options;
     const newsArticle = {
-        title: data.wpPost.title,
+        title: post.title,
         img: "",
-        content: data.wpPost.content,
-        author: `${data.wpPost.author.node.firstName} ${data.wpPost.author.node.lastName}`,
-        date: data.wpPost.date.replaceAll("-","."),
-        action: "write"
-    }
+        content: post.content,
+        author: `${post.author.node.firstName} ${post.author.node.lastName}`,
+        date: post.date,
+        category: post.categories.nodes.find(
+                node => node.ancestors?.nodes[0].name === "we are"
+            ).name
+    };
+
+    const newsArticles = posts.edges.map(news => ({
+        date: news.node.date,
+        title: news.node.title,
+        slug: `/news/${news.node.slug}`,
+        category: news.node.categories.nodes.find(
+                    node => node.ancestors?.nodes[0].name === "we are"
+                ).name
+    }));
 
     const [ dateSort, setDateSort ] = useState(false);
-    const [filters, setFilters] = useState([true, true, true, true, true]);
-    const [filteredNews, setFilteredNews] = useState();
+    const [filters, setFilters] = useState(categories.map(opt=>true));
+    const [filteredNews, setFilteredNews] = useState(newsArticles);
     const { height, width } = useWindowDimensions();
-    const [ titleHeight, setHeight] = useState(0)
-    const ref = useRef(null)
+    const [ titleHeight, setHeight] = useState(0);
+    const [previous, setPrevious] = useState(-1);
+    const [next, setNext] = useState(-1);
+    const ref = useRef(null);
 
     const handleFilterAll = () => {
         if(filters[0]) {
@@ -64,6 +71,32 @@ const NewsDetail = ({ data }) => {
         setHeight(ref.current.clientHeight);
     }, [])
 
+    useEffect(() => {
+        var results = [];
+        filters.forEach((filter, index) => filter ? results.push(categories[index]) : null);
+        if(dateSort) {
+            const sorted = [...newsArticles].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date)
+            })
+            setFilteredNews(sorted);
+        } else {
+            setFilteredNews(newsArticles);
+        }
+        const current = filteredNews.findIndex(news => news.title === newsArticle.title);
+        if(current >= 0 && current < filteredNews.length-1) {
+            const n = filteredNews.slice(current+1).findIndex(post=>results.includes(post.category));
+            n >= 0 ? setNext(current+1+n) : setNext(-1);
+        } else {
+            setNext(-1);
+        }
+        if(current > 0 && current <= filteredNews.length-1) {
+            const p = filteredNews.slice(0, current).findLastIndex(post=>results.includes(post.category));
+            p >= 0 ? setPrevious(p) : setPrevious(-1);
+        } else {
+            setPrevious(-1);
+        }
+    }, [filters, dateSort])
+
     return (
         <Layout>
             <PageTitle title={"news!"} />
@@ -89,8 +122,8 @@ const NewsDetail = ({ data }) => {
                 <div className={styles.main}>
                     <div className={styles.top}
                     style={width > 720 ? { marginTop: `${titleHeight + 12}px`} : {}}>
-                        <p>{newsArticle.date}</p>
-                        <p>{newsArticle.action}</p>
+                        <p>{newsArticle.date.replaceAll("-",".")}</p>
+                        <p>{newsArticle.category}</p>
                         <p>{newsArticle.author}</p>
                     </div>
                     <div className={styles.article}>
@@ -99,8 +132,8 @@ const NewsDetail = ({ data }) => {
                         <div className={styles.content} dangerouslySetInnerHTML={{__html: newsArticle.content}}>
                         </div>
                         <div className={styles.bottomLinks}>
-                            <Link>previous?</Link>
-                            <Link>next?</Link>
+                            {previous >= 0 ? <Link to={filteredNews[previous].slug}>previous?</Link> : null}
+                            {next > 0 ? <Link to={filteredNews[next].slug}>next?</Link> : null}
                         </div>
                     </div>
                 </div>
@@ -113,7 +146,7 @@ export default NewsDetail
 
 export const pageQuery = graphql`
     query PostBySlug($slug: String!) {
-        wpPost(slug: {eq: $slug}) {
+        post: wpPost(slug: {eq: $slug}) {
             date(formatString: "YYYY-MM-DD")
             content
             author {
@@ -123,6 +156,35 @@ export const pageQuery = graphql`
               }
             }
             title
-          }
+            categories {
+                nodes {
+                  ancestors {
+                    nodes {
+                      name
+                    }
+                  }
+                  name
+                }
+            }
+        }
+        posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}) {
+            edges {
+              node {
+                title
+                slug
+                date(formatString: "YYYY-MM-DD")
+                categories {
+                  nodes {
+                    name
+                    ancestors {
+                      nodes {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        }
     }
 `

@@ -11,19 +11,14 @@ import BoxIcon from "../images/BoxIcon.svg"
 import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
-const categories = [
-    "all",
-    "announcing",
-    "writing",
-    "speaking",
-    "participating"
-]
+import { useCategory } from "../hooks/useCategories"
 
 export const activeFilter = {
     background: "var(--primary-color)"
 }
 
 const News = ({ data }) => {
+    const categories = useCategory("news")[0].options;
     const newsArticles = data.allWpPost.edges.map(news => ({
         date: news.node.date,
         title: news.node.title,
@@ -36,7 +31,7 @@ const News = ({ data }) => {
 
     const lines = [...Array(15).keys()];
     const [dateSort, setDateSort] = useState(false);
-    const [filters, setFilters] = useState([true, true, true, true, true]);
+    const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
     const [viewMode, setView] = useState(false);
 
@@ -49,11 +44,11 @@ const News = ({ data }) => {
     }
 
     const handleFilter = (pos) => {
-        if(pos == 0) {
+        if(pos === 0) {
             return handleFilterAll()
         }
         const updatedFilterState = filters.map((item, index) => {
-            if(index==0) {
+            if(index===0) {
                 return item
             }
             if(filters[0]) {
@@ -66,15 +61,8 @@ const News = ({ data }) => {
 
     useEffect(()=> {
         var results = [];
-        if(filters[0]==false) {
+        if(filters[0]===false) {
             filters.forEach((filter, index) => filter ? results.push(categories[index]) : null)
-            // const filtered = data.allWpPost.edges.filter(
-            //     news => results.includes(
-            //         news.node.categories.nodes.find(
-            //             node => node.ancestors?.nodes[0].name === "we are"
-            //         ).name
-            //     )
-            // );
             const filtered = newsArticles.filter(news => results.includes(news.category))
             
             if(dateSort) {

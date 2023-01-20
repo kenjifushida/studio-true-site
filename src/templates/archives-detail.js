@@ -10,15 +10,36 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { useCategory } from "../hooks/useCategories"
 
-const NewsDetail = ({ data: {post, posts} }) => {
-    const categories = useCategory("archives");
+const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} }) => {
+    const categories = [
+        {
+            category: "projects",
+            options: ["all", ...projects.nodes.map(node=>node.name)],
+            states: [true, ...projects.nodes.map(node=> true)]
+        },
+        {
+            category: "place",
+            options: ["all", ...places.nodes.map(node=>node.name)],
+            states: [true, ...places.nodes.map(node=> true)]
+        },
+        {
+            category: "by",
+            options: ["all", ...authors.distinct],
+            states: [true, ...authors.distinct.map(node=> true)]
+        },
+        {
+            category: "actions",
+            options: ["all", ...actions.nodes.map(node=>node.name)],
+            states: [true, ...actions.nodes.map(node=> true)]
+        },
+    ];
     const archiveArticle = {
         title: post.title,
         img: "",
         content: post.content,
-        by: `${post.author.node.firstName} ${post.author.node.lastName}`,
+        by: post.author.node.firstName.toLowerCase(),
+        author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
         place: post.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "place"
@@ -138,7 +159,7 @@ const NewsDetail = ({ data: {post, posts} }) => {
                     style={width > 720 ? { marginTop: `${titleHeight + 12}px`} : {}}>
                         <p>{archiveArticle.date.replaceAll("-",".")}</p>
                         <p>{archiveArticle.place}</p>
-                        <p>{archiveArticle.by}</p>
+                        <p>{archiveArticle.author}</p>
                     </div>
                     <div className={styles.article}>
                         <p className={styles.title} ref={ref}>{archiveArticle.title}</p>
@@ -205,6 +226,30 @@ export const pageQuery = graphql`
                     }
                 }
             }
+        }
+        places: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}
+          ) {
+            nodes {
+              name
+            }
+        }
+        actions: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "actions"}}}}}
+          ) {
+            nodes {
+              name
+            }
+        }
+        projects: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+          ) {
+            nodes {
+              name
+            }
+        }
+        authors: allWpPost {
+            distinct(field: {author: {node: {firstName: SELECT}}})
         }
     }
 `

@@ -11,15 +11,13 @@ import BoxIcon from "../images/BoxIcon.svg"
 import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
-import { useCategory } from "../hooks/useCategories"
-
 export const activeFilter = {
     background: "var(--primary-color)"
 }
 
-const News = ({ data }) => {
-    const categories = useCategory("news")[0].options;
-    const newsArticles = data.allWpPost.edges.map(news => ({
+const News = ({ data: {posts, weAre} }) => {
+    const categories = weAre.nodes.map(node=>node.name);
+    const newsArticles = posts.edges.map(news => ({
         date: news.node.date,
         title: news.node.title,
         desc: news.node.excerpt,
@@ -170,7 +168,7 @@ export default News
 
 export const query = graphql`
 query MyQuery {
-    allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}) {
+    posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}) {
       edges {
         node {
           date(formatString: "YYYY-MM-DD")
@@ -195,6 +193,13 @@ query MyQuery {
           }
         }
       }
+    }
+    weAre: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "we are"}}}}}
+      ) {
+        nodes {
+          name
+        }
     }
 }
 `

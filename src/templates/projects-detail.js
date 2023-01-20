@@ -10,10 +10,20 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { useCategory } from "../hooks/useCategories"
 
-const NewsDetail = ({ data: { post, posts} }) => {
-    const categories = useCategory("projects");
+const NewsDetail = ({ data: { post, posts, places, actions} }) => {
+    const categories = [
+        {
+            category: "place",
+            options: ["all", ...places.nodes.map(node=>node.name)],
+            states: [true, ...places.nodes.map(node=> true)]
+        },
+        {
+            category: "actions",
+            options: ["all", ...actions.nodes.map(node=>node.name)],
+            states: [true, ...actions.nodes.map(node=> true)]
+        },
+    ]
     const projectArticle = {
         title: post.title,
         img: "",
@@ -194,6 +204,20 @@ export const pageQuery = graphql`
                         }
                     }
                 }
+            }
+        }
+        places: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}
+          ) {
+            nodes {
+              name
+            }
+        }
+        actions: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "actions"}}}}}
+          ) {
+            nodes {
+              name
             }
         }
     }

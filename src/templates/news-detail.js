@@ -10,10 +10,9 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { useCategory } from "../hooks/useCategories"
 
-const NewsDetail = ({ data: {post, posts} }) => {
-    const categories = useCategory("news")[0].options;
+const NewsDetail = ({ data: {post, posts, weAre} }) => {
+    const categories = weAre.nodes.map(node=>node.name);
     const newsArticle = {
         title: post.title,
         img: "",
@@ -184,6 +183,13 @@ export const pageQuery = graphql`
                   }
                 }
               }
+            }
+        }
+        weAre: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "we are"}}}}}
+          ) {
+            nodes {
+              name
             }
         }
     }

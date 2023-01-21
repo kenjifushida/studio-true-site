@@ -13,6 +13,7 @@ import PageTitle from "../components/pageTitle"
 
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const Archives = ({data: {posts, places, media, projects, authors}}) => {
     const categories = [
@@ -43,6 +44,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
         by: `${archive.node.author.node.firstName}`,
         date: archive.node.date,
         slug: `/archives/${archive.node.slug}`,
+        img: archive.node.featuredImage?.node.gatsbyImage,
         place: archive.node.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "place"
             ).name,
@@ -163,10 +165,14 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                 <div className={styles.main} style={viewMode ? {} : {width:"70%"}}>
                     {viewMode ?
                     <div className={styles.boxes}>
-                        {filteredArchives.map((archive, idx) => (
+                        {filteredArchives.map((archive, idx) => {
+                            const featuredImage = getImage(archive.img);
+                            return (
                             <Link key={idx} className={styles.box} to={archive.slug}>
                                 <div className={styles.post}>
-                                    <div className={styles.imgContainer}></div>
+                                    <div className={styles.imgContainer}>
+                                        {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={archive.title}/> : null}
+                                    </div>
                                     <div className={styles.postContent}>
                                         <div className={styles.overlay}>
                                             <div className={styles.title}>
@@ -195,7 +201,9 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                                     </div>
                                 </div>
                             </Link>
-                        ))}
+                            )
+                        }
+                        )}
                     </div> 
                     : <>
                         <div className={styles.labels}>
@@ -247,6 +255,11 @@ query MyQuery {
                   name
                 }
               }
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
             }
           }
         }

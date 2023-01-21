@@ -10,8 +10,10 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const NewsDetail = ({ data: { post, posts, places, actions} }) => {
+    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
     const categories = [
         {
             category: "place",
@@ -154,7 +156,9 @@ const NewsDetail = ({ data: { post, posts, places, actions} }) => {
                     </div>
                     <div className={styles.article}>
                         <p className={styles.title} ref={ref}>{projectArticle.title}</p>
-                        <div className={styles.imgContainer}></div>
+                        <div className={styles.imgContainer}>
+                            {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={projectArticle.title}/> : null}
+                        </div>
                         <div className={styles.content} dangerouslySetInnerHTML={{__html: projectArticle.content}}>
                         </div>
                         <div className={styles.bottomLinks}>
@@ -190,6 +194,11 @@ export const pageQuery = graphql`
                     }
                 }
                 name
+                }
+            }
+            featuredImage {
+                node {
+                  gatsbyImage(width: 720)
                 }
             }
         }

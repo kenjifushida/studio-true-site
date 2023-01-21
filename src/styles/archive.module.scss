@@ -60,6 +60,10 @@
             height: auto;
             aspect-ratio: 1;
             background-color: var(--color-border);
+            * {
+                width: fill;
+                height: fill;
+            }
         }
         .post-content {
             width: 50%;

@@ -10,8 +10,10 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) => {
+    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
     const categories = [
         {
             category: "projects",
@@ -36,7 +38,6 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
     ];
     const archiveArticle = {
         title: post.title,
-        img: "",
         content: post.content,
         by: post.author.node.firstName.toLowerCase(),
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
@@ -71,7 +72,7 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredArchives, setFilteredArchives] = useState(archivesArticles);
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     const [ titleHeight, setHeight] = useState(0);
     const [previous, setPrevious] = useState(-1);
     const [next, setNext] = useState(-1);
@@ -169,7 +170,9 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
                     </div>
                     <div className={styles.article}>
                         <p className={styles.title} ref={ref}>{archiveArticle.title}</p>
-                        <div className={styles.imgContainer}></div>
+                        <div className={styles.imgContainer}>
+                            {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={archiveArticle.title}/> : null}
+                        </div>
                         <div className={styles.content} dangerouslySetInnerHTML={{__html: archiveArticle.content}}>
                         </div>
                         <div className={styles.bottomLinks}>
@@ -207,6 +210,11 @@ export const pageQuery = graphql`
                     }
                 }
                 name
+                }
+            }
+            featuredImage {
+                node {
+                  gatsbyImage(width: 720)
                 }
             }
         }

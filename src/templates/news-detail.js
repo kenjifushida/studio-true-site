@@ -10,8 +10,10 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const NewsDetail = ({ data: {post, posts, weAre} }) => {
+    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
     const categories = weAre.nodes.map(node=>node.name);
     const newsArticle = {
         title: post.title,
@@ -42,7 +44,7 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
     const [ dateSort, setDateSort ] = useState(false);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     const [ titleHeight, setHeight] = useState(0);
     const [previous, setPrevious] = useState(-1);
     const [next, setNext] = useState(-1);
@@ -133,7 +135,9 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
                     </div>
                     <div className={styles.article}>
                         <p className={styles.title} ref={ref}>{newsArticle.title}</p>
-                        <div className={styles.imgContainer}></div>
+                        <div className={styles.imgContainer}>
+                            {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={newsArticle.title}/> : null}
+                        </div>
                         <div className={styles.content} dangerouslySetInnerHTML={{__html: newsArticle.content}}>
                         </div>
                         <div className={styles.bottomLinks}>
@@ -146,6 +150,8 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
         </Layout>
     )
 }
+
+export const Head = () => <Seo title={"News Post"} />;
 
 export default NewsDetail
 
@@ -169,6 +175,11 @@ export const pageQuery = graphql`
                     }
                   }
                   name
+                }
+            }
+            featuredImage {
+                node {
+                  gatsbyImage(width: 720)
                 }
             }
         }

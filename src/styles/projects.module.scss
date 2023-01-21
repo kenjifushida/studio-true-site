@@ -82,6 +82,10 @@
                     height: 11rem;
                     background: var(--color-border);
                     transition: all 0.4 ease;
+                    * {
+                        width: fill;
+                        height: fill;
+                    }
                 }
                 .overlay {
                     top: 11rem;

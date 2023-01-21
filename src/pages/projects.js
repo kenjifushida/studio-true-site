@@ -12,6 +12,7 @@ import PageTitle from "../components/pageTitle"
 
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const Projects = ({ data: { posts, places, actions} }) => {
     const categories = [
@@ -31,6 +32,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
         name: project.node.title,
         desc: project.node.excerpt,
         slug: `/projects/${project.node.slug}`,
+        img: project.node.featuredImage?.node.gatsbyImage,
         actions: project.node.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "actions"
             ).name,
@@ -153,9 +155,13 @@ const Projects = ({ data: { posts, places, actions} }) => {
                 <div className={styles.main}>
                     {viewMode ? 
                     <div className={styles.boxes}>
-                        {filteredProjects.map((project, idx) => (
+                        {filteredProjects.map((project, idx) => {
+                            const featuredImage = getImage(project.img);
+                            return (
                             <Link key={idx} className={styles.post} to={project.slug}>
-                                <div className={styles.imgContainer}></div>
+                                <div className={styles.imgContainer}>
+                                    {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={project.title}/> : null}
+                                </div>
                                 <div className={styles.overlay}>
                                     <div className={styles.name}>{project.name}</div>
                                     <div className={styles.place}>{project.place}</div>
@@ -179,7 +185,9 @@ const Projects = ({ data: { posts, places, actions} }) => {
                                     </div>
                                 </div>
                             </Link>
-                        ))}
+                            )
+                        }
+                        )}
                     </div>
                     : <>
                         <div className={styles.labels}>
@@ -227,6 +235,11 @@ query MyQuery {
                   name
                 }
               }
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
             }
           }
         }

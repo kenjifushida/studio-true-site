@@ -14,54 +14,30 @@ import PageTitle from "../components/pageTitle"
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
 
-const categories = [
-    {
-        category: "projects",
-        options: [
-            "all",
-            "proj1",
-            "proj2"
-        ],
-        states: []
-    },
-    {
-        category: "place",
-        options: [
-            "all",
-            "komae",
-            "setagaya",
-            "nagaizumi",
-            "barcelona"
-        ],
-        states: []
-    },
-    {
-        category: "by",
-        options: [
-            "all",
-            "rei",
-            "taiga"
-        ],
-        states: []
-    },
-    {
-        category: "media",
-        options: [
-            "all",
-            "media1",
-            "media2",
-            "media3"
-        ],
-        states: []
-    },
-]
-
-for(let i = 0; i < categories.length; i++) {
-    categories[i].states = categories[i].options.map((opt) => true)
-}
-
-const Archives = ({data}) => {
-    const archives = data.allWpPost.edges.map(archive => ({
+const Archives = ({data: {posts, places, media, projects, authors}}) => {
+    const categories = [
+        {
+            category: "projects",
+            options: ["all", ...projects.nodes.map(node=>node.name)],
+            states: [true, ...projects.nodes.map(node=> true)]
+        },
+        {
+            category: "place",
+            options: ["all", ...places.nodes.map(node=>node.name)],
+            states: [true, ...places.nodes.map(node=> true)]
+        },
+        {
+            category: "by",
+            options: ["all", ...authors.distinct],
+            states: [true, ...authors.distinct.map(node=> true)]
+        },
+        {
+            category: "media",
+            options: ["all", ...media.nodes.map(node=>node.name)],
+            states: [true, ...media.nodes.map(node=> true)]
+        },
+    ];
+    const archives = posts.edges.map(archive => ({
         title: archive.node.title,
         engTitle: archive.node.title,
         by: `${archive.node.author.node.firstName}`,
@@ -250,7 +226,7 @@ export default Archives
 
 export const archivesQuery = graphql`
 query MyQuery {
-    allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}) {
+    posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}) {
       edges {
         node {
           date(formatString: "YYYY-MM-DD")
@@ -275,6 +251,30 @@ query MyQuery {
           }
         }
       }
+    }
+    places: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}
+      ) {
+        nodes {
+          name
+        }
+    }
+    media: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "media"}}}}}
+      ) {
+        nodes {
+          name
+        }
+    }
+    projects: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+      ) {
+        nodes {
+          name
+        }
+    }
+    authors: allWpPost {
+        distinct(field: {author: {node: {firstName: SELECT}}})
     }
 }
 `

@@ -22,9 +22,12 @@ const News = ({ data: {posts, weAre} }) => {
         title: news.node.title,
         desc: news.node.excerpt,
         slug: `/news/${news.node.slug}`,
-        category: news.node.categories.nodes.find(
+        category: () => {
+            const hasCategory = news.node.categories.nodes.find(
                     node => node.ancestors?.nodes[0].name === "we are"
-                ).name
+                )
+            return hasCategory !== -1 ? hasCategory.name : ""
+            }
     }));
 
     const lines = [...Array(15).keys()];

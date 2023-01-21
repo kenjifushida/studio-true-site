@@ -31,9 +31,12 @@ const NewsDetail = ({ data: { post, posts, places, actions} }) => {
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
         actions: "make to platform",
-        place: post.categories.nodes.find(
-            node=> node.ancestors?.nodes[0].name === "place"
-        ).name,
+        place: () => {
+            const hasPlace = post.categories.nodes.find(
+                node=> node.ancestors?.nodes[0].name === "place"
+            )
+            return hasPlace !== -1 ? hasPlace.name : "";
+        },
     };
 
     const projects = posts.edges.map(post => ({
@@ -41,9 +44,12 @@ const NewsDetail = ({ data: { post, posts, places, actions} }) => {
         title: post.node.title,
         slug: `/projects/${post.node.slug}`,
         actions: "make to platform",
-        place: post.node.categories.nodes.find(
+        place: () => {
+            const hasPlace = post.node.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "place"
-            ).name
+            )
+            return hasPlace !== -1 ? hasPlace.name : "";
+        }
     }));
     
     const [ dateSort, setDateSort ] = useState(false);

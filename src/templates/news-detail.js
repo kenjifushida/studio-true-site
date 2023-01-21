@@ -19,18 +19,24 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
         content: post.content,
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
-        category: post.categories.nodes.find(
-                node => node.ancestors?.nodes[0].name === "we are"
-            ).name
+        category: () => {
+            const hasCategory = post.categories.nodes.find(
+                    node => node.ancestors?.nodes[0].name === "we are"
+                )
+            return hasCategory !== -1 ? hasCategory.name : ""
+            }
     };
 
     const newsArticles = posts.edges.map(news => ({
         date: news.node.date,
         title: news.node.title,
         slug: `/news/${news.node.slug}`,
-        category: news.node.categories.nodes.find(
+        category: () => {
+            const hasCategory = news.node.categories.nodes.find(
                     node => node.ancestors?.nodes[0].name === "we are"
-                ).name
+                )
+            return hasCategory !== -1 ? hasCategory.name : ""
+            }
     }));
 
     const [ dateSort, setDateSort ] = useState(false);

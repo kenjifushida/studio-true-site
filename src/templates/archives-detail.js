@@ -11,7 +11,7 @@ import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
 
-const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} }) => {
+const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) => {
     const categories = [
         {
             category: "projects",
@@ -29,9 +29,9 @@ const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} })
             states: [true, ...authors.distinct.map(node=> true)]
         },
         {
-            category: "actions",
-            options: ["all", ...actions.nodes.map(node=>node.name)],
-            states: [true, ...actions.nodes.map(node=> true)]
+            category: "media",
+            options: ["all", ...media.nodes.map(node=>node.name)],
+            states: [true, ...media.nodes.map(node=> true)]
         },
     ];
     const archiveArticle = {
@@ -41,9 +41,12 @@ const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} })
         by: post.author.node.firstName.toLowerCase(),
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
-        place: post.categories.nodes.find(
+        place: () => {
+            const hasPlace = post.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "place"
-            ).name,
+            )
+            return hasPlace !== -1 ? hasPlace.name : "";
+        },
         media: "",
         project: "",
 
@@ -54,9 +57,12 @@ const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} })
         title: post.node.title,
         by: post.node.author.node.firstName.toLowerCase(),
         slug: `/archives/${post.node.slug}`,
-        place: post.node.categories.nodes.find(
+        place: () => {
+            const hasPlace = post.node.categories.nodes.find(
                 node=> node.ancestors?.nodes[0].name === "place"
-            ).name,
+            )
+            return hasPlace !== -1 ? hasPlace.name : "";
+        },
         media: "",
         project: "",
     }));
@@ -177,6 +183,8 @@ const NewsDetail = ({ data: {post, posts, places, actions, projects, authors} })
     )
 }
 
+export const Head = () => <Seo title="Archive Post" />;
+
 export default NewsDetail
 
 export const pageQuery = graphql`
@@ -234,15 +242,15 @@ export const pageQuery = graphql`
               name
             }
         }
-        actions: allWpCategory(
-            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "actions"}}}}}
+        projects: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
           ) {
             nodes {
               name
             }
         }
-        projects: allWpCategory(
-            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+        media: allWpCategory(
+            filter: {ancestors: {nodes: {elemMatch: {name: {eq: "media"}}}}}
           ) {
             nodes {
               name

@@ -13,37 +13,20 @@ import PageTitle from "../components/pageTitle"
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
 
-const categories = [
-    {
-        category: "place",
-        options: [
-            "all",
-            "komae",
-            "setagaya",
-            "nagaizumi",
-            "barcelona"
-        ],
-        states: []
-    },
-    {
-        category: "actions",
-        options: [
-            "all",
-            "make to platform",
-            "action1",
-            "action2",
-            "action3"
-        ],
-        states: []
-    }
-]
-
-for(let i = 0; i < categories.length; i++) {
-    categories[i].states = categories[i].options.map((opt) => true)
-}
-
-const Projects = ({ data }) => {
-    const projects = data.allWpPost.edges.map(project => ({
+const Projects = ({ data: { posts, places, actions} }) => {
+    const categories = [
+        {
+            category: "place",
+            options: ["all", ...places.nodes.map(node=>node.name)],
+            states: [true, ...places.nodes.map(node=> true)]
+        },
+        {
+            category: "actions",
+            options: ["all", ...actions.nodes.map(node=>node.name)],
+            states: [true, ...actions.nodes.map(node=> true)]
+        },
+    ]
+    const projects = posts.edges.map(project => ({
         date: project.node.date,
         name: project.node.title,
         desc: project.node.excerpt,
@@ -223,7 +206,7 @@ export default Projects
 
 export const projectsQuery = graphql`
 query MyQuery {
-    allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}) {
+    posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}) {
       edges {
         node {
           date(formatString: "YYYY-MM-DD")
@@ -248,6 +231,20 @@ query MyQuery {
           }
         }
       }
+    }
+    places: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}
+      ) {
+        nodes {
+          name
+        }
+    }
+    actions: allWpCategory(
+        filter: {ancestors: {nodes: {elemMatch: {name: {eq: "actions"}}}}}
+      ) {
+        nodes {
+          name
+        }
     }
 }
 `

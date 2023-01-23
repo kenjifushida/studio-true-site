@@ -83,6 +83,7 @@
                         font-size: 1rem;
                     }
                     .date {
+                        font-family: "Avenir Next UltraLight";
                         font-size: 1.5rem;
                     }
                     .category {
@@ -159,34 +160,9 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: flex-start;
-        .sidebar {
-            display: flex;
-            gap: 15%;
-            width: 20%;
-            ul {
-                padding: 0;
-                list-style-type: none;
-                li {
-                    line-height: 0.9rem;
-                    border: 1px solid var(--color-border);
-                    background: var(--box-bg);
-                    width: 3.25rem;
-                    height: auto;
-                    aspect-ratio: 1;
-                    display: flex;
-                    align-items: flex-end;
-                    white-space: nowrap;
-                }
-                li + li {
-                    margin-top: 1.5rem;
-                }
-                li:hover {
-                    cursor: pointer;
-                }
-            }
-        }
         .main {
-            width: 70%;
+            width: 62.5%;
+            height: 100vh;
             .boxes {
                 gap: 4rem;
                 .post {
@@ -211,7 +187,7 @@
                             font-size: 1.125rem;
                         }
                         .date {
-                            font-size: 2rem;
+                            font-size: 2.5rem;
                         }
                         .category {
                             font-size: 1.125rem;

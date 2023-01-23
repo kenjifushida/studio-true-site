@@ -1,4 +1,5 @@
 .page-title {
+    font-family: "Avenir Next HeavyItalic";
     position: absolute;
     font-style: italic;
     color: var(--primary-color);
@@ -10,7 +11,8 @@
 
 @media only screen and (min-width:720px) {
     .page-title {
-        position: relative;
+        position: sticky;
+        transform: none;
         padding-left: 0.5rem;
         font-size: 2.5rem;
     }

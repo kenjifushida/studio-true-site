@@ -13,7 +13,7 @@ export const menuOptions = [
   "contact"
 ]
 
-const Header = ({ siteTitle }) => {
+const Header = ({ headerRef, siteTitle }) => {
   const [nav, setNav] = useState(false);
 
   const mobileNavStyles = {
@@ -21,19 +21,21 @@ const Header = ({ siteTitle }) => {
   }
 
   return (
-    <header className={styles.header}>
+    <header ref={headerRef} className={styles.header}>
       <div className={styles.innerHeader}>
         <div className={styles.logo}>
           <Link to="/"><Logo /></Link>
         </div>
-        <nav className={styles.deskNav}>
-          {menuOptions.map((option, idx) => (
-            <Link key={idx} 
-              className={styles.deskOption}
-              to={'/' + option}>{option}</Link>
-          ))}
-        </nav>
-        <LanguageToggle />
+        <div className={styles.right}>
+          <nav className={styles.deskNav}>
+            {menuOptions.map((option, idx) => (
+              <Link key={idx} 
+                className={styles.deskOption}
+                to={'/' + option}>{option}</Link>
+            ))}
+          </nav>
+          <LanguageToggle />
+        </div>
         <div 
           className={styles.menuBtn}
           onClick={()=>setNav(!nav)}

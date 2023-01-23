@@ -4,20 +4,23 @@
 
 @media only screen and (min-width: 720px) {
     .toggle {
+        justify-self: flex-end;
         margin-top: 1rem;
-        display: block;
         position: relative;
-        width: 4.635rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 16.667%;
         span {
             position: absolute;
             font-size: 1.25rem;
         }
         .language-top {
-            top: 0.5rem;
-            left: 0.75rem;
+            bottom: 2.5rem;
+            right: 3rem;
         }
         .language-bottom {
-            bottom: 0.75rem;
+            bottom: 0.5rem;
             right: 0.75rem;
         }
     }

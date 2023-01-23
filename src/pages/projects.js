@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { graphql, Link } from "gatsby"
 import * as styles from "../styles/projects.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
@@ -15,6 +15,11 @@ import SideBar from "../components/sideBar"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const Projects = ({ data: { posts, places, actions} }) => {
+    const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    useEffect(() => {
+        setHeaderHeight(ref.current.clientHeight);
+    }, [])
     const categories = [
         {
             category: "place",
@@ -111,7 +116,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
 
     
     return (
-        <Layout>
+        <Layout headerRef={ref}>
             <SlideMenu categories={categories[currFilter].options}
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
@@ -129,11 +134,11 @@ const Projects = ({ data: { posts, places, actions} }) => {
                     </div>
                 ))}
             </SlideMenu>
-            <PageTitle title={"projects!"} />
+            <PageTitle headerHeight={headerHeight} title={"projects!"} />
             <BoxIcon onClick={() => setView(!viewMode)} className={styles.viewSwitch}
               active={viewMode ? "box" : "line"}/>
             <section className={styles.content}>
-                <SideBar>
+                <SideBar headerHeight={headerHeight}>
                     <ul>
                         <li onClick={() => setDateSort(!dateSort)}
                           style={dateSort ? activeFilter : {}}>date</li>

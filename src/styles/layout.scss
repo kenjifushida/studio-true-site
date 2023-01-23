@@ -20,7 +20,7 @@
 }
 
 html {
-    font-family: "Avenir Next Bold";
+    font-family: "Avenir Next Bold", "Yu Gothic Bold";
     font-size: 16px;
 }
 
@@ -45,6 +45,10 @@ input, button, textarea, select {
 
 p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
+}
+
+p {
+    font-family: "Avenir Next", "Yu Gothic Bold";
 }
 
 a {

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { graphql, Link } from "gatsby"
 import * as styles from "../styles/news.module.scss"
 import * as childStyles from "../styles/slideMenu.module.scss"
@@ -16,6 +16,11 @@ export const activeFilter = {
 }
 
 const News = ({ data: {posts, weAre} }) => {
+    const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    useEffect(() => {
+        setHeaderHeight(ref.current.clientHeight);
+    }, [])
     const categories = weAre.nodes.map(node=>node.name);
     const newsArticles = posts.edges.map(news => ({
         date: news.node.date,
@@ -87,7 +92,7 @@ const News = ({ data: {posts, weAre} }) => {
     }, [filters, dateSort])
 
     return (
-        <Layout>
+        <Layout headerRef={ref}>
             <SlideMenu categories={categories} 
             viewMode={viewMode} setView={setView} 
             filters = {filters} handleFilter={handleFilter}
@@ -101,11 +106,11 @@ const News = ({ data: {posts, weAre} }) => {
                     we are
                 </div>
             </SlideMenu>
-            <PageTitle title={"news!"} />
+            <PageTitle headerHeight={headerHeight} title={"news!"} />
             <BoxIcon onClick={() => setView(!viewMode)} className={styles.viewSwitch}
                 active={viewMode ? "box" : "line"}/>
             <section className={styles.content}>
-                    <SideBar>
+                    <SideBar headerHeight={headerHeight}>
                     <ul>
                         <li onClick={() => setDateSort(!dateSort)}
                           style={dateSort ? activeFilter : {}}>
@@ -130,7 +135,7 @@ const News = ({ data: {posts, weAre} }) => {
                             <Link key={idx} className={styles.post}>
                                 <div className={styles.overlay}>
                                     <div className={styles.title}>{news.title}</div>
-                                    <div className={styles.date}>{news.date.slice(2).replaceAll("-",".")}</div>
+                                    <div className={styles.date}>{news.date.slice(2).replaceAll("-","")}</div>
                                     <div className={styles.category}>{news.category}</div>
                                 </div>
                                 <div className={styles.innerPost}>

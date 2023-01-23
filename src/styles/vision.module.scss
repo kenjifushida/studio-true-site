@@ -18,11 +18,9 @@
     transition: max-height 0.4s ease;
     overflow: hidden;
     .inner-post, .overlay {
-        font-family: "Avenir Next";
+        font-family: "Avenir Next", "Yu Gothic Bold";
     }
     .inner-post {
-        // position: absolute;
-        // background: var(--primary-color);
         width: fill;
         height: fill;
         .post-title {
@@ -123,7 +121,7 @@
             }
             .post-desc {
                 font-size: 0.9rem;
-                max-width: 25rem;
+                max-width: 60%;
             }
         }
         .overlay {

@@ -41,6 +41,11 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
             }
     }));
 
+    const headerRef = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    // useEffect(() => {
+    //     setHeaderHeight(headerRef.current.clientHeight);
+    // }, []);
     const [ dateSort, setDateSort ] = useState(false);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
@@ -75,6 +80,7 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
     }
 
     useEffect(() => {
+        setHeaderHeight(headerRef.current.clientHeight);
         setHeight(ref.current.clientHeight);
     }, [])
 
@@ -105,10 +111,10 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
     }, [filters, dateSort])
 
     return (
-        <Layout>
-            <PageTitle title={"news!"} />
+        <Layout headerRef={headerRef}>
+            <PageTitle headerHeight={headerHeight} title={"news!"} />
             <div className={styles.wrapper}>
-                <SideBar>
+                <SideBar headerHeight={headerHeight}>
                     <ul>
                         <li onClick={() => setDateSort(!dateSort)}
                           style={dateSort ? activeFilter : {}}>

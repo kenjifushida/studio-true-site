@@ -5,8 +5,10 @@
 @media only screen and (min-width:720px) {
     .sidebar {
         display: flex;
+        position: sticky;
         gap: 15%;
-        width: 20%;
+        width: 25%;
+        height: 25vh;
         ul {
             padding: 0;
             list-style-type: none;

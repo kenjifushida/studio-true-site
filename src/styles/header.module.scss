@@ -5,6 +5,11 @@
 
 .header {
     display: block;
+    background: var(--bg-color);
+    position: sticky;
+    top: 0;
+    width: fill;
+    z-index: 2;
 }
 
 .inner-header {
@@ -18,11 +23,10 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
+            font-family: "Avenir Next HeavyItalic";
             font-style: italic;
+            font-size: 1.25rem;
             line-height: 98%;
-            width: 100%;
-            max-width: 10rem;
-            min-width: 5rem;
             transition: background-color 0.3s ease;
         }
         .desk-option:hover {
@@ -97,16 +101,33 @@
 
 @media only screen and (min-width: 720px) {
     .inner-header {
-        padding: 0 1rem 1rem 1rem;
-        .desk-nav {
-            display: flex;
-            width: 60%;
+        padding: 0;
+        margin: 0 1rem;
+        justify-content: space-between;
+        .logo {
+            width: 12.5%;
+            margin-top: 1rem;
+            a {
+                display: block;
+                width: fill;
+                height: fill;
+                svg {
+                    width: fill;
+                    height: fill;
+                }
+            }
         }
-    }
-    .logo {
-        margin-top: 1rem;
-        svg {
-            height: 4.635rem;
+        .right {
+            width: 75%;
+            display: flex;
+            .desk-nav {
+                display: flex;
+                width: 83.333%;
+                .desk-option {
+                    width: fill;
+                }
+            }
+
         }
     }
     .language-switch {

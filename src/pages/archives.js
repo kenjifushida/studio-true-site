@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { graphql, Link} from "gatsby"
 import * as styles from "../styles/archive.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
@@ -52,6 +52,11 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
         projects: ""
     }));
 
+    const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    useEffect(() => {
+        setHeaderHeight(ref.current.clientHeight);
+    }, []);
     const lines = [...Array(15).keys()];
     const [dateSort, setDateSort] = useState(false);
     const [currFilter, setCurrFilter] = useState(0);
@@ -120,7 +125,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
     }, [filters, dateSort])
 
     return (
-        <Layout>
+        <Layout headerRef={ref}>
             <SlideMenu categories={categories[currFilter].options}
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
@@ -138,12 +143,12 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                     </div>
                 ))}
             </SlideMenu>
-            <PageTitle title={"archives!"} />
+            <PageTitle headerHeight={headerHeight} title={"archives!"} />
             <BoxIcon onClick={() => setView(!viewMode)} 
-              className={sideBarStyles.viewSwitch} 
+              className={styles.viewSwitch} 
               active={viewMode ? "box" : "line"} />
-            <section className={sideBarStyles.content}>
-                <SideBar>
+            <section className={styles.content}>
+                <SideBar headerHeight={headerHeight}>
                     <ul>
                         <li onClick={() => setDateSort(!dateSort)}
                           style={dateSort ? activeFilter : {}}>date</li>
@@ -162,7 +167,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                         ))}
                     </ul>
                 </SideBar>
-                <div className={styles.main} style={viewMode ? {} : {width:"70%"}}>
+                <div className={styles.main}>
                     {viewMode ?
                     <div className={styles.boxes}>
                         {filteredArchives.map((archive, idx) => {

@@ -9,6 +9,7 @@ import Links from "../components/links"
 import { visionContent } from "../components/vision"
 import { approaches } from "../components/approaches"
 import { actions } from "../components/actions"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const menuOptions = [
   {
@@ -49,20 +50,24 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
     title: post.node.title,
     desc: post.node.excerpt,
     date: post.node.date,
-    slug: `/news/${post.node.slug}`
+    slug: `/news/${post.node.slug}`,
+    img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
   menuOptions[1].posts = projects.edges.map(post=> ({
     title: post.node.title,
     desc: post.node.excerpt,
     date: post.node.date,
-    slug: `/projects/${post.node.slug}`
+    slug: `/projects/${post.node.slug}`,
+    img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
   menuOptions[2].posts = archives.edges.map(post=> ({
     title: post.node.title,
     desc: post.node.excerpt,
     date: post.node.date,
-    slug: `/archives/${post.node.slug}`
+    slug: `/archives/${post.node.slug}`,
+    img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
+  console.log(menuOptions[2].posts[0].img);
   return (
     <Layout>
       <div className={styles.content}>
@@ -75,7 +80,7 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
                   <p className={styles.postName}>{post.name}</p>
                   <p className={styles.postDesc}>{post.desc}</p>
                 </div>
-                <div className={styles.postOverlay}></div>
+                <div className={styles.postOverlay} style={{background:"var(--box-bg)"}}></div>
               </Link>
             ))}
           </div>
@@ -91,7 +96,9 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
                     <span>{post.date.replaceAll("-",".")}</span>
                     <span className={styles.postName}>{post.title.length > 8 ? post.title.slice(0,8)+"...": post.title}</span>
                   </div>
-                  <div className={styles.postOverlay}>{post.date.replaceAll("-",".").slice(2)}</div>
+                  {post.img !== undefined ? <GatsbyImage className={styles.imgContainer} image={post.img} /> : null }
+                  <div className={styles.postOverlay}
+                  style={post.img ===undefined ? {background: "var(--box-bg)"}:{}}>{option.option === "news" ? post.date.replaceAll("-","").slice(2) : null}</div>
                 </Link>
               ))}
             </div>
@@ -123,6 +130,11 @@ export const query = graphql`
             }
           }
           excerpt
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
         }
       }
     }
@@ -141,6 +153,11 @@ export const query = graphql`
             }
           }
           excerpt
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
         }
       }
     }
@@ -159,6 +176,11 @@ export const query = graphql`
             }
           }
           excerpt
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
         }
       }
     }

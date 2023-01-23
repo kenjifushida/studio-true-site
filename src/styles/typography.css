@@ -4,6 +4,21 @@
 }
 
 @font-face {
-    font-family: "Avenit Next";
+    font-family: "Avenir Next";
     src: url("../fonts/avenirnextltpro-regular-webfont.woff2");
+}
+
+@font-face {
+    font-family: "Avenir Next HeavyItalic";
+    src: url("../fonts/avenir-next-heavy-italic.woff2");
+}
+
+@font-face {
+    font-family: "Avenir Next UltraLight";
+    src: url("../fonts/AvenirNext-UltraLight.woff2");
+}
+
+@font-face {
+    font-family: "Yu Gothic Bold";
+    src: url("../fonts/yugothib.woff2");
 }

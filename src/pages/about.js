@@ -1,6 +1,5 @@
 import * as React from "react"
-import { useState, useEffect } from "react"
-import { Link } from "gatsby"
+import { useState, useEffect, useRef } from "react"
 import * as styles from "../styles/about.module.scss"
 
 import Layout from "../components/layout"
@@ -10,12 +9,19 @@ import Approaches from "../components/approaches"
 import Actions from "../components/actions"
 import Members from "../components/members"
 import PageTitle from "../components/pageTitle"
+import SideBar from "../components/sideBar"
 
 const initialState = [
   false, false, false, false
 ]
 
 const About = () => {
+  const ref = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  useEffect(() => {
+    setHeaderHeight(ref.current.clientHeight);
+}, [])
+
   const [checkedAll, setCheckedAll] = useState(true);
   const [filtered, setFiltered] = useState(initialState);
   const [selectedMember, setSelectedMember] = useState(-1);
@@ -62,10 +68,10 @@ const About = () => {
   }, [filtered, checkedAll, selectedMember])
 
   return (
-  <Layout>
-    <PageTitle title={"about!"}/>
+  <Layout headerRef={ref}>
+    <PageTitle headerHeight={headerHeight} title={"about!"}/>
     <div className={styles.content}>
-      <section className={styles.side}>
+      <SideBar headerHeight={headerHeight}>
         <ul>
           <li onClick={() => changeFilter(0)} 
             style={{background: filtered[0] ? "var(--primary-color)" : "var(--box-bg)"}}
@@ -88,7 +94,7 @@ const About = () => {
           style={{background: selectedMember ===1 ? "var(--primary-color)" : "var(--box-bg)"}}>taiga</li>
         </ul>
         : null}
-      </section>
+      </SideBar>
       <section className={styles.main}>
         {filteredComponents.map((filter) => filter)}
       </section>

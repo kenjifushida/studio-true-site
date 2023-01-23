@@ -1,9 +1,9 @@
 import * as React from "react"
 import * as styles from "../styles/sideBar.module.scss"
 
-const SideBar = ({ children }) => {
+const SideBar = ({ headerHeight, children }) => {
     return (
-        <div className={styles.sidebar}>
+        <div className={styles.sidebar} style={headerHeight? {top:`${headerHeight+76}px`}:{}}>
             { children }
         </div>
     )

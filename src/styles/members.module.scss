@@ -19,7 +19,7 @@
         .inner-member {
             opacity: 0;
             height: 100%;
-            font-family: "Avenir Next";
+            font-family: "Avenir Next Medium";
             font-size: 0.65rem;
             display: flex;
             flex-direction: column;
@@ -62,9 +62,10 @@
             flex: 1 1 0px;
             width: 0;
             font-size: 0.825rem;
-            font-family: "Avenir Next";
+            font-family: "Avenir Next", "Yu Gothic Bold";
             align-self: flex-end;
             div {
+                font-family: "Avenir Next Medium", "YuMin Extrabold";
                 font-size: 1rem;
             }
         }
@@ -131,11 +132,12 @@
         width: 14rem;
     }
     .members {
-        max-width: 78%;
+        max-width: 80%;
         .member {
-            height: 13rem;
+            height: auto;
+            aspect-ratio: 1;
             .inner-member {
-                font-size: 0.75rem;
+                font-size: 1rem;
             }
         }
     }
@@ -193,6 +195,16 @@
         .link {
             .inner-box {
                 transform: translateX(50%);
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .members {
+        .member {
+            .inner-member {
+                font-size: 1.25rem;
             }
         }
     }

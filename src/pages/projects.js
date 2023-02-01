@@ -1,25 +1,28 @@
 import * as React from "react"
-import { useState, useEffect, useRef } from "react"
-import { graphql, Link } from "gatsby"
+import { useState, useEffect, useRef, useContext } from "react"
+import { ThemeContext } from "../components/layout"
+import { graphql } from "gatsby"
 import * as styles from "../styles/projects.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import SlideMenu from "../components/slideMenu"
-import BoxIcon from "../images/BoxIcon.svg"
 import PageTitle from "../components/pageTitle"
 
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import ViewToggle from "../components/viewToggle"
+import MainProjects from "../components/mainProjects"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const Projects = ({ data: { posts, places, actions} }) => {
+    const { width } = useWindowDimensions();
     const ref = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
-    }, [])
+    }, [ref, width])
     const categories = [
         {
             category: "place",
@@ -51,7 +54,8 @@ const Projects = ({ data: { posts, places, actions} }) => {
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredProjects, setFiltered] = useState(projects);
-    const [viewMode, setView] = useState(false);
+    const initialView = useContext(ThemeContext);
+    const [viewMode, setView] = useState(initialView);
 
     const handleFilterAll = () => {
         if(filters[0]) {
@@ -135,8 +139,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
                 ))}
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={"projects!"} />
-            <BoxIcon onClick={() => setView(!viewMode)} className={styles.viewSwitch}
-              active={viewMode ? "box" : "line"}/>
+            <ViewToggle className={styles.viewSwitch} />
             <section className={styles.content}>
                 <SideBar headerHeight={headerHeight}>
                     <ul>
@@ -157,57 +160,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
                         ))}
                     </ul>
                 </SideBar>
-                <div className={styles.main}>
-                    {viewMode ? 
-                    <div className={styles.boxes}>
-                        {filteredProjects.map((project, idx) => {
-                            const featuredImage = getImage(project.img);
-                            return (
-                            <Link key={idx} className={styles.post} to={project.slug}>
-                                <div className={styles.imgContainer}>
-                                    {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={project.title}/> : null}
-                                </div>
-                                <div className={styles.overlay}>
-                                    <div className={styles.name}>{project.name}</div>
-                                    <div className={styles.place}>{project.place}</div>
-                                </div>
-                                <div className={styles.actions}>{project.actions}</div>
-                                <div className={styles.innerPost}>
-                                    <div className={styles.top}>
-                                        <div className={styles.name}>{project.name}</div>
-                                        <div className={styles.right}>
-                                            <div className={styles.date}>
-                                                {project.date.replaceAll("-",".")}
-                                            </div>
-                                            <div className={styles.place}>
-                                                {project.place.charAt(0).toUpperCase()+project.place.slice(1)}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.bottom}>
-                                        <div className={styles.desc} dangerouslySetInnerHTML={{__html: project.desc}}></div>
-                                        <div className={styles.readMore}>read more...</div>
-                                    </div>
-                                </div>
-                            </Link>
-                            )
-                        }
-                        )}
-                    </div>
-                    : <>
-                        <div className={styles.labels}>
-                            <span>date</span><span>name</span>
-                        </div>
-                        <div className={styles.lines}>
-                            {lines.map((line, idx) => (
-                                <div key={idx} className={styles.line}></div>
-                            ))}
-                        </div>
-                        {filteredProjects.map((project, idx) => (
-                            <Link key={idx} to={project.slug}><span>{project.date.replaceAll("-",".")}</span><span>{project.name}</span></Link>
-                        ))}
-                    </>}
-                </div>
+                <MainProjects filteredProjects={filteredProjects}/>
             </section>
         </Layout>
     )

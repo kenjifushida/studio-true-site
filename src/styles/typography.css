@@ -9,6 +9,11 @@
 }
 
 @font-face {
+    font-family: "Avenir Next Medium";
+    src: url("../fonts/avenir-next-medium.woff2");
+}
+
+@font-face {
     font-family: "Avenir Next HeavyItalic";
     src: url("../fonts/avenir-next-heavy-italic.woff2");
 }
@@ -21,4 +26,14 @@
 @font-face {
     font-family: "Yu Gothic Bold";
     src: url("../fonts/yugothib.woff2");
+}
+
+@font-face {
+    font-family: "YuMin Medium";
+    src: url("../fonts/yumincho-medium.woff2");
+}
+
+@font-face {
+    font-family: "YuMin Extrabold";
+    src: url("../fonts/YuMinchoExtrabold.woff2");
 }

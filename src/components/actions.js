@@ -3,6 +3,7 @@ import { useState } from "react"
 import * as styles from "../styles/actions.module.scss"
 
 import SectionTitle from "./sectionTitle"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 export const actions = [
     {
@@ -108,8 +109,9 @@ export const actions = [
 ]
 
 const Actions = () => {
+    const { width } = useWindowDimensions();
     const [currentTagBox, setCurrentTagBox] = useState(actions[0].engTitle);
-    const [currentTag, setCurrentTag] = useState(actions[0].tags[0].desc);
+    const [currentTag, setCurrentTag] = useState("");
     const handleTagBox = (actionIndex, tagIndex) => {
         setCurrentTagBox(actions[actionIndex].engTitle);
         setCurrentTag(actions[actionIndex].tags[tagIndex].desc);
@@ -142,11 +144,13 @@ const Actions = () => {
                                   >#{tag.name}</div>
                             ))}
                         </div>
+                        { width > 720 ? 
                         <div className={styles.tagBox}
                           style={action.engTitle === currentTagBox ? 
                           {display: "block"} : {display:"none"}}>
                             {currentTag}
-                        </div>
+                        </div> : null
+                        }
                     </div>
                 </div>
                 ))}

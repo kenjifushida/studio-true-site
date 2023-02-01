@@ -11,7 +11,36 @@ import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 import "../styles/layout.scss"
 
+function getInitialViewMode() {
+  const isBrowser = typeof window !== "undefined";
+  if(!isBrowser) {
+    return undefined;
+  }
+  const viewPreference = window.localStorage.getItem('view-mode');
+  const hasViewPreference = typeof viewPreference === 'string';
+  // if user has chosen a preference
+  if(hasViewPreference) {
+      return viewPreference;
+  }
+  // If no preference is found, default to line
+  return 'line';
+}
+
+export const ThemeContext = React.createContext(getInitialViewMode());
+
 const Layout = ({ headerRef, children }) => {
+  const [viewMode, rawSetViewMode] = React.useState(undefined);
+
+  React.useEffect(()=> {
+    const view = getInitialViewMode();
+    rawSetViewMode(view);
+  })
+  const setViewMode = (value) => {
+    rawSetViewMode(value);
+
+    window.localStorage.setItem('view-mode', value);
+  };
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -23,7 +52,7 @@ const Layout = ({ headerRef, children }) => {
   `)
 
   return (
-    <>
+    <ThemeContext.Provider value={{viewMode, setViewMode}}>
       <Header headerRef={headerRef} siteTitle={`Title`} />
       <div
         style={{
@@ -34,7 +63,7 @@ const Layout = ({ headerRef, children }) => {
       >
         <main>{children}</main>
       </div>
-    </>
+    </ThemeContext.Provider>
   )
 }
 

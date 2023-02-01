@@ -41,10 +41,6 @@ const members = [
           content: "@fujisanrei",
           link: "https://twitter.com/fujisanrei"
         },
-        // {
-        //   name: "master thesis",
-        //   content: "master thesis",
-        // },
         {
           name: "portfolio",
           content: "portfolio",
@@ -150,15 +146,12 @@ const Members = ({ memberState, changeSelectedMember }) => {
                   {members.map((member, idx) => (
                   <div key={idx} className={styles.member}>
                       <div onClick={()=>changeSelectedMember(idx)} className={styles.innerMember}>
-                      <div>{member.kanji}</div>
-                      <div>
-                          <p>{member.birth}生まれ</p>
-                          <p>{member.origin}出身</p>
-                          {member.education.map((school, idx) => (
-                          <p key={idx}>{school}</p>
-                          ))}
-                      </div>
-                      <div className={styles.name}>{member.name}</div>
+                        <div>{member.kanji}</div>
+                        <div>
+                            <p>{member.left[0].name}: {member.left[0].content}</p>
+                            <p>{member.left[1].name}: {member.left[1].content}</p>
+                        </div>
+                        <div className={styles.name}>{member.name}</div>
                       </div>
                   </div>
                   ))}

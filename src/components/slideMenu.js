@@ -2,17 +2,16 @@ import * as React from "react"
 import { useState } from "react"
 import * as styles from "../styles/slideMenu.module.scss"
 
-import BoxIcon from "../images/BoxIcon.svg"
+import ViewToggle from "./viewToggle"
 const SlideMenu = ({ 
-    categories, filters, handleFilter,viewMode, setView, children
+    categories, filters, handleFilter, 
+    view, changeView, children
 }) => {
     const [active, setActive] = useState(false);
 
     const activeMenu = {
         background: "var(--primary-color)",
         border: "4px solid var(--primary-color)",
-        width: "5.2rem",
-        height: "5.2rem"
     }
 
     const activeFilter = {
@@ -24,12 +23,9 @@ const SlideMenu = ({
             <div onClick={() => setActive(!active)} 
             className={styles.menuBtn}
             style={active ? activeMenu : {}}>menu</div>
-            <div className={styles.wrapper} style={active ? {height:"13rem"}: {height:"0"}}>
+            <div className={styles.wrapper} style={active ? {height:"15rem"}: {height:"0"}}>
                 <div className={styles.slideMenu}>
-                { active ? 
-                    <BoxIcon onClick={() => setView(!viewMode)} 
-                    className={styles.viewSwitch} active={viewMode ? "box" : "line"}/> 
-                : null}
+                <ViewToggle view={view} changeView={changeView} className={styles.viewSwitch}/>
                 <div className={styles.row}>
                     {children}
                 </div>

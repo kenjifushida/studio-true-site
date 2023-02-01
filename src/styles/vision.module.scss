@@ -15,15 +15,14 @@
     border: 1px solid var(--primary-txt);
     background: var(--primary-color);
     position: relative;
-    transition: max-height 0.4s ease;
+    transition: all 0.4s ease;
     overflow: hidden;
-    .inner-post, .overlay {
-        font-family: "Avenir Next", "Yu Gothic Bold";
-    }
     .inner-post {
+        font-family: "Avenir Next Medium", "Yu Gothic Bold";
         width: fill;
         height: fill;
         .post-title {
+            font-family: "YuMin Extrabold";
             font-size: 0.825rem;
             margin-bottom: 0.5rem;
         }
@@ -33,6 +32,7 @@
         }
     }
     .overlay {
+        font-family: "YuMin Extrabold", "Avenir Next Medium";
         position: absolute;
         top: 0;
         left: 0;
@@ -47,7 +47,6 @@
         gap: 10%;
         .post-title {
             font-size: 0.825rem;
-            // margin-bottom: 0.5rem;
         }
         .overlay-title {
             font-size: 1.5rem;
@@ -64,7 +63,7 @@
 
 .post:hover {
     min-height: 7rem;
-    max-height: 16rem;
+    max-height: 30rem;
     border-color: var(--primary-color);
     .inner-post {
         position: relative;
@@ -99,7 +98,7 @@
 }
 .download-btn:hover {
     background-color: var(--primary-color);
-    cursor: pointer;
+    cursor: url(/src/images/pointerIcon.svg), pointer;
     div {
         opacity: 1;
     }
@@ -113,7 +112,7 @@
         min-height: 8.5rem;
         .inner-post > .post-title, 
         .overlay > .post-title, .overlay .overlay-title {
-            max-width: 25rem;
+            max-width: 60%;
         }
         .inner-post {
             .post-title {
@@ -139,6 +138,29 @@
         aspect-ratio: 1;
         span {
             font-size: 0.75rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .post {
+        min-height: 10rem;
+        .inner-post > .post-title, .overlay > .post-title {
+            font-size: 1.25rem;
+        }
+        .inner-post > .post-desc {
+            font-size: 1rem;
+        }
+        .overlay > .overlay-title {
+            font-size: 2.25rem;
+        }
+    }
+    .download-btn {
+        width: 15%;
+        max-width: 12.5rem;
+        font-size: 1rem;
+        span {
+            font-size: inherit;
         }
     }
 }

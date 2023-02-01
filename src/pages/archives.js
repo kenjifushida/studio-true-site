@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import { graphql, Link} from "gatsby"
 import * as styles from "../styles/archive.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
-import * as sideBarStyles from "../styles/projects.module.scss"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -14,6 +13,9 @@ import PageTitle from "../components/pageTitle"
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import MainArchives from "../components/mainArchives"
+import ViewToggle from "../components/viewToggle"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const Archives = ({data: {posts, places, media, projects, authors}}) => {
     const categories = [
@@ -52,12 +54,12 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
         projects: ""
     }));
 
+    const { width } = useWindowDimensions();
     const ref = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
-    }, []);
-    const lines = [...Array(15).keys()];
+    }, [ref, width]);
     const [dateSort, setDateSort] = useState(false);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
@@ -144,9 +146,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                 ))}
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={"archives!"} />
-            <BoxIcon onClick={() => setView(!viewMode)} 
-              className={styles.viewSwitch} 
-              active={viewMode ? "box" : "line"} />
+            <ViewToggle className={styles.viewSwitch} />
             <section className={styles.content}>
                 <SideBar headerHeight={headerHeight}>
                     <ul>
@@ -167,65 +167,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                         ))}
                     </ul>
                 </SideBar>
-                <div className={styles.main}>
-                    {viewMode ?
-                    <div className={styles.boxes}>
-                        {filteredArchives.map((archive, idx) => {
-                            const featuredImage = getImage(archive.img);
-                            return (
-                            <Link key={idx} className={styles.box} to={archive.slug}>
-                                <div className={styles.post}>
-                                    <div className={styles.imgContainer}>
-                                        {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={archive.title}/> : null}
-                                    </div>
-                                    <div className={styles.postContent}>
-                                        <div className={styles.overlay}>
-                                            <div className={styles.title}>
-                                                {archive.title}
-                                            </div>
-                                            <div className={styles.author}>
-                                                {archive.by}
-                                            </div>
-                                        </div>
-                                        <div className={styles.innerPost}>
-                                            <div className={styles.top}>
-                                                <div>{archive.title}</div>
-                                                <div className={styles.right}>
-                                                    <div>
-                                                        {archive.date.replaceAll("-",".")}
-                                                    </div>
-                                                    <div>
-                                                        {archive.place.charAt(0).toUpperCase()+archive.place.slice(1)}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className={styles.readMore}>read more...</div>
-                                            <div>{archive.engTitle}</div>
-                                            <div className={styles.author}>{archive.by}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                            )
-                        }
-                        )}
-                    </div> 
-                    : <>
-                        <div className={styles.labels}>
-                            <span>date</span><span>name</span>
-                        </div>
-                        <div className={styles.lines}>
-                            {lines.map((line, idx) => (
-                                <div key={idx} className={styles.line}></div>
-                            ))}
-                        </div>
-                        {filteredArchives.map((archive, idx) => (
-                            <Link key={idx} className={styles.lineItem} to={archive.slug}><span>{archive.date.replaceAll("-",".")}</span><span>{archive.title}</span></Link>
-                        ))}
-                    </>}
-
-                </div>
-
+                <MainArchives filteredArchives={filteredArchives} />
             </section>
             
 

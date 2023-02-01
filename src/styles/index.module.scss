@@ -1,9 +1,12 @@
 .content {
     padding: 0.5rem;
-    margin-top: 0.75rem;
+    margin-top: 3.5rem;
     .options-container {
         width: 100%;
         display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        overflow-x: auto;
         .option {
             display: flex;
             justify-content: center;
@@ -19,169 +22,133 @@
         .option:hover {
             color: var(--primary-color);
         }
-        .options-content {
+        .post {
+            display: inline-block;
+            min-width: 8.6rem;
+            max-width: 8.6rem;
+            height: 7rem;
             display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            overflow-x: auto;
-            .post {
-                display: inline-block;
-                min-width: 8.6rem;
-                max-width: 8.6rem;
-                height: 7rem;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--color-border);
+            position: relative;
+            .img-container {
+                position: absolute;
+                width: fill;
+                height: fill;
+                transition: all 0.4s ease;
+                img {
+                    width: fill;
+                    height: fill;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            .post-overlay {
+                font-family: "Avenir Next UltraLight";
+                font-size: 2rem;
+                position: absolute;
+                width: 100%;
+                height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border: 1px solid var(--color-border);
+                opacity: 1;
+                transition: opacity 0.4s ease;
+            }
+            .inner-post {
+                width: fill;
+                height: fill;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                font-family: "Avenir Next";
                 position: relative;
-                .img-container {
+                background: var(--primary-color);
+                .post-desc {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2; /* number of lines to show */
+                            line-clamp: 2; 
+                    -webkit-box-orient: vertical;
+                }
+                .post-name {
                     position: absolute;
-                    width: fill;
-                    height: fill;
-                    transition: all 0.4s ease;
-                    img {
-                        width: fill;
-                        height: fill;
-                        object-fit: cover;
-                        object-position: center;
-                    }
-                }
-                .post-overlay {
-                    font-family: "Avenir Next UltraLight";
-                    font-size: 2rem;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    opacity: 1;
-                    transition: opacity 0.4s ease;
-                }
-                .inner-post {
-                    width: fill;
-                    height: fill;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    font-size: 0.8rem;
-                    font-family:  "Avenir Next";
-                    position: relative;
-                    background: var(--primary-color);
-                    .post-desc {
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 2; /* number of lines to show */
-                                line-clamp: 2; 
-                        -webkit-box-orient: vertical;
-                    }
-                    .post-name {
-                        position: absolute;
-                        writing-mode: vertical-rl;
-                        right: 0;
-                        bottom: 0;
-                    }
-                }
-                .inner-about {
-                    width: fill;
-                    height: fill;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 0.8rem;
-                    position: relative;
-                    background: var(--primary-color);
-                    padding: 1rem;
-                    .post-desc {
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 4; /* number of lines to show */
-                                line-clamp: 4; 
-                        -webkit-box-orient: vertical;
-                    }
-                    .post-name {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                    }
+                    writing-mode: vertical-rl;
+                    right: 0;
+                    bottom: 0;
                 }
             }
-            .post:hover {
-                .img-container {
-                    opacity: 0;
+            .inner-about {
+                width: fill;
+                height: fill;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.8rem;
+                position: relative;
+                background: var(--primary-color);
+                padding: 1rem;
+                .post-desc {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4; /* number of lines to show */
+                            line-clamp: 4; 
+                    -webkit-box-orient: vertical;
                 }
-                .post-overlay {
-                    opacity: 0;
+                .post-name {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                 }
             }
         }
-        .options-content::-webkit-scrollbar {
-            height: 0.75rem;
-        }
-        .options-content::-webkit-scrollbar-track {
-            background-color: var(--bg-color);
-            border: 1px solid var(--color-border);
-        }
-        .options-content::-webkit-scrollbar-thumb {
-            background-color: var(--secondary-txt);
-            border: 1px solid var(--color-border);
+        .post:hover {
+            .img-container {
+                opacity: 0;
+            }
+            .post-overlay {
+                opacity: 0;
+            }
         }
     }
+    .options-container::-webkit-scrollbar {
+        height: 0.75rem;
+    }
+    .options-container::-webkit-scrollbar-track {
+        background-color: var(--bg-color);
+        border: 1px solid var(--color-border);
+    }
+    .options-container::-webkit-scrollbar-thumb {
+        background-color: var(--secondary-txt);
+        border: 1px solid var(--color-border);
+    }
     .options-container:first-child {
-        .options-content {
-            .post {
-                width: 14.45rem;
-                min-width: 14.45rem;
-            }
+        .post {
+            width: 14.45rem;
+            min-width: 14.45rem;
         }
     }
     .options-container:nth-child(3) {
-        .options-content {
-            .post {
-                width: 10.5rem;
-                min-width: none;
-                max-width: none;
-            }
+        .post {
+            width: 10.5rem;
+            min-width: none;
+            max-width: none;
         }
     }
     .options-container:nth-child(4) {
-        .options-content {
-            .post {
-                min-width: 7rem;
-                max-width: none;
-                width: 7rem;
-            }
+        .post {
+            min-width: 7rem;
+            max-width: none;
+            width: 7rem;
         }
     }
     .options-container + .options-container {
         margin-top: 0.75rem;
-    }
-}
-
-.links {
-    display: flex;
-    justify-content: space-between;
-    padding: 3.25rem 2rem;
-    .other {
-        display: flex;
-        justify-content: flex-start;
-    }
-    .insta, .other > div {
-        width: 5rem;
-        height: 5rem;
-        background: var(--box-bg);
-        border: 1px solid var(--color-border);
-        position: relative;
-    }
-    span {
-        position: absolute;
-        font-size: 0.875rem;
-        font-style: italic;
-        bottom: 0;
-        left: 0;
     }
 }
 
@@ -195,55 +162,91 @@
                 min-width: 12.5%;
                 font-size: 1.5rem;
             }
-            .options-content {
-                width: fill;
-                .post {
-                    width: 11.44rem;
-                    min-width: 11.44rem;
-                    height: 9.5rem;
-                    .inner-about {
-                        padding: 1rem 2rem;
-                        font-size: 0.825rem;
-                    }
+            .post {
+                width: 11.44rem;
+                min-width: 11.44rem;
+                height: auto;
+                .inner-about {
+                    padding: 1rem 2rem;
+                    font-size: 0.825rem;
                 }
-            }
-            .options-content::-webkit-scrollbar {
-                height: 1rem;
             }
         }
+        .options-container::-webkit-scrollbar {
+            height: 1rem;
+        }
         .options-container:first-child {
-            .options-content {
-                .post {
-                    width: 19rem;
-                    min-width: 19rem;
-                }
+            .post {
+                width: 19rem;
+                min-width: 19rem;
             }
         }
         .options-container:nth-child(3) {
-            .options-content {
-                .post {
-                    width: 14.23rem;
-                    min-width: 14.23rem;
-                }
+            .post {
+                width: 14.23rem;
+                min-width: 14.23rem;
             }
         }
         .options-container:nth-child(4) {
-            .options-content {
-                .post {
-                    width: 9.5rem;
-                    min-width: 9.5rem;
-                }
+            .post {
+                width: 9.5rem;
+                min-width: 9.5rem;
             }
         }
     }
-    .links {
-        padding: 3.25rem 1rem 3.25rem 8.875rem;
-        .other {
-            gap: 7.5rem;
+}
+
+@media only screen and (min-width: 1440px) {
+    .content {
+        .options-container {
+            .option {
+                height: 12.5rem;
+                font-size: 2rem;
+            }
+            .post {
+                width: 13.2rem;
+                min-width: 13.2rem;
+                .inner-about {
+                    font-size: 1rem;
+                }
+                .inner-post {
+                    font-size: 1rem;
+                }
+                .post-overlay {
+                    font-size: 3.25rem;
+                }
+            }
         }
-        .insta, .other > div {
-            width: 7.5rem;
-            height: 7.5rem;
+        .options-container::-webkit-scrollbar {
+            height: 1.125rem;
+        }
+        .options-container:first-child {
+            .post {
+                width: 21.875rem;
+                min-width: 21.875rem;
+            }
+        }
+        .options-container:nth-child(3) {
+            .post {
+                width: 13.9rem;
+                min-width: 13.9rem;
+            }
+        }
+        .options-container:nth-child(4) {
+            .post {
+                width: 10.875rem;
+                min-width: 10.875rem;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .content {
+        .options-container {
+            .option {
+                font-size: 2.5rem;
+            }
         }
     }
 }

@@ -1,51 +1,51 @@
 import * as React from "react"
-import { useState, useEffect, useRef } from "react"
-import { graphql, Link } from "gatsby"
+import { useState, useEffect, useRef, useContext } from "react"
+import { graphql } from "gatsby"
 import * as styles from "../styles/news.module.scss"
 import * as childStyles from "../styles/slideMenu.module.scss"
 
-import Layout from "../components/layout"
+import ViewToggle from "../components/viewToggle"
+import Layout, { ThemeContext } from "../components/layout"
 import Seo from "../components/seo"
 import SlideMenu from "../components/slideMenu"
-import BoxIcon from "../images/BoxIcon.svg"
 import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
+import MainNews from "../components/mainNews"
+
+import findCategory from "../hooks/findCategory"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 export const activeFilter = {
     background: "var(--primary-color)"
 }
 
 const News = ({ data: {posts, weAre} }) => {
+    const { width } = useWindowDimensions();
     const ref = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
+    const initialView = useContext(ThemeContext);
+    const [view, setView] = useState(initialView);
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
-    }, [])
-    const categories = weAre.nodes.map(node=>node.name);
+    }, [ref, width])
+    const categories = ["all", ...weAre.nodes.map(node=>node.name)];
     const newsArticles = posts.edges.map(news => ({
         date: news.node.date,
         title: news.node.title,
         desc: news.node.excerpt,
         slug: `/news/${news.node.slug}`,
-        category: () => {
-            const hasCategory = news.node.categories.nodes.find(
-                    node => node.ancestors?.nodes[0].name === "we are"
-                )
-            return hasCategory !== -1 ? hasCategory.name : ""
-            }
+        category: findCategory(news)
     }));
 
-    const lines = [...Array(15).keys()];
     const [dateSort, setDateSort] = useState(false);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
-    const [viewMode, setView] = useState(false);
 
     const handleFilterAll = () => {
         if(filters[0]) {
-            setFilters([false, false, false, false, false])
+            setFilters(categories.map(opt=>false))
         } else {
-            setFilters([true, true, true, true, true])
+            setFilters(categories.map(opt=>true))
         }
     }
 
@@ -94,7 +94,7 @@ const News = ({ data: {posts, weAre} }) => {
     return (
         <Layout headerRef={ref}>
             <SlideMenu categories={categories} 
-            viewMode={viewMode} setView={setView} 
+            view={view} changeView={setView}
             filters = {filters} handleFilter={handleFilter}
             dateSort={dateSort} setDateSort={setDateSort} >
                 <div className={childStyles.option}
@@ -107,8 +107,7 @@ const News = ({ data: {posts, weAre} }) => {
                 </div>
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={"news!"} />
-            <BoxIcon onClick={() => setView(!viewMode)} className={styles.viewSwitch}
-                active={viewMode ? "box" : "line"}/>
+            <ViewToggle className={styles.viewSwitch}/>
             <section className={styles.content}>
                     <SideBar headerHeight={headerHeight}>
                     <ul>
@@ -128,43 +127,7 @@ const News = ({ data: {posts, weAre} }) => {
                         ))}
                     </ul>
                 </SideBar>
-                <div className={styles.main}>
-                    {viewMode ? <>
-                    <div className={styles.boxes}>
-                        {filteredNews.map((news, idx) => (
-                            <Link key={idx} className={styles.post}>
-                                <div className={styles.overlay}>
-                                    <div className={styles.title}>{news.title}</div>
-                                    <div className={styles.date}>{news.date.slice(2).replaceAll("-","")}</div>
-                                    <div className={styles.category}>{news.category}</div>
-                                </div>
-                                <div className={styles.innerPost}>
-                                    <div className={styles.top}>
-                                        <div>{news.title}</div>
-                                        <div>{news.date.replaceAll("-",".")}</div>
-                                        <div>read more...</div>
-                                    </div>
-                                    <div className={styles.desc} dangerouslySetInnerHTML={{__html: news.desc}}></div>
-                                    <div className={styles.category}>{news.category}</div>     
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                    </> 
-                    : <>
-                        <div className={styles.labels}>
-                            <span>date</span><span>title</span>
-                        </div>
-                        <div className={styles.lines}>
-                            {lines.map((line, idx) => (
-                                <div key={idx} className={styles.line}></div>
-                            ))}
-                        </div>
-                        {filteredNews.map((news, idx) => (
-                            <Link key={idx} to={news.slug}><span>{news.date.replaceAll("-",".")}</span><span>{news.title}</span></Link>
-                        ))}
-                    </>}
-                </div>
+                <MainNews filteredNews={filteredNews} />
             </section>
         </Layout>
     )

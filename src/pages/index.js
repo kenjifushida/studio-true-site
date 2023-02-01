@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState } from "react"
 import { graphql, Link } from "gatsby"
 import * as styles from "../styles/index.module.scss"
 
@@ -10,6 +11,7 @@ import { visionContent } from "../components/vision"
 import { approaches } from "../components/approaches"
 import { actions } from "../components/actions"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import MenuRow from "../components/menuRow"
 
 const menuOptions = [
   {
@@ -67,42 +69,13 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
     slug: `/archives/${post.node.slug}`,
     img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
-  console.log(menuOptions[2].posts[0].img);
+
   return (
     <Layout>
       <div className={styles.content}>
-        <div className={styles.optionsContainer}>
-          <div className={styles.optionsContent}>
-            <Link to={"/about"} className={styles.option}>about</Link>
-            {aboutPosts.map((post, idx) => (
-              <Link key={idx} to={"/about"} className={styles.post}>
-                <div className={styles.innerAbout}>
-                  <p className={styles.postName}>{post.name}</p>
-                  <p className={styles.postDesc}>{post.desc}</p>
-                </div>
-                <div className={styles.postOverlay} style={{background:"var(--box-bg)"}}></div>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <MenuRow posts={aboutPosts} option={"about"}/>
         {menuOptions.map((option, idx) => (
-          <div key={idx} className={styles.optionsContainer}>
-            <div className={styles.optionsContent}>
-              <Link to={`/${option.option}`} className={styles.option}>{option.option}</Link>
-              {option.posts.map((post, idx) => (
-                <Link key={idx} to={post.slug} className={styles.post}>
-                  <div className={styles.innerPost}>
-                    <span className={styles.postDesc} dangerouslySetInnerHTML={{__html: post.desc}}></span>
-                    <span>{post.date.replaceAll("-",".")}</span>
-                    <span className={styles.postName}>{post.title.length > 8 ? post.title.slice(0,8)+"...": post.title}</span>
-                  </div>
-                  {post.img !== undefined ? <GatsbyImage className={styles.imgContainer} image={post.img} /> : null }
-                  <div className={styles.postOverlay}
-                  style={post.img ===undefined ? {background: "var(--box-bg)"}:{}}>{option.option === "news" ? post.date.replaceAll("-","").slice(2) : null}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <MenuRow posts={option.posts} option={option.option} />
         ))}
       </div>
       <Links />

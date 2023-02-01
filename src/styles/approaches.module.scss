@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
 }
-.article + .article {
+.post + .post {
     margin-top: 2.5rem;
 }
 .post {
@@ -14,14 +14,12 @@
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
-    .inner-post, .overlay {
-        font-family: "Avenir Next";
-    }
     .inner-post {
-        // position: absolute;
+        font-family: "Avenir Next Medium", "Yu Gothic Bold";
         width: fill;
         height: 100%;
         .post-title {
+            font-family: "YuMin Extrabold";
             font-size: 1rem;
             margin-bottom: 0.5rem;
         }
@@ -32,6 +30,7 @@
         }
     }
     .overlay {
+        font-family: "YuMin Extrabold", "Avenir Next Medium";
         position: absolute;
         top: 0;
         left: 0;
@@ -129,6 +128,29 @@
         aspect-ratio: 1;
         span {
             font-size: 0.75rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .post {
+        min-height: 7rem;
+        .inner-post > .post-title, .overlay > .post-title {
+            font-size: 1.25rem;
+        }
+        .inner-post > .post-desc {
+            font-size: 1rem;
+        }
+        .overlay > .overlay-title {
+            font-size: 2.25rem;
+        }
+    }
+    .download-btn {
+        width: 15%;
+        max-width: 12.5rem;
+        font-size: 1rem;
+        span {
+            font-size: inherit;
         }
     }
 }

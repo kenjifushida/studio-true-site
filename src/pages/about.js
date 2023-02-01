@@ -10,17 +10,19 @@ import Actions from "../components/actions"
 import Members from "../components/members"
 import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const initialState = [
   false, false, false, false
 ]
 
 const About = () => {
+  const { width } = useWindowDimensions();
   const ref = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   useEffect(() => {
     setHeaderHeight(ref.current.clientHeight);
-}, [])
+}, [ref, width])
 
   const [checkedAll, setCheckedAll] = useState(true);
   const [filtered, setFiltered] = useState(initialState);

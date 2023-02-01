@@ -22,7 +22,7 @@
         }
         .line-item {
             display: block;
-            font-family: "Avenir Next";
+            font-family: "Avenir Next Medium", "Yu Gothic Bold";
             font-size: 0.875rem;
             line-height: 1.9025rem;
             transition: background-color 0.4s ease;
@@ -35,7 +35,6 @@
         }
         .line-item:hover {
             background: var(--primary-color);
-            cursor: pointer;
         }
         .lines {
             z-index: -1;
@@ -52,85 +51,83 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
-        }
-    }
-}
-
-
-.box {
-    width: 50%;
-    .post {
-        display: flex;
-        width: 100%;
-        .img-container {
-            width: 50%;
-            height: auto;
-            aspect-ratio: 1;
-            background-color: var(--color-border);
-            * {
-                width: fill;
-                height: fill;
-            }
-        }
-        .post-content {
-            width: 50%;
-            height: auto;
-            aspect-ratio: 1;
-            background: var(--box-bg);
-            border: 1px solid var(--color-border);
-            transition: all 0.4s ease;
-            .overlay {
-                display: flex;
-                height: 100%;
-                flex-direction: column;
-                justify-content: space-between;
-                font-family: "Avenir Next";
-                .title {
-                    font-size: 0.875rem;
-                    white-space: nowrap;
-                    overflow: hidden;
+            .box {
+                width: 50%;
+                .post {
+                    display: flex;
+                    width: 100%;
+                    .img-container {
+                        width: 50%;
+                        height: auto;
+                        aspect-ratio: 1;
+                        background-color: var(--color-border);
+                        * {
+                            width: fill;
+                            height: fill;
+                        }
+                    }
+                    .post-content {
+                        width: 50%;
+                        height: auto;
+                        aspect-ratio: 1;
+                        background: var(--box-bg);
+                        border: 1px solid var(--color-border);
+                        transition: all 0.4s ease;
+                        .overlay {
+                            display: flex;
+                            height: 100%;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            font-family: "Avenir Next Medium", "Yu Gothic Bold";
+                            .title {
+                                font-size: 0.875rem;
+                                white-space: nowrap;
+                                overflow: hidden;
+                            }
+                            .author {
+                                font-family: "Avenir Next Bold";
+                                text-align: right;
+                                line-height: 0.75rem;
+                                color: var(--secondary-txt);
+                            }
+                        }
+                        .inner-post {
+                            display: none;
+                        }
+                    }
                 }
-                .author {
-                    font-family: "Avenir Next Bold";
-                    text-align: right;
-                    line-height: 0.75rem;
-                    color: var(--secondary-txt);
-                }
             }
-            .inner-post {
-                display: none;
+            .box:nth-child(3n-1) {
+                transform: translateX(50%);
             }
-        }
-    }
-}
-.box:nth-child(3n-1) {
-    transform: translateX(50%);
-}
-.box:nth-child(3n) {
-    transform: translateX(100%);
-}
-
-.box:hover {
-    cursor: pointer;
-    .post {
-        .post-content {
-            border: 1px solid var(--primary-color);
-            background: var(--primary-color);
-            .overlay {
-                .author {
-                    color: var(--primary-txt);
+            .box:nth-child(3n) {
+                transform: translateX(100%);
+            }
+            .box:hover {
+                cursor: pointer;
+                .post {
+                    .post-content {
+                        border: 1px solid var(--primary-color);
+                        background: var(--primary-color);
+                        .overlay {
+                            .author {
+                                color: var(--primary-txt);
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+
 
 @media only screen and (min-width: 720px) {
     .view-switch {
         z-index: 2;
-        position: absolute;
+        position: fixed;
         right: 1rem;
-        top: 8rem;
         display: block;
         width: 4.5rem;
         height: auto;
@@ -149,106 +146,6 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: flex-start;
-        .main {
-            width: 62.5%;
-            height: 100vh;
-            .labels {
-                font-size: 1.5rem;
-                span + span {
-                    margin-left: 6.5rem;
-                }
-            }
-            .line-item {
-                font-size: 1.25rem;
-                line-height: 2.56rem;
-                span:first-child {
-                    width: 10rem;
-                }
-            }
-            .lines {
-                padding-top: 0.75rem;
-                .line {
-                    padding: 1.25rem;
-                }
-            }
-            .boxes {
-                gap: 4rem;
-
-            }
-            .box {
-                width: 100%;
-                transition: all 0.4s ease;
-                .post {
-                    width: 100%;
-                    .img-container {
-                        width: 25%;
-                    }
-                    .post-content {
-                        width: 25%;
-                        height: inherit;
-                        aspect-ratio: auto;
-                        .overlay {
-                            .title {
-                                font-size: 1rem;
-                            }
-                        }
-                        .inner-post {
-                            opacity: 0;
-                            transition: opacity 0.4s ease 1s;
-                        }
-                    }
-                }
-            }
-            .box:nth-child(3n-1) {
-                transform: translateX(25%);
-            }
-            .box:nth-child(3n) {
-                transform: translateX(50%);
-            }
-            .box:hover {
-                transform:translate(0%);
-                .post {
-                    .post-content {
-                        position: relative;
-                        width: 75%;
-                        aspect-ratio: auto;
-                        overflow: hidden;
-                        .overlay {
-                            opacity: 0;
-                        }
-                        .inner-post {
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            font-family: "Avenir Next";
-                            opacity: 1;
-                            .top {
-                                display: flex;
-                                justify-content: space-between;
-                                .right {
-                                    text-align: right;
-                                }
-                            }
-                            .read-more {
-                                text-align: center;
-                            }
-                            .author {
-                                position: absolute;
-                                bottom: 0;
-                                right: 0;
-                                writing-mode: vertical-rl;
-                                text-orientation:sideways;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
-    
 }
+

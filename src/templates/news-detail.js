@@ -11,10 +11,11 @@ import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import findCategory from "../hooks/findCategory"
 
 const NewsDetail = ({ data: {post, posts, weAre} }) => {
     const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
-    const categories = weAre.nodes.map(node=>node.name);
+    const categories = ["all", ...weAre.nodes.map(node=>node.name)];
     const newsArticle = {
         title: post.title,
         img: "",
@@ -25,7 +26,7 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
             const hasCategory = post.categories.nodes.find(
                     node => node.ancestors?.nodes[0].name === "we are"
                 )
-            return hasCategory !== -1 ? hasCategory.name : ""
+            return hasCategory !== undefined ? hasCategory.name : ""
             }
     };
 
@@ -33,19 +34,11 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
         date: news.node.date,
         title: news.node.title,
         slug: `/news/${news.node.slug}`,
-        category: () => {
-            const hasCategory = news.node.categories.nodes.find(
-                    node => node.ancestors?.nodes[0].name === "we are"
-                )
-            return hasCategory !== -1 ? hasCategory.name : ""
-            }
+        category: findCategory(news)
     }));
 
     const headerRef = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
-    // useEffect(() => {
-    //     setHeaderHeight(headerRef.current.clientHeight);
-    // }, []);
     const [ dateSort, setDateSort ] = useState(false);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
@@ -57,9 +50,9 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
 
     const handleFilterAll = () => {
         if(filters[0]) {
-            setFilters([false, false, false, false, false])
+            setFilters(categories.map(opt=>false));
         } else {
-            setFilters([true, true, true, true, true])
+            setFilters(categories.map(opt=>true));
         }
     }
 

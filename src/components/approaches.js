@@ -27,16 +27,14 @@ const Approaches = () => {
         <div className={styles.content}>
             <SectionTitle title={"approaches"}/>
             {approaches.map((approach, idx) => (
-                <div key={idx} className={styles.article}>
-                    <div className={styles.post}>
-                        <div className={styles.innerPost}>
-                            <div className={styles.postTitle}>{approach.japTitle}</div>
-                            <div className={styles.postDesc}>{approach.desc}</div>
-                        </div>
-                        <div className={styles.overlay}>
-                            <div className={styles.postTitle}>{approach.japTitle}</div>
-                            <div className={styles.overlayTitle}>{approach.engTitle}</div>
-                        </div>
+                <div key={idx} className={styles.post}>
+                    <div className={styles.innerPost}>
+                        <div className={styles.postTitle}>{approach.japTitle}</div>
+                        <div className={styles.postDesc}>{approach.desc}</div>
+                    </div>
+                    <div className={styles.overlay}>
+                        <div className={styles.postTitle}>{approach.japTitle}</div>
+                        <div className={styles.overlayTitle}>{approach.engTitle}</div>
                     </div>
                 </div>
             ))}

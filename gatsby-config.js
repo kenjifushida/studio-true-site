@@ -58,5 +58,17 @@ module.exports = {
     },
     `gatsby-plugin-sass`,
     `postcss-reporter`,
+    {
+      resolve: `gatsby-plugin-react-intl`,
+      options: {
+        path: `${__dirname}/src/intl`,
+        languages: [`ja`, `en`],
+        defaultLanguage: `ja`,
+        redirect: true,
+        redirectDefaultLanguageToRoot: true,
+        ignoredPaths: [],
+        fallbackLanguage: `ja`
+      }
+    }
   ],
 }

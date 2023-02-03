@@ -76,6 +76,7 @@
                 }
             }
             .inner-post {
+                min-height: 8rem;
                 background-color: var(--primary-color);
                 position: relative;
                 opacity: 0;
@@ -100,8 +101,9 @@
                 .category {
                     position: absolute;
                     right: 0;
-                    transform-origin: top right;
-                    transform: rotate(90deg);
+                    bottom: 0;
+                    writing-mode: vertical-rl;
+                    text-orientation: vertical;
                 }
             }
             .inner-post:hover {
@@ -177,7 +179,6 @@
         .boxes {
             .post {
                 .inner-post {
-                    min-height: 8rem;
                     .top {
                         font-size: 1.375rem;
                         margin-bottom: 1.25rem;

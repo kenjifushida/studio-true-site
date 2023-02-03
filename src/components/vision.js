@@ -2,6 +2,7 @@ import * as React from "react"
 import * as styles from "../styles/vision.module.scss"
 
 import SectionTitle from "./sectionTitle"
+import { useIntl } from "gatsby-plugin-react-intl"
 
 export const visionContent = {
     japTitle: "社会をサバイブする共同体をつくる",
@@ -13,13 +14,15 @@ export const visionContent = {
 }
 
 const Vision = () => {
+  const intl = useIntl();
+
     return (
         <div className={styles.article}>
           <SectionTitle title={"vision"} />
           <div className={styles.post}>
             <div className={styles.innerPost}>
               <div className={styles.postTitle}>{visionContent.japTitle}</div>
-              <div className={styles.postDesc}>{visionContent.desc}</div>
+              <div className={styles.postDesc}>{intl.formatMessage({id: "vision.desc"})}</div>
             </div>
             <div className={styles.overlay}>
               <div className={styles.postTitle}>{visionContent.japTitle}</div>

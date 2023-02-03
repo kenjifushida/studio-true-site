@@ -23,5 +23,13 @@
             bottom: 0.5rem;
             right: 0.75rem;
         }
+        .language-switch[active=ja] {
+            rect:first-child {
+                fill: var(--primary-color);
+            }
+            path  {
+                fill: var(--box-bg);
+            }
+        }
     }
 }

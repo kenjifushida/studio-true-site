@@ -17,7 +17,12 @@ const initialState = [
 ]
 
 const About = ({ location }) => {
-  const state = location.state;
+  const loc = window.history.state;
+  console.log(loc);
+  const isState = location.state;
+  const state = isState ? isState : {};
+  const initialCheck = "filter" in state ? false : true;
+  const initialFilter = "filter" in state ? state.filter : initialState;
   const { width } = useWindowDimensions();
   const ref = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -25,8 +30,8 @@ const About = ({ location }) => {
     setHeaderHeight(ref.current.clientHeight);
 }, [ref, width])
 
-  const [checkedAll, setCheckedAll] = useState(state ? false : true);
-  const [filtered, setFiltered] = useState(state ? state.filter : initialState);
+  const [checkedAll, setCheckedAll] = useState(initialCheck);
+  const [filtered, setFiltered] = useState(initialFilter);
   const [selectedMember, setSelectedMember] = useState(-1);
   const sections = [
     <Vision />,

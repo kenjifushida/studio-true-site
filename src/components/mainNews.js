@@ -5,7 +5,7 @@ import * as styles from "../styles/mainNews.module.scss"
 
 const MainNews = ({ filteredNews }) => {
     const lines = [...Array(15).keys()];
-    const {viewMode, setViewMode } = React.useContext(ThemeContext);
+    const {viewMode } = React.useContext(ThemeContext);
 
     if(!viewMode) {
         return null;

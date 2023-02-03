@@ -12,7 +12,9 @@ const MenuRow = ({ option, posts}) => {
             <Link to={`/${option}`} className={styles.option}
             style={highlight ? {color:"var(--primary-color)"}:{}}>{option}</Link>
             {posts.map((post, idx) => (
-              <Link key={idx} to={post.slug ? post.slug : `/${option}`} className={styles.post}
+              <Link key={idx} to={post.slug ? post.slug : `/${option}`} 
+              state={post.filter ? {filter: post.filter}: {}} 
+              className={styles.post}
               onMouseEnter={()=>setHighlight(true)}
               onMouseLeave={()=>setHighlight(false)}>
                   {option === "about" ? 

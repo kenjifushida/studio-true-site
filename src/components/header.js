@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Link } from "gatsby"
 import * as styles from "../styles/header.module.scss"
 import Logo from "../images/logo.svg"
+import ColorLogo from "../images/colorLogo.svg"
 import LanguageToggle from "./languageToggle"
 
 export const menuOptions = [
@@ -24,7 +25,10 @@ const Header = ({ headerRef, siteTitle }) => {
     <header ref={headerRef} className={styles.header}>
       <div className={styles.innerHeader}>
         <div className={styles.logo}>
-          <Link to="/"><Logo /></Link>
+          <Link to="/">
+            <Logo className={styles.blackLogo} />
+            <ColorLogo className={styles.colorLogo} />
+          </Link>
         </div>
         <div className={styles.right}>
           <nav className={styles.deskNav}>

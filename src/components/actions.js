@@ -27,7 +27,8 @@ export const actions = [
                 name: "食品",
                 desc: "廃棄された食品を地域で堆肥化し、地産地消の新しいサイクルをつくることで、地域コミュニティを盛り上げます。"
             },
-        ]
+        ],
+        filter: [false, false, true, false]
     },
     {
         japTitle: "建築・都市",
@@ -54,7 +55,8 @@ export const actions = [
                 name: "行政",
                 desc: "建築や都市に関する専門的な知見や先進的なリサーチを通じて、都市計画や政策のレベルで提案を行います。"
             },
-        ]
+        ],
+        filter: [false, false, true, false]
     },
     {
         japTitle: "パブリケーション",
@@ -104,7 +106,8 @@ export const actions = [
                 name: "展覧会",
                 desc: "あらゆる作品や事例、情報のキュレーションを行い、展示します。"
             },
-        ]
+        ],
+        filter: [false, false, true, false]
     },
 ]
 

@@ -8,17 +8,20 @@ export const approaches = [
         engTitle: "Contingency and Embodiment",
         desc: "私たちは日々の生活の中で偶然に出会ったものや人、そして身の回りにあることや場所を大事にしています。偶発性と身体性を持ちながらデザインすることによって、社会のリアリティに向き合ったデザインを生み出せると考えます。",
         graph: "graph",
+        filter: [false, true, false, false]
     },
     {
         japTitle: "小さいけれど継続的",
         engTitle: "Small but Continuous",
         desc: "私たちは小さくても何かを続けていくこと、そしてそこから育まれていくものごとを大事にしています。一度に大きな変化を生み出すことを目指すのではなく、継続的に取り組んでいくことで、その場その時に即したアクションを生み出せると考えます。",
+        filter: [false, true, false, false]
     },
     {
         japTitle: "リサーチとアーカイブ",
         engTitle: "Research and Archive",
         desc: "私たちはものごとの質的な関係性を理解しながら調査し、生の情報とプロセスを記録し、積み重ねていくことを大事にしています。アーカイブを辿っていくことにより、リサーチに基づいたアクションが生み出せると考えます。",
-        pdf: "studio-true_approaches.pdf"
+        pdf: "studio-true_approaches.pdf",
+        filter: [false, true, false, false]
     }
 ]
 

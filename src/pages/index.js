@@ -1,6 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import * as styles from "../styles/index.module.scss"
 
 import Layout from "../components/layout"
@@ -10,7 +9,7 @@ import Links from "../components/links"
 import { visionContent } from "../components/vision"
 import { approaches } from "../components/approaches"
 import { actions } from "../components/actions"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { getImage } from "gatsby-plugin-image"
 import MenuRow from "../components/menuRow"
 
 const menuOptions = [

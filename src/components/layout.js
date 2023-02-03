@@ -6,7 +6,6 @@
  */
 
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "../styles/layout.scss"
@@ -34,22 +33,12 @@ const Layout = ({ headerRef, children }) => {
   React.useEffect(()=> {
     const view = getInitialViewMode();
     rawSetViewMode(view);
-  })
+  }, [])
   const setViewMode = (value) => {
     rawSetViewMode(value);
 
     window.localStorage.setItem('view-mode', value);
   };
-
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
 
   return (
     <ThemeContext.Provider value={{viewMode, setViewMode}}>

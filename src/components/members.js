@@ -44,6 +44,7 @@ const members = [
         {
           name: "portfolio",
           content: "portfolio",
+          link: "/documents/rei_portfolio.pdf"
         },
         {
           name: "medium",
@@ -135,7 +136,11 @@ const Members = ({ memberState, changeSelectedMember }) => {
               {members[memberState].center.map((box, idx) => (
                 <div key={idx} className={styles.link}>
                   <div className={styles.box}>{box.name}</div>
-                  <Link className={styles.innerBox}>{box.content}</Link>
+                  <a className={styles.innerBox} href={box.link ? box.link : null}
+                  target="_blank" 
+                  rel="noopener noreferrer">
+                    {box.content}
+                  </a>
                 </div>
               ))}
             </div>

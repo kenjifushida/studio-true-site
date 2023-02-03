@@ -39,24 +39,33 @@
 .logo {
     display: flex;
     align-items: center;
-    svg {
-        height: 3.25rem;
-        fill: url(#MyGradient);
-        stop {
-            stop-color: black;
-            transition: .4s ease;
+    position: relative;
+    a {
+        display: block;
+        .black-logo {
+            height: 3.25rem;
+            opacity: 1;
+            transition: all 0.4s ease;
+        }
+        .color-logo {
+            position: absolute;
+            width: fill;
+            height: fill;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: all 0.4s ease;
+            filter: brightness(1.125);
         }
     }
 }
 
 .logo:hover {
-    svg {
-        stop:first-child {
-            stop-color: var(--secondary-txt);
-        }
-        stop:last-child {
-            stop-color: var(--primary-color);
-        }
+    .black-logo {
+        opacity: 0;
+    }
+    .color-logo {
+        opacity: 1;
     }
 }
 
@@ -138,9 +147,9 @@
                 display: block;
                 width: fill;
                 height: fill;
-                svg {
+                .black-logo, .color-logo {
                     width: fill;
-                    height: fill;
+                    height: 100%;
                 }
             }
         }

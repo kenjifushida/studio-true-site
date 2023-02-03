@@ -17,8 +17,6 @@ const initialState = [
 ]
 
 const About = ({ location }) => {
-  const loc = window.history.state;
-  console.log(loc);
   const isState = location.state;
   const state = isState ? isState : {};
   const initialCheck = "filter" in state ? false : true;

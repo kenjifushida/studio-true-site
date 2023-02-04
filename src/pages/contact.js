@@ -12,6 +12,7 @@ const Contact = () => {
             <PageTitle title={"contact!"}/>
             <div className={styles.content}>
                 <form name="contact" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact" />
                     <input type="text" id="name" name="name" placeholder="name"></input>
                     <input type="email" id="email" name="email" placeholder="email"></input>
                     <input type="text" id="subject" name="subject" placeholder="subject"></input>

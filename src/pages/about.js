@@ -46,7 +46,7 @@ const About = ({ location }) => {
       return
     }
     const newState = filtered.map((filter, idx) => {
-      if(idx == num) {
+      if(idx === num) {
         return !filter
       }
       return filter

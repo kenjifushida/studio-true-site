@@ -11,13 +11,13 @@ const Contact = () => {
         <Layout>
             <PageTitle title={"contact!"}/>
             <div className={styles.content}>
-                <section>
+                <form name="contact" method="POST" data-netlify="true">
                     <input type="text" id="name" name="name" placeholder="name"></input>
-                    <input type="text" id="mail" name="mail" placeholder="mail"></input>
+                    <input type="email" id="email" name="email" placeholder="email"></input>
                     <input type="text" id="subject" name="subject" placeholder="subject"></input>
                     <textarea id="message" name="message" placeholder="message"></textarea>
                     <button type="submit">ok?</button>
-                </section>
+                </form>
             </div>
             <Links />
         </Layout>

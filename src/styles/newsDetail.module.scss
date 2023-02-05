@@ -39,9 +39,8 @@
                 display: flex;
                 flex-direction: column;
                 gap: 0.25rem;
-                * {
+                p {
                     font-family: "Avenir Next Medium", "YuMin Medium";
-                    width: fill;
                 }
                 figCaption {
                     text-align: center;

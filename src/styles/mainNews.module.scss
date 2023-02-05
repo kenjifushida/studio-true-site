@@ -86,6 +86,12 @@
                     flex-direction: row;
                     justify-content: space-between;
                     margin-bottom: 0.5rem;
+                    .top-title {
+                        width: 45%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
                 }
                 .desc {
                     font-size: 0.75rem;

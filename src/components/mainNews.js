@@ -23,7 +23,7 @@ const MainNews = ({ filteredNews }) => {
                         </div>
                         <div className={styles.innerPost}>
                             <div className={styles.top}>
-                                <div>{news.title}</div>
+                                <div className={styles.topTitle}>{news.title}</div>
                                 <div>{news.date.replaceAll("-",".")}</div>
                                 <div>read more...</div>
                             </div>

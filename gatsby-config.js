@@ -10,7 +10,7 @@
 module.exports = {
   siteMetadata: {
     title: `Studio True`,
-    description: `Studio True is a new revolutionary studio in Japan.`,
+    description: `studio TRUEは寺内玲と松岡大雅によるデザイン事務所です。`,
     author: `@reiterauchi`,
     siteUrl: `https://studio-true.net/`,
   },

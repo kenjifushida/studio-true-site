@@ -1,15 +1,24 @@
 import * as React from "react"
+import { useRef, useState, useEffect } from "react"
 import * as styles from "../styles/contact.module.scss"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import Links from "../components/links"
+import Seo from "../components/seo"
 import PageTitle from "../components/pageTitle"
 
+import useWindowDimensions from "../hooks/useWindowDimensions"
+
 const Contact = () => {
+    const { width } = useWindowDimensions();
+    const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    useEffect(() => {
+        setHeaderHeight(ref.current.clientHeight);
+    }, [ref, width])
     return (
-        <Layout>
-            <PageTitle title={"contact!"}/>
+        <Layout headerRef={ref}>
+            <PageTitle headerHeight={headerHeight} title={"contact!"}/>
             <div className={styles.content}>
                 <form name="contact" method="POST" data-netlify="true">
                     <input type="hidden" name="form-name" value="contact" />

@@ -75,11 +75,11 @@
         margin-bottom: 1rem;
         overflow: hidden;
         transition: all 0.4s ease;
-        div {
+        .download {
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-        span {
+        .pdf {
             font-size: 0.55rem;
             font-style: italic;
             position: absolute;
@@ -91,7 +91,7 @@
     .download-btn:hover {
         background-color: var(--primary-color);
         cursor: url(/src/images/pointerIcon.svg), pointer;
-        div {
+        .download {
             opacity: 1;
         }
     }
@@ -128,7 +128,7 @@
             width: 6.75rem;
             height: auto;
             aspect-ratio: 1;
-            span {
+            .pdf {
                 font-size: 0.75rem;
             }
         }
@@ -153,7 +153,7 @@
             width: 15%;
             max-width: 12.5rem;
             font-size: 1rem;
-            span {
+            .pdf {
                 font-size: inherit;
             }
         }

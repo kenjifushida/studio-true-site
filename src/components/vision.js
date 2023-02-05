@@ -30,8 +30,8 @@ const Vision = () => {
             </div>
           </div>
           <div className={styles.downloadBtn}>
-              <div>download?</div>
-              <span>studio-true<br></br>_vision.pdf</span>
+              <div className={styles.download}>download?</div>
+              <span className={styles.pdf}>studio-true<br></br>_vision.pdf</span>
           </div>
         </div>
     )

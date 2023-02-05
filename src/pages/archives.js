@@ -7,15 +7,15 @@ import * as slideMenuStyles from "../styles/slideMenu.module.scss"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import SlideMenu from "../components/slideMenu"
-import BoxIcon from "../images/BoxIcon.svg"
 import PageTitle from "../components/pageTitle"
 
 import { activeFilter } from "./news"
 import SideBar from "../components/sideBar"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import MainArchives from "../components/mainArchives"
 import ViewToggle from "../components/viewToggle"
 import useWindowDimensions from "../hooks/useWindowDimensions"
+
+import { findPlace } from "../hooks/findCategory"
 
 const Archives = ({data: {posts, places, media, projects, authors}}) => {
     const categories = [
@@ -47,9 +47,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
         date: archive.node.date,
         slug: `/archives/${archive.node.slug}`,
         img: archive.node.featuredImage?.node.gatsbyImage,
-        place: archive.node.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            ).name,
+        place: findPlace(archive),
         media: "",
         projects: ""
     }));

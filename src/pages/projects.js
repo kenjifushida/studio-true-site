@@ -15,6 +15,7 @@ import SideBar from "../components/sideBar"
 import ViewToggle from "../components/viewToggle"
 import MainProjects from "../components/mainProjects"
 import useWindowDimensions from "../hooks/useWindowDimensions"
+import { findAction, findPlace } from "../hooks/findCategory"
 
 const Projects = ({ data: { posts, places, actions} }) => {
     const { width } = useWindowDimensions();
@@ -41,12 +42,8 @@ const Projects = ({ data: { posts, places, actions} }) => {
         desc: project.node.excerpt,
         slug: `/projects/${project.node.slug}`,
         img: project.node.featuredImage?.node.gatsbyImage,
-        actions: project.node.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "actions"
-            ).name,
-        place: project.node.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            ).name
+        actions: findAction(project),
+        place: findPlace(project)
     }));
 
     const lines = [...Array(15).keys()];

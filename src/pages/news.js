@@ -34,7 +34,8 @@ const News = ({ data: {posts, weAre} }) => {
         title: news.node.title,
         desc: news.node.excerpt,
         slug: `/news/${news.node.slug}`,
-        category: findCategory(news)
+        category: findCategory(news),
+        img: news.node.featuredImage?.node.gatsbyImage,
     }));
 
     const [dateSort, setDateSort] = useState(false);
@@ -133,7 +134,7 @@ const News = ({ data: {posts, weAre} }) => {
     )
 }
 
-export const Head = () => <Seo title="About" />
+export const Head = () => <Seo title="News" />
 
 export default News
 
@@ -160,6 +161,11 @@ query MyQuery {
                   name
                 }
               }
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
             }
           }
         }

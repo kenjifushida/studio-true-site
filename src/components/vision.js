@@ -33,8 +33,8 @@ const Vision = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.downloadBtn}>
-              <div className={styles.download}>download?</div>
-              <span className={styles.pdf}>studio-true<br></br>_vision.pdf</span>
+            <div className={styles.download}>download?</div>
+            <span className={styles.pdf}>studio-true<br></br>_vision.pdf</span>
           </a>
         </div>
     )

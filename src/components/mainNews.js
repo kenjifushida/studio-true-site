@@ -2,6 +2,7 @@ import * as React from "react"
 import { ThemeContext } from "./layout"
 import { Link } from "gatsby"
 import * as styles from "../styles/mainNews.module.scss"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const MainNews = ({ filteredNews }) => {
     const lines = [...Array(15).keys()];
@@ -14,24 +15,31 @@ const MainNews = ({ filteredNews }) => {
         <div className={styles.main}>
             {viewMode === 'box' ? <>
             <div className={styles.boxes}>
-                {filteredNews.map((news, idx) => (
-                    <Link key={idx} className={styles.post} to={news.slug}>
-                        <div className={styles.overlay}>
-                            <div className={styles.title}>{news.title}</div>
-                            <div className={styles.date}>{news.date.slice(2).replaceAll("-","")}</div>
-                            <div className={styles.category}>{news.category}</div>
-                        </div>
-                        <div className={styles.innerPost}>
-                            <div className={styles.top}>
-                                <div className={styles.topTitle}>{news.title}</div>
-                                <div>{news.date.replaceAll("-",".")}</div>
-                                <div>read more...</div>
+                {filteredNews.map((news, idx) => {
+                    const featuredImage = getImage(news.img);
+                    return (
+                        <Link key={idx} className={styles.post} to={news.slug}>
+                            <div className={styles.overlay}>
+                                <div className={styles.title}>{news.title}</div>
+                                <div className={styles.date}>{news.date.slice(2).replaceAll("-","")}</div>
+                                <div className={styles.category}>{news.category}</div>
                             </div>
-                            <div className={styles.desc} dangerouslySetInnerHTML={{__html: news.desc}}></div>
-                            <div className={styles.category}>{news.category}</div>     
-                        </div>
-                    </Link>
-                ))}
+                            <div className={styles.innerPost}>
+                                <div className={styles.top}>
+                                    <div className={styles.topTitle}>{news.title}</div>
+                                    <div>{news.date.replaceAll("-",".")}</div>
+                                    <div>read more...</div>
+                                </div>
+                                <div className={styles.bottom}>
+                                    <div className={styles.desc} dangerouslySetInnerHTML={{__html: news.desc}}></div>
+                                    {featuredImage !==undefined ? <GatsbyImage className={styles.imgContainer} objectFit={"cover"}
+                                     image={featuredImage} alt={news.title} objectPosition={"center"} /> : null}
+                                    <div className={styles.category}>{news.category}</div>     
+                                </div>
+                            </div>
+                        </Link>
+                    )
+                })}
             </div>
             </> 
             : <>

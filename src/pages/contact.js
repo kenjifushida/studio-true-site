@@ -4,8 +4,8 @@ import * as styles from "../styles/contact.module.scss"
 
 import Layout from "../components/layout"
 import Links from "../components/links"
-import Seo from "../components/seo"
 import PageTitle from "../components/pageTitle"
+import Seo from "../components/seo"
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
 

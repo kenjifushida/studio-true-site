@@ -3,14 +3,15 @@ import { graphql } from "gatsby"
 import * as styles from "../styles/index.module.scss"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import Links from "../components/links"
+import MenuRow from "../components/menuRow"
+import Seo from "../components/seo"
 
 import { visionContent } from "../components/vision"
 import { approaches } from "../components/approaches"
 import { actions } from "../components/actions"
+
 import { getImage } from "gatsby-plugin-image"
-import MenuRow from "../components/menuRow"
 
 const menuOptions = [
   {

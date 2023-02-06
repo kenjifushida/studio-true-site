@@ -2,9 +2,10 @@ import * as React from "react"
 import { useState } from "react"
 import { Link } from "gatsby"
 import * as styles from "../styles/header.module.scss"
+
+import LanguageToggle from "./languageToggle"
 import Logo from "../images/logo.svg"
 import ColorLogo from "../images/colorLogo.svg"
-import LanguageToggle from "./languageToggle"
 
 export const menuOptions = [
   "about",

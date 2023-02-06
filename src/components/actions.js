@@ -158,10 +158,13 @@ const Actions = () => {
                 </div>
                 ))}
             </div>
-            <div className={styles.downloadBtn}>
+            <a href="/documents/230102_leaflet.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.downloadBtn}>
                 <div>download?</div>
                 <span>studio-true<br></br>_actions.pdf</span>
-            </div>
+            </a>
         </div>
     )
 }

@@ -6,16 +6,16 @@ import * as styles from "../styles/projects.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
 
 import Layout from "../components/layout"
+import MainProjects from "../components/mainProjects"
 import Seo from "../components/seo"
+import SideBar from "../components/sideBar"
 import SlideMenu from "../components/slideMenu"
 import PageTitle from "../components/pageTitle"
+import ViewToggle from "../components/viewToggle"
 
 import { activeFilter } from "./news"
-import SideBar from "../components/sideBar"
-import ViewToggle from "../components/viewToggle"
-import MainProjects from "../components/mainProjects"
-import useWindowDimensions from "../hooks/useWindowDimensions"
 import { findAction, findPlace } from "../hooks/findCategory"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const Projects = ({ data: { posts, places, actions} }) => {
     const { width } = useWindowDimensions();
@@ -46,7 +46,6 @@ const Projects = ({ data: { posts, places, actions} }) => {
         place: findPlace(project)
     }));
 
-    const lines = [...Array(15).keys()];
     const [dateSort, setDateSort] = useState(false);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);

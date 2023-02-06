@@ -29,10 +29,13 @@ const Vision = () => {
               <div className={styles.overlayTitle}>{visionContent.engTitle}</div>
             </div>
           </div>
-          <div className={styles.downloadBtn}>
+          <a href="/documents/230102_leaflet.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.downloadBtn}>
               <div className={styles.download}>download?</div>
               <span className={styles.pdf}>studio-true<br></br>_vision.pdf</span>
-          </div>
+          </a>
         </div>
     )
 }

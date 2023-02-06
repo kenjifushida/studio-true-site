@@ -1,6 +1,6 @@
 import * as React from "react"
-import useWindowDimensions from "../hooks/useWindowDimensions"
 import * as styles from "../styles/pageTitle.module.scss"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const PageTitle = ({ headerHeight, title }) => {
     const { width } = useWindowDimensions();

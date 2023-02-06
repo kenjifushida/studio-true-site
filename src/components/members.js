@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useState, useEffect, useRef } from "react"
 import { Link } from "gatsby"
 import * as styles from "../styles/members.module.scss"
 

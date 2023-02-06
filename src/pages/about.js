@@ -2,14 +2,15 @@ import * as React from "react"
 import { useState, useEffect, useRef } from "react"
 import * as styles from "../styles/about.module.scss"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import Vision from "../components/vision"
-import Approaches from "../components/approaches"
 import Actions from "../components/actions"
+import Approaches from "../components/approaches"
+import Layout from "../components/layout"
 import Members from "../components/members"
-import PageTitle from "../components/pageTitle"
+import Seo from "../components/seo"
 import SideBar from "../components/sideBar"
+import PageTitle from "../components/pageTitle"
+import Vision from "../components/vision"
+
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const initialState = [

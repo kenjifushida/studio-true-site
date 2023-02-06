@@ -1,6 +1,7 @@
 import * as React from "react"
 import { IntlContextConsumer, changeLocale } from "gatsby-plugin-react-intl"
 import * as styles from "../styles/languageToggle.module.scss"
+
 import LanguageIcon from "../images/languageIcon.svg"
 
 const LanguageToggle = () => {

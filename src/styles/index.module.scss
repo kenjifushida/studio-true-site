@@ -56,6 +56,14 @@
                 align-items: center;
                 opacity: 1;
                 transition: opacity 0.4s ease;
+                overflow: hidden;
+                text-align: center;
+                .about-title {
+                    font-family: "Avenir Next Medium";
+                    font-size: 1rem;
+                    font-style: italic;
+                    color: var(--secondary-txt);
+                }
             }
             .inner-post {
                 width: fill;
@@ -172,6 +180,11 @@
                     padding: 1rem 2rem;
                     font-size: 0.825rem;
                 }
+                .post-overlay {
+                    .about-title {
+                        font-size: 1.5rem;
+                    }
+                }
             }
         }
         .options-container::-webkit-scrollbar {
@@ -213,6 +226,9 @@
                 }
                 .post-overlay {
                     font-size: 3.25rem;
+                    .about-title {
+                        font-size: 2rem;
+                    }
                 }
             }
         }
@@ -227,6 +243,13 @@
         .options-container {
             .option {
                 font-size: 2.5rem;
+            }
+            .post {
+                .post-overlay {
+                    .about-title {
+                        font-size: 2.25rem;
+                    }
+                }
             }
         }
     }

@@ -1,10 +1,10 @@
 import * as React from "react"
-import * as styles from "../styles/vision.module.scss"
 
 import SectionTitle from "./sectionTitle"
 import DownloadBtn from "./downloadBtn"
 import { useIntl } from "gatsby-plugin-react-intl"
 import { getVision } from "../hooks/aboutInformation"
+import * as styles from "../styles/vision.module.scss"
 
 const Vision = () => {
   const visionContent = getVision();

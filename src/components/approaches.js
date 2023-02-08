@@ -1,10 +1,10 @@
 import * as React from "react"
-import * as styles from "../styles/approaches.module.scss"
 
 import SectionTitle from "./sectionTitle"
 import DownloadBtn from "./downloadBtn"
 import { useIntl } from "gatsby-plugin-react-intl"
 import { getApproaches } from "../hooks/aboutInformation"
+import * as styles from "../styles/approaches.module.scss"
 
 const Approaches = () => {
     const  intl = useIntl();

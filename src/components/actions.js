@@ -1,12 +1,12 @@
 import * as React from "react"
 import { useState } from "react"
-import * as styles from "../styles/actions.module.scss"
 
 import SectionTitle from "./sectionTitle"
 import DownloadBtn from "./downloadBtn"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 // import { useIntl } from "gatsby-plugin-react-intl"
 import { getActions } from "../hooks/aboutInformation"
+import * as styles from "../styles/actions.module.scss"
 
 const Actions = () => {
     // const intl = useIntl();

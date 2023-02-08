@@ -75,7 +75,7 @@ const About = ({ location }) => {
   }, [filtered, checkedAll, selectedMember])
 
   return (
-  <Layout headerRef={ref}>
+  <Layout headerRef={ref} pageTitle="about!">
     <PageTitle headerHeight={headerHeight} title={"about!"}/>
     <div className={styles.content}>
       <SideBar headerHeight={headerHeight}>

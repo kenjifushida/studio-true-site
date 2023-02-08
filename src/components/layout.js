@@ -27,7 +27,7 @@ function getInitialViewMode() {
 
 export const ThemeContext = React.createContext(getInitialViewMode());
 
-const Layout = ({ headerRef, children }) => {
+const Layout = ({ headerRef, pageTitle, children }) => {
   const [viewMode, rawSetViewMode] = React.useState(undefined);
 
   React.useEffect(()=> {
@@ -42,7 +42,7 @@ const Layout = ({ headerRef, children }) => {
 
   return (
     <ThemeContext.Provider value={{viewMode, setViewMode}}>
-      <Header headerRef={headerRef} siteTitle={`Title`} />
+      <Header headerRef={headerRef} siteTitle={`Title`} pageTitle={pageTitle} />
       <div
         style={{
           margin: `0 auto`,

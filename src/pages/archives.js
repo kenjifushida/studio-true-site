@@ -17,6 +17,8 @@ import useWindowDimensions from "../hooks/useWindowDimensions"
 
 import { findPlace } from "../hooks/findCategory"
 
+const pageTitle = "archives!"
+
 const Archives = ({data: {posts, places, media, projects, authors}}) => {
     const categories = [
         {
@@ -125,7 +127,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
     }, [filters, dateSort])
 
     return (
-        <Layout headerRef={ref}>
+        <Layout headerRef={ref} pageTitle={pageTitle}>
             <SlideMenu categories={categories[currFilter].options}
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
@@ -143,7 +145,7 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
                     </div>
                 ))}
             </SlideMenu>
-            <PageTitle headerHeight={headerHeight} title={"archives!"} />
+            <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch} />
             <section className={styles.content}>
                 <SideBar headerHeight={headerHeight}>

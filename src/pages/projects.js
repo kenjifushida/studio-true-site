@@ -17,6 +17,7 @@ import { activeFilter } from "./news"
 import { findAction, findPlace } from "../hooks/findCategory"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
+const pageTitle = "projects!";
 const Projects = ({ data: { posts, places, actions} }) => {
     const { width } = useWindowDimensions();
     const ref = useRef(null);
@@ -116,7 +117,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
 
     
     return (
-        <Layout headerRef={ref}>
+        <Layout headerRef={ref} pageTitle={pageTitle}>
             <SlideMenu categories={categories[currFilter].options}
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
@@ -134,7 +135,7 @@ const Projects = ({ data: { posts, places, actions} }) => {
                     </div>
                 ))}
             </SlideMenu>
-            <PageTitle headerHeight={headerHeight} title={"projects!"} />
+            <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch} />
             <section className={styles.content}>
                 <SideBar headerHeight={headerHeight}>

@@ -75,40 +75,6 @@
     }
 }
 
-.download-btn {
-    width: 5rem;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--box-bg);
-    border: 1px solid var(--primary-txt);
-    font-size: 0.75rem;
-    align-self: flex-end;
-    position: relative;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    div {
-        opacity: 0;
-        transition: opacity 0.4s ease;
-    }
-    span {
-        font-size: 0.55rem;
-        font-style: italic;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-}
-
-.download-btn:hover {
-    background-color: var(--primary-color);
-    div {
-        opacity: 1;
-    }
-}
-
 @media only screen and (min-width: 720px) {
     .post {
         .inner-post > .post-title, 
@@ -151,14 +117,6 @@
             }
         }
     }
-    .download-btn {
-        width: 6.75rem;
-        height: auto;
-        aspect-ratio: 1;
-        span {
-            font-size: 0.75rem;
-        }
-    }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -184,14 +142,6 @@
         }
         .overlay > .overlay-title {
             font-size: 2.25rem;
-        }
-    }
-    .download-btn {
-        width: 15%;
-        max-width: 12.5rem;
-        font-size: 1rem;
-        span {
-            font-size: inherit;
         }
     }
 }

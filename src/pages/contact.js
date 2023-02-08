@@ -9,6 +9,7 @@ import Seo from "../components/seo"
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
+const pageTitle = "contact!";
 const Contact = () => {
     const { width } = useWindowDimensions();
     const ref = useRef(null);
@@ -17,8 +18,8 @@ const Contact = () => {
         setHeaderHeight(ref.current.clientHeight);
     }, [ref, width])
     return (
-        <Layout headerRef={ref}>
-            <PageTitle headerHeight={headerHeight} title={"contact!"}/>
+        <Layout headerRef={ref} pageTitle={pageTitle}>
+            <PageTitle headerHeight={headerHeight} title={pageTitle}/>
             <div className={styles.content}>
                 <form name="contact" method="POST" data-netlify="true">
                     <input type="hidden" name="form-name" value="contact" />

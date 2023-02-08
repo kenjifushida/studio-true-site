@@ -3,10 +3,11 @@ import { useState } from "react"
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import * as styles from "../styles/index.module.scss"
+import { useIntl } from "gatsby-plugin-react-intl"
 
 const MenuRow = ({ option, posts}) => {
     const [highlight, setHighlight] = useState(false);
-
+    const intl = useIntl();
     return (
         <div className={styles.optionsContainer}>
             <Link to={`/${option}`} className={styles.option}
@@ -21,7 +22,7 @@ const MenuRow = ({ option, posts}) => {
                   <>
                     <div className={styles.innerAbout}>
                       <p className={styles.postName}>{post.name}</p>
-                      <p className={styles.postDesc}>{post.desc}</p>
+                      <p className={styles.postDesc}>{intl.formatMessage({id: post.desc})}</p>
                     </div>
                   </> : 
                   <>

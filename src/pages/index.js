@@ -7,9 +7,7 @@ import Links from "../components/links"
 import MenuRow from "../components/menuRow"
 import Seo from "../components/seo"
 
-import { visionContent } from "../components/vision"
-import { approaches } from "../components/approaches"
-import { actions } from "../components/actions"
+import { getVision, getApproaches, getActions } from "../hooks/aboutInformation"
 
 import { getImage } from "gatsby-plugin-image"
 
@@ -29,23 +27,26 @@ const menuOptions = [
 ];
 
 const aboutPosts = [];
+const visionContent = getVision();
+const approaches = getApproaches();
+const actions = getActions();
+
 aboutPosts.push({
   name: "vision",
   ...visionContent
-})
-
-approaches.forEach(approach => {
+});
+approaches.forEach((approach) => {
   aboutPosts.push({
     name: "approaches",
     ...approach
   })
-})
-actions.forEach(action => {
+});
+actions.forEach((action) => {
   aboutPosts.push({
     name: "actions",
     ...action
   })
-})
+});
 
 const IndexPage = ({ data: { news, projects, archives } }) => {
   menuOptions[0].posts = news.edges.map(post=> ({

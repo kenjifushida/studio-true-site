@@ -15,7 +15,7 @@ export const menuOptions = [
   "contact"
 ]
 
-const Header = ({ headerRef, siteTitle }) => {
+const Header = ({ headerRef, pageTitle, siteTitle }) => {
   const [nav, setNav] = useState(false);
 
   const mobileNavStyles = {
@@ -31,6 +31,7 @@ const Header = ({ headerRef, siteTitle }) => {
             <ColorLogo className={styles.colorLogo} />
           </Link>
         </div>
+        <h1 className={styles.pageTitleMob}>{pageTitle}</h1>
         <div className={styles.right}>
           <nav className={styles.deskNav}>
             {menuOptions.map((option, idx) => (
@@ -41,7 +42,8 @@ const Header = ({ headerRef, siteTitle }) => {
           </nav>
           <LanguageToggle />
         </div>
-        <div 
+        <button 
+          type="button"
           className={styles.menuBtn}
           onClick={()=>setNav(!nav)}
           style={{
@@ -50,7 +52,7 @@ const Header = ({ headerRef, siteTitle }) => {
             transition: "all 0.4s ease"
           }}>
           <h3>menu</h3>
-        </div>
+        </button>
       </div>
       <nav className={styles.mobileNav} style={mobileNavStyles}>
         <ul>

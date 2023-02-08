@@ -19,6 +19,7 @@ export const activeFilter = {
     background: "var(--primary-color)"
 }
 
+const pageTitle = "news!";
 const News = ({ data: {posts, weAre} }) => {
     const { width } = useWindowDimensions();
     const ref = useRef(null);
@@ -93,7 +94,7 @@ const News = ({ data: {posts, weAre} }) => {
     }, [filters, dateSort])
 
     return (
-        <Layout headerRef={ref}>
+        <Layout headerRef={ref} pageTitle={pageTitle}>
             <SlideMenu categories={categories} 
             view={view} changeView={setView}
             filters = {filters} handleFilter={handleFilter}
@@ -107,7 +108,7 @@ const News = ({ data: {posts, weAre} }) => {
                     we are
                 </div>
             </SlideMenu>
-            <PageTitle headerHeight={headerHeight} title={"news!"} />
+            <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch}/>
             <section className={styles.content}>
                     <SideBar headerHeight={headerHeight}>

@@ -47,7 +47,7 @@ const Approaches = () => {
             className={styles.downloadBtn}>
                 <div>download?</div>
                 <span>studio-true<br></br>_approaches.pdf</span>
-            </a> className={styles.downloadBtn}
+            </a>
         </div>
     )
 }

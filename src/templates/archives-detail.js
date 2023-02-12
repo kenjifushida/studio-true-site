@@ -173,9 +173,6 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
                     </div>
                     <div className={styles.article}>
                         <p className={styles.title} ref={ref}>{archiveArticle.title}</p>
-                        <div className={styles.imgContainer}>
-                            {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={archiveArticle.title}/> : null}
-                        </div>
                         <div className={styles.content} dangerouslySetInnerHTML={{__html: archiveArticle.content}}>
                         </div>
                         <div className={styles.bottomLinks}>

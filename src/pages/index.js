@@ -91,6 +91,7 @@ export const query = graphql`
   query MyQuery {
     news: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}
+      sort: {date: DESC}
     ) {
       edges {
         node {

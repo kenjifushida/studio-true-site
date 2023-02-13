@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState, useEffect, useRef } from "react"
-import { graphql, Link} from "gatsby"
+import { graphql} from "gatsby"
 import * as styles from "../styles/archive.module.scss"
 import * as slideMenuStyles from "../styles/slideMenu.module.scss"
 
@@ -132,18 +132,20 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
               dateSort={dateSort} setDateSort={setDateSort} >
-                <div className={slideMenuStyles.option}
-                    onClick={()=>setDateSort(!dateSort)}
-                    style={dateSort ? activeFilter : {}}>
-                        date
-                </div>
-                {categories.map((category, idx) => (
-                    <div key={idx} onClick={() => changeFilter(idx)}
-                    className={slideMenuStyles.option} 
-                    style={currFilter === idx ? activeFilter : {}}>
-                      {category.category}
-                    </div>
-                ))}
+                <ul>
+                    <li className={slideMenuStyles.option}
+                        onClick={()=>setDateSort(!dateSort)}
+                        style={dateSort ? activeFilter : {}}>
+                            date
+                    </li>
+                    {categories.map((category, idx) => (
+                        <li key={idx} onClick={() => changeFilter(idx)}
+                        className={slideMenuStyles.option} 
+                        style={currFilter === idx ? activeFilter : {}}>
+                        {category.category}
+                        </li>
+                    ))}
+                </ul>
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch} />

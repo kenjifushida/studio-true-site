@@ -7,6 +7,7 @@ import Approaches from "../components/approaches"
 import Layout from "../components/layout"
 import Members from "../components/members"
 import Seo from "../components/seo"
+import SlideMenu from "../components/slideMenu"
 import SideBar from "../components/sideBar"
 import PageTitle from "../components/pageTitle"
 import Vision from "../components/vision"
@@ -15,6 +16,10 @@ import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const initialState = [
   false, false, false, false
+]
+
+const sectionNames = [
+  "vision", "approaches", "actions", "members"
 ]
 
 const About = ({ location }) => {
@@ -77,6 +82,30 @@ const About = ({ location }) => {
   return (
   <Layout headerRef={ref} pageTitle="about!">
     <PageTitle headerHeight={headerHeight} title={"about!"}/>
+    <SlideMenu>
+        <ul>
+          <li onClick={() => changeFilter(0)} 
+            style={{background: filtered[0] ? "var(--primary-color)" : "var(--box-bg)"}}
+            >vision</li>
+          <li onClick={() => changeFilter(1)}
+          style={{background: filtered[1] ? "var(--primary-color)" : "var(--box-bg)"}}
+          >approaches</li>
+          <li onClick={() => changeFilter(2)}
+          style={{background: filtered[2] ? "var(--primary-color)" : "var(--box-bg)"}}
+          >actions</li>
+          <li onClick={() => changeFilter(3)}
+          style={{background: filtered[3] ? "var(--primary-color)" : "var(--box-bg)"}}
+          >members</li>
+        </ul>
+        {filtered[3] ? 
+        <ul>
+          <li onClick={() => changeSelectedMember(0)}
+          style={{background: selectedMember === 0 ? "var(--primary-color)" : "var(--box-bg)"}}>rei</li>
+          <li onClick={() => changeSelectedMember(1)}
+          style={{background: selectedMember ===1 ? "var(--primary-color)" : "var(--box-bg)"}}>taiga</li>
+        </ul>
+        : null}
+    </SlideMenu>
     <div className={styles.content}>
       <SideBar headerHeight={headerHeight}>
         <ul>

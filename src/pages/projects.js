@@ -122,18 +122,20 @@ const Projects = ({ data: { posts, places, actions} }) => {
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
               dateSort={dateSort} setDateSort={setDateSort} >
-                <div className={slideMenuStyles.option}
-                    onClick={()=>setDateSort(!dateSort)}
-                    style={dateSort ? activeFilter : {}}>
-                        date
-                </div>
-                {categories.map((category, idx) => (
-                    <div key={idx} onClick={() => changeFilter(idx)}
-                      className={slideMenuStyles.option} 
-                      style={currFilter === idx ? activeFilter : {}}>
-                        {category.category}
-                    </div>
-                ))}
+                <ul>
+                    <li className={slideMenuStyles.option}
+                        onClick={()=>setDateSort(!dateSort)}
+                        style={dateSort ? activeFilter : {}}>
+                            date
+                    </li>
+                    {categories.map((category, idx) => (
+                        <li key={idx} onClick={() => changeFilter(idx)}
+                        className={slideMenuStyles.option} 
+                        style={currFilter === idx ? activeFilter : {}}>
+                            {category.category}
+                        </li>
+                    ))}
+                </ul>
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch} />

@@ -25,19 +25,19 @@ const SlideMenu = ({
             style={active ? activeMenu : {}}>menu</div>
             <div className={styles.wrapper} style={active ? {height:"15rem"}: {height:"0"}}>
                 <div className={styles.slideMenu}>
-                <ViewToggle view={view} changeView={changeView} className={styles.viewSwitch}/>
-                <div className={styles.row}>
+                    <ViewToggle view={view} changeView={changeView} className={styles.viewSwitch}/>
                     {children}
-                </div>
-                <div className={styles.row}>
-                    {categories.map((category, idx) => (
-                        <div key={idx} className={styles.option}
-                        onClick={()=>handleFilter(idx)}
-                        style={filters[0] && idx==0 ? activeFilter: 
-                            filters[idx] && !filters[0] ? activeFilter:{}}
-                        >{category}</div>
-                    ))}
-                </div>
+                    {categories ?
+                    <ul className={styles.row}>
+                        {categories.map((category, idx) => (
+                            <li key={idx} className={styles.option}
+                            onClick={()=>handleFilter(idx)}
+                            style={filters[0] && idx==0 ? activeFilter: 
+                                filters[idx] && !filters[0] ? activeFilter:{}}
+                            >{category}</li>
+                        ))}
+                    </ul> : null
+                    }
                 </div>
             </div>
         </>

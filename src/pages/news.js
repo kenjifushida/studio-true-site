@@ -99,14 +99,16 @@ const News = ({ data: {posts, weAre} }) => {
             view={view} changeView={setView}
             filters = {filters} handleFilter={handleFilter}
             dateSort={dateSort} setDateSort={setDateSort} >
-                <div className={childStyles.option}
-                    onClick={()=>setDateSort(!dateSort)}
-                    style={dateSort ? activeFilter : {}}>
-                        date
-                </div>
-                <div className={childStyles.option} style={activeFilter}>
-                    we are
-                </div>
+                <ul>
+                    <li className={childStyles.option}
+                        onClick={()=>setDateSort(!dateSort)}
+                        style={dateSort ? activeFilter : {}}>
+                            date
+                    </li>
+                    <li className={childStyles.option} style={activeFilter}>
+                        we are
+                    </li>
+                </ul>
             </SlideMenu>
             <PageTitle headerHeight={headerHeight} title={pageTitle} />
             <ViewToggle className={styles.viewSwitch}/>

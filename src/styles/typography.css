@@ -29,11 +29,11 @@
 }
 
 @font-face {
-    font-family: "YuMin Medium";
-    src: url("../fonts/yumincho-medium.woff2");
+    font-family: "YuMin Extrabold";
+    src: url("../fonts/YuMin-Extrabold-AlphaNum-03.woff2");
 }
 
 @font-face {
-    font-family: "YuMin Extrabold";
-    src: url("../fonts/YuMin-Extrabold-AlphaNum-03.woff2");
+    font-family: "Noto Serif Bold";
+    src: url("../fonts/NotoSerifJP-Bold.otf") format("opentype");
 }

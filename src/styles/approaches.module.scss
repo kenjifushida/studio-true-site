@@ -15,7 +15,7 @@
             width: 100%;
             height: 100%;
             .approach-post-title {
-                font-family: "YuMin Extrabold";
+                font-family: "Noto Serif Bold";
                 font-size: 1rem;
                 margin-bottom: 0.5rem;
             }
@@ -26,7 +26,7 @@
             }
         }
         .approach-overlay {
-            font-family: "YuMin Extrabold", "Avenir Next Medium";
+            font-family: "Avenir Next Medium";
             position: absolute;
             top: 0;
             left: 0;
@@ -39,6 +39,9 @@
             display: flex;
             flex-direction: column;
             gap: 10%;
+            .approach-top-title {
+                font-family: "Noto Serif Bold";
+            }
             .approach-overlay-title {
                 font-size: 1.5rem;
                 font-style: italic;

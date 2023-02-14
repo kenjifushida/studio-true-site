@@ -17,14 +17,20 @@ import { activeFilter } from "./news"
 import { findAction, findPlace } from "../hooks/findCategory"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
+import { useIntl } from "gatsby-plugin-react-intl"
+
 const pageTitle = "projects!";
-const Projects = ({ data: { posts, places, actions} }) => {
+const Projects = ({ data: { posts, postsEnglish, places, actions} }) => {
+    // sidebar sticky height
     const { width } = useWindowDimensions();
     const ref = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
-    }, [ref, width])
+    }, [ref, width]);
+
+    // categories and posts preprocessing
+    const intl = useIntl();
     const categories = [
         {
             category: "place",
@@ -36,11 +42,12 @@ const Projects = ({ data: { posts, places, actions} }) => {
             options: ["all", ...actions.nodes.map(node=>node.name)],
             states: [true, ...actions.nodes.map(node=> true)]
         },
-    ]
-    const projects = posts.edges.map(project => ({
+    ];
+    const initialProjects = intl.locale === "ja" ? posts : postsEnglish;
+    const projects = initialProjects.edges.map(project => ({
         date: project.node.date,
-        name: project.node.title,
-        desc: project.node.excerpt,
+        name: intl.locale === "ja" ? project.node.title : project.node.translations[0].title,
+        desc: intl.locale === "ja" ? project.node.excerpt : project.node.translations[0].excerpt,
         slug: `/projects/${project.node.slug}`,
         img: project.node.featuredImage?.node.gatsbyImage,
         actions: findAction(project),
@@ -171,36 +178,74 @@ export default Projects
 
 export const projectsQuery = graphql`
 query MyQuery {
-    posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}) {
-      edges {
-        node {
-          date(formatString: "YYYY-MM-DD")
-          title
-          slug
-          author {
+    posts: allWpPost(
+        filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+        ) {
+        edges {
             node {
-              firstName
-              lastName
-            }
-          }
-          excerpt
-          categories {
-            nodes {
-              name
-              ancestors {
-                nodes {
-                  name
+            date(formatString: "YYYY-MM-DD")
+            title
+            slug
+            author {
+                node {
+                firstName
+                lastName
                 }
+            }
+            excerpt
+            categories {
+                nodes {
+                name
+                ancestors {
+                    nodes {
+                    name
+                    }
+                }
+                }
+            }
+            featuredImage {
+                node {
+                gatsbyImage(width: 720)
+                }
+            }
+            }
+        }
+    }
+    postsEnglish: allWpPost(
+        filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+        ) {
+        edges {
+            node {
+            date(formatString: "YYYY-MM-DD")
+            slug
+            author {
+                node {
+                firstName
+                lastName
+                }
+            }
+            categories {
+                nodes {
+                name
+                ancestors {
+                    nodes {
+                    name
+                    }
+                }
+                }
+            }
+            featuredImage {
+                node {
+                gatsbyImage(width: 720)
+                }
+            }
+            translations {
+                slug
+                title
+                excerpt
               }
             }
-          }
-          featuredImage {
-            node {
-              gatsbyImage(width: 720)
-            }
-          }
         }
-      }
     }
     places: allWpCategory(
         filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}

@@ -10,10 +10,9 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { useIntl } from "gatsby-plugin-react-intl"
 
-const NewsDetail = ({ data: { post, posts, places, actions} }) => {
-    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
+const NewsDetail = ({ data: { post, posts, postsEnglish, places, actions} }) => {
     const categories = [
         {
             category: "place",
@@ -25,11 +24,12 @@ const NewsDetail = ({ data: { post, posts, places, actions} }) => {
             options: ["all", ...actions.nodes.map(node=>node.name)],
             states: [true, ...actions.nodes.map(node=> true)]
         },
-    ]
+    ];
+    // posts preprocessing
+    const intl = useIntl();
     const projectArticle = {
-        title: post.title,
-        img: "",
-        content: post.content,
+        title: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].title : post.title,
+        content: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].content : post.content,
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
         actions: "make to platform",
@@ -40,10 +40,10 @@ const NewsDetail = ({ data: { post, posts, places, actions} }) => {
             return hasPlace !== -1 ? hasPlace.name : "";
         },
     };
-
-    const projects = posts.edges.map(post => ({
+    const initialPosts = intl.locale === "ja" ? posts : postsEnglish;
+    const projects = initialPosts.edges.map(post => ({
         date: post.node.date,
-        title: post.node.title,
+        title: intl.locale === "ja" ? post.node.title : post.node.translations[0].title,
         slug: `/projects/${post.node.slug}`,
         actions: "make to platform",
         place: () => {
@@ -201,6 +201,11 @@ export const pageQuery = graphql`
                   gatsbyImage(width: 720)
                 }
             }
+            translations {
+                title
+                excerpt
+                content
+            }
         }
         posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}) {
             edges {
@@ -217,6 +222,30 @@ export const pageQuery = graphql`
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+        postsEnglish: allWpPost(
+            filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+            ) {
+            edges {
+                node {
+                    title
+                    slug
+                    date(formatString: "YYYY-MM-DD")
+                    categories {
+                        nodes {
+                            name
+                            ancestors {
+                                nodes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    translations {
+                        title
                     }
                 }
             }

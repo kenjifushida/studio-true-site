@@ -22,12 +22,12 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `)
   news.data.allWpPost.edges.forEach(post => {
-    const slug = post.node.slug
+    const slug = post.node.slug;
     actions.createPage({
       path: `/news/${slug}`,
       component: require.resolve(`./src/templates/news-detail.js`),
       context: { slug: slug },
-    })
+    });
   })
 
   const projects = await graphql(`

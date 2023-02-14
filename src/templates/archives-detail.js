@@ -10,10 +10,9 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { useIntl } from "gatsby-plugin-react-intl"
 
-const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) => {
-    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
+const NewsDetail = ({ data: {post, posts, postsEnglish, places, media, projects, authors} }) => {
     const categories = [
         {
             category: "projects",
@@ -36,9 +35,11 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
             states: [true, ...media.nodes.map(node=> true)]
         },
     ];
+    //preprocessing posts
+    const intl = useIntl();
     const archiveArticle = {
-        title: post.title,
-        content: post.content,
+        title: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].title : post.title,
+        content: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].content : post.content,
         by: post.author.node.firstName.toLowerCase(),
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
@@ -52,10 +53,10 @@ const NewsDetail = ({ data: {post, posts, places, media, projects, authors} }) =
         project: "",
 
     };
-
-    const archivesArticles = posts.edges.map(post => ({
+    const initialPosts = intl.locale === "ja" ? posts : postsEnglish;
+    const archivesArticles = initialPosts.edges.map(post => ({
         date: post.node.date,
-        title: post.node.title,
+        title: intl.locale === "ja" ? post.node.title : post.node.translations[0].title,
         by: post.node.author.node.firstName.toLowerCase(),
         slug: `/archives/${post.node.slug}`,
         place: () => {
@@ -217,8 +218,15 @@ export const pageQuery = graphql`
                   gatsbyImage(width: 720)
                 }
             }
+            translations {
+                title
+                excerpt
+                content
+            }
         }
-        posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}) {
+        posts: allWpPost(
+            filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
+            ) {
             edges {
                 node {
                     title
@@ -239,6 +247,36 @@ export const pageQuery = graphql`
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+        postsEnglish: allWpPost(
+            filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+            ) {
+            edges {
+                node {
+                    title
+                    slug
+                    date(formatString: "YYYY-MM-DD")
+                    author {
+                        node {
+                            firstName
+                            lastName
+                        }
+                    }
+                    categories {
+                        nodes {
+                            name
+                            ancestors {
+                                nodes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    translations {
+                        title
                     }
                 }
             }

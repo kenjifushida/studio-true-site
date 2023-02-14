@@ -6,7 +6,7 @@ import * as styles from "../styles/mainArchives.module.scss"
 
 const MainArchives = ({filteredArchives}) => {
     const lines = [...Array(15).keys()];
-    const {viewMode, setViewMode } = React.useContext(ThemeContext);
+    const {viewMode } = React.useContext(ThemeContext);
 
     if(!viewMode) {
         return null;
@@ -46,7 +46,7 @@ const MainArchives = ({filteredArchives}) => {
                                         </div>
                                     </div>
                                     <div className={styles.readMore}>read more...</div>
-                                    <div>{archive.engTitle}</div>
+                                    <div style={{maxWidth: "75%"}} dangerouslySetInnerHTML={{__html: archive.desc}}></div>
                                     <div className={styles.author}>{archive.by}</div>
                                 </div>
                             </div>

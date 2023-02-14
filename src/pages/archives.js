@@ -17,9 +17,13 @@ import useWindowDimensions from "../hooks/useWindowDimensions"
 
 import { findPlace } from "../hooks/findCategory"
 
+import { useIntl } from "gatsby-plugin-react-intl"
+
 const pageTitle = "archives!"
 
-const Archives = ({data: {posts, places, media, projects, authors}}) => {
+const Archives = ({data: {posts, postsEnglish, places, media, projects, authors}}) => {
+    // categories and posts preprocessing
+    const intl = useIntl();
     const categories = [
         {
             category: "projects",
@@ -42,9 +46,10 @@ const Archives = ({data: {posts, places, media, projects, authors}}) => {
             states: [true, ...media.nodes.map(node=> true)]
         },
     ];
-    const archives = posts.edges.map(archive => ({
-        title: archive.node.title,
-        engTitle: archive.node.title,
+    const initialArchives = intl.locale === "ja" ? posts : postsEnglish;
+    const archives = initialArchives.edges.map(archive => ({
+        title: intl.locale === "ja" ? archive.node.title : archive.node.translations[0].title,
+        desc: intl.locale === "ja" ? archive.node.excerpt : archive.node.translations[0].excerpt,
         by: `${archive.node.author.node.firstName}`,
         date: archive.node.date,
         slug: `/archives/${archive.node.slug}`,
@@ -183,36 +188,74 @@ export default Archives
 
 export const archivesQuery = graphql`
 query MyQuery {
-    posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}) {
-      edges {
-        node {
-          date(formatString: "YYYY-MM-DD")
-          title
-          slug
-          author {
+    posts: allWpPost(
+        filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
+        ) {
+        edges {
             node {
-              firstName
-              lastName
-            }
-          }
-          excerpt
-          categories {
-            nodes {
-              name
-              ancestors {
-                nodes {
-                  name
+            date(formatString: "YYYY-MM-DD")
+            title
+            slug
+            author {
+                node {
+                firstName
+                lastName
                 }
-              }
             }
-          }
-          featuredImage {
-            node {
-              gatsbyImage(width: 720)
+            excerpt
+            categories {
+                nodes {
+                name
+                ancestors {
+                    nodes {
+                    name
+                    }
+                }
+                }
             }
-          }
+            featuredImage {
+                node {
+                gatsbyImage(width: 720)
+                }
+            }
+            }
         }
-      }
+    }
+    postsEnglish: allWpPost(
+        filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+        ) {
+        edges {
+            node {
+            date(formatString: "YYYY-MM-DD")
+            slug
+            author {
+                node {
+                firstName
+                lastName
+                }
+            }
+            categories {
+                nodes {
+                name
+                ancestors {
+                    nodes {
+                    name
+                    }
+                }
+                }
+            }
+            featuredImage {
+                node {
+                gatsbyImage(width: 720)
+                }
+            }
+            translations {
+                slug
+                title
+                excerpt
+            }
+            }
+        }
     }
     places: allWpCategory(
         filter: {ancestors: {nodes: {elemMatch: {name: {eq: "place"}}}}}

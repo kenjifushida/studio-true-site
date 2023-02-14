@@ -1,5 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import { getImage } from "gatsby-plugin-image"
 import * as styles from "../styles/index.module.scss"
 
 import Layout from "../components/layout"
@@ -8,8 +9,8 @@ import MenuRow from "../components/menuRow"
 import Seo from "../components/seo"
 
 import { getVision, getApproaches, getActions } from "../hooks/aboutInformation"
+import { useIntl } from "gatsby-plugin-react-intl"
 
-import { getImage } from "gatsby-plugin-image"
 
 const menuOptions = [
   {
@@ -48,24 +49,29 @@ actions.forEach((action) => {
   })
 });
 
-const IndexPage = ({ data: { news, projects, archives } }) => {
-  menuOptions[0].posts = news.edges.map(post=> ({
-    title: post.node.title,
-    desc: post.node.excerpt,
+const IndexPage = ({ data: { news, newsEnglish, projects, projectsEnglish, archives, archivesEnglish } }) => {
+  const intl = useIntl();
+  const initialNews = intl.locale === "ja" ? news : newsEnglish;
+  const initialProjects = intl.locale === "ja" ? projects : projectsEnglish;
+  const initialArchives = intl.locale === "ja" ? archives : archivesEnglish;
+  
+  menuOptions[0].posts = initialNews.edges.map(post=> ({
+    title: intl.locale === "ja" ? post.node.title : post.node.translations[0]?.title,
+    desc: intl.locale === "ja" ? post.node.excerpt : post.node.translations[0]?.excerpt,
     date: post.node.date,
     slug: `/news/${post.node.slug}`,
     img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
-  menuOptions[1].posts = projects.edges.map(post=> ({
-    title: post.node.title,
-    desc: post.node.excerpt,
+  menuOptions[1].posts = initialProjects.edges.map(post=> ({
+    title: intl.locale === "ja" ? post.node.title : post.node.translations[0]?.title,
+    desc: intl.locale === "ja" ? post.node.excerpt : post.node.translations[0]?.excerpt,
     date: post.node.date,
     slug: `/projects/${post.node.slug}`,
     img: getImage(post.node.featuredImage?.node.gatsbyImage)
   }));
-  menuOptions[2].posts = archives.edges.map(post=> ({
-    title: post.node.title,
-    desc: post.node.excerpt,
+  menuOptions[2].posts = initialArchives.edges.map(post=> ({
+    title: intl.locale === "ja" ? post.node.title : post.node.translations[0]?.title,
+    desc: intl.locale === "ja" ? post.node.excerpt : post.node.translations[0]?.excerpt,
     date: post.node.date,
     slug: `/archives/${post.node.slug}`,
     img: getImage(post.node.featuredImage?.node.gatsbyImage)
@@ -76,7 +82,7 @@ const IndexPage = ({ data: { news, projects, archives } }) => {
       <div className={styles.content}>
         <MenuRow posts={aboutPosts} option={"about"}/>
         {menuOptions.map((option, idx) => (
-          <MenuRow posts={option.posts} option={option.option} />
+          <MenuRow key={idx} posts={option.posts} option={option.option} />
         ))}
       </div>
       <Links />
@@ -113,6 +119,33 @@ export const query = graphql`
         }
       }
     }
+    newsEnglish: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+      sort: {date: DESC}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          slug
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
+          translations {
+            slug
+            title
+            excerpt
+          }
+        }
+      }
+    }
     projects: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
     ) {
@@ -136,6 +169,33 @@ export const query = graphql`
         }
       }
     }
+    projectsEnglish: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+      sort: {date: DESC}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          slug
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
+          translations {
+            slug
+            title
+            excerpt
+          }
+        }
+      }
+    }
     archives: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
     ) {
@@ -155,6 +215,33 @@ export const query = graphql`
             node {
               gatsbyImage(width: 720)
             }
+          }
+        }
+      }
+    }
+    archivesEnglish: allWpPost(
+      filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+      sort: {date: DESC}
+    ) {
+      edges {
+        node {
+          date(formatString: "YYYY-MM-DD")
+          slug
+          author {
+            node {
+              firstName
+              lastName
+            }
+          }
+          featuredImage {
+            node {
+              gatsbyImage(width: 720)
+            }
+          }
+          translations {
+            slug
+            title
+            excerpt
           }
         }
       }

@@ -14,13 +14,15 @@ import ViewToggle from "../components/viewToggle"
 
 import findCategory from "../hooks/findCategory"
 import useWindowDimensions from "../hooks/useWindowDimensions"
+import { useIntl } from "gatsby-plugin-react-intl"
 
 export const activeFilter = {
     background: "var(--primary-color)"
 }
 
 const pageTitle = "news!";
-const News = ({ data: {posts, weAre} }) => {
+const News = ({ data: {posts, postsEnglish, weAre} }) => {
+    // sidebar height
     const { width } = useWindowDimensions();
     const ref = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
@@ -29,11 +31,15 @@ const News = ({ data: {posts, weAre} }) => {
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
     }, [ref, width])
+
+    // preprocessing initial news and categories
+    const intl = useIntl();
     const categories = ["all", ...weAre.nodes.map(node=>node.name)];
-    const newsArticles = posts.edges.map(news => ({
+    const initialNews = intl.locale === "ja" ? posts : postsEnglish;
+    const newsArticles = initialNews.edges.map(news => ({
         date: news.node.date,
-        title: news.node.title,
-        desc: news.node.excerpt,
+        title: intl.locale === "ja" ? news.node.title : news.node.translations[0].title,
+        desc: intl.locale === "ja" ? news.node.excerpt : news.node.translations[0].excerpt,
         slug: `/news/${news.node.slug}`,
         category: findCategory(news),
         img: news.node.featuredImage?.node.gatsbyImage,
@@ -174,6 +180,42 @@ query MyQuery {
         }
       }
     }
+    postsEnglish: allWpPost(
+        filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+        ) {
+        edges {
+          node {
+            date(formatString: "YYYY-MM-DD")
+            slug
+            author {
+              node {
+                firstName
+                lastName
+              }
+            }
+            categories {
+              nodes {
+                name
+                ancestors {
+                  nodes {
+                    name
+                  }
+                }
+              }
+            }
+            featuredImage {
+              node {
+                gatsbyImage(width: 720)
+              }
+            }
+            translations {
+                slug
+                title
+                excerpt
+            }
+          }
+        }
+      }
     weAre: allWpCategory(
         filter: {ancestors: {nodes: {elemMatch: {name: {eq: "we are"}}}}}
       ) {

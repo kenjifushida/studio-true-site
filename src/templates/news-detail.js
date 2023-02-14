@@ -10,16 +10,16 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import findCategory from "../hooks/findCategory"
+import { useIntl } from "gatsby-plugin-react-intl"
 
-const NewsDetail = ({ data: {post, posts, weAre} }) => {
-    const featuredImage = getImage(post.featuredImage?.node.gatsbyImage);
+const NewsDetail = ({ data: {post, posts, postsEnglish, weAre} }) => {
+    // posts preprocessing
+    const intl = useIntl();
     const categories = ["all", ...weAre.nodes.map(node=>node.name)];
     const newsArticle = {
-        title: post.title,
-        img: "",
-        content: post.content,
+        title: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].title : post.title,
+        content: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].content : post.content,
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
         category: () => {
@@ -29,10 +29,10 @@ const NewsDetail = ({ data: {post, posts, weAre} }) => {
             return hasCategory !== undefined ? hasCategory.name : ""
             }
     };
-
-    const newsArticles = posts.edges.map(news => ({
+    const initialPosts = intl.locale === "ja" ? posts : postsEnglish;
+    const newsArticles = initialPosts.edges.map(news => ({
         date: news.node.date,
-        title: news.node.title,
+        title: intl.locale === "ja" ? news.node.title : news.node.translations[0].title,
         slug: `/news/${news.node.slug}`,
         category: findCategory(news)
     }));
@@ -178,6 +178,11 @@ export const pageQuery = graphql`
                   gatsbyImage(width: 720)
                 }
             }
+            translations {
+                title
+                excerpt
+                content
+            }
         }
         posts: allWpPost(filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}) {
             edges {
@@ -194,6 +199,30 @@ export const pageQuery = graphql`
                       }
                     }
                   }
+                }
+              }
+            }
+        }
+        postsEnglish: allWpPost(
+            filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
+            ) {
+            edges {
+              node {
+                title
+                slug
+                date(formatString: "YYYY-MM-DD")
+                categories {
+                  nodes {
+                    name
+                    ancestors {
+                      nodes {
+                        name
+                      }
+                    }
+                  }
+                }
+                translations {
+                    title
                 }
               }
             }

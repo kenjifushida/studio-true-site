@@ -3,111 +3,14 @@ import { Link } from "gatsby"
 import * as styles from "../styles/members.module.scss"
 
 import SectionTitle from "./sectionTitle"
+import { getMembers } from "../hooks/aboutInformation"
 
-const members = [
-    {
-      name: "Rei Terauchi",
-      kanji: "寺内 玲",
-      birth: "1997年",
-      origin: "静岡県長泉町",
-      education: [
-        "慶應義塾大学環境情報学部卒業",
-        "Institute for advanced architecture of Catalonia Master in Design for Emergent Futures"
-      ],
-      page: "/rei",
-      left: [
-        {
-          name: "mail",
-          content: "rei[at]studio-ture.net",
-        },
-        {
-          name: "tel",
-          content: "080-7442-7180",
-        }
-      ],
-      center: [
-        {
-          name: "instagram",
-          content: "ponpon0505",
-          link: "https://www.instagram.com/ponpon0505"
-        },
-        {
-          name: "podcast",
-          content: "kasenzikiradio",
-        },
-        {
-          name: "twitter",
-          content: "@fujisanrei",
-          link: "https://twitter.com/fujisanrei"
-        },
-        {
-          name: "portfolio",
-          content: "portfolio",
-          link: "/documents/rei_portfolio.pdf"
-        },
-        {
-          name: "medium",
-          content: "@reiterauchi",
-          link: "https://medium.com/@reiterauchi"
-        }
-      ],
-      spotify: "spotify"
-    },
-    {
-      name: "Taiga Matsuoka",
-      kanji: "松岡 大雅",
-      birth: "1995年",
-      origin: "静岡県長泉町",
-      education: [
-        "慶應義塾大学環境情報学部卒業",
-        "Institute for advanced architecture of Catalonia Master in Design for Emergent Futures"
-      ],
-      page: "/taiga",
-      left: [
-        {
-          name: "mail",
-          content: "taiga[at]studio-true.net",
-        },
-        {
-          name: "tell",
-          content: "080-9665-7230",
-        }
-      ],
-      center: [
-        {
-          name: "instagram",
-          content: "taigamatsuoka",
-          link: "https://www.instagram.com/taigamatsuoka/"
-        },
-        {
-          name: "podcast",
-          content: "河川敷のようなラジオ",
-          link: "https://linktr.ee/kasenzikiradio"
-        },
-        {
-          name: "twitter",
-          content: "@Taiga0628",
-          link: "https://twitter.com/Taiga0628"
-        },
-        {
-          name: "master thesis",
-          content: "廃棄物の転用による、つくることの探究",
-        },
-        {
-          name: "portfolio",
-          content: "2022.10",
-        },
-        {
-          name: "note",
-          content: "Taiga Matsuoka",
-          link: "https://note.com/taigamatsuoka"
-        }
-      ],
-      spotify: "spotify"
-    }
-]
+import { useIntl } from "gatsby-plugin-react-intl"
+
+const members = getMembers();
 
 const Members = ({ memberState, changeSelectedMember }) => {
+  const intl = useIntl();
     return (
       <div>
           {memberState >= 0 ?
@@ -115,11 +18,11 @@ const Members = ({ memberState, changeSelectedMember }) => {
             <div className={styles.profile}>
               <div className={styles.profilePic}></div>
               <div className={styles.info}>
-                <div>{members[memberState].kanji}</div>
-                <p>{members[memberState].birth}生まれ</p>
-                <p>{members[memberState].origin}出身</p>
+                <div>{intl.locale === "ja" ? members[memberState].kanji : members[memberState].name}</div>
+                <p>{intl.formatMessage({id: members[memberState].birth})}</p>
+                <p>{intl.formatMessage({id: members[memberState].origin})}</p>
                 {members[memberState].education.map((school, idx) => (
-                  <p key={idx}>{school}</p>
+                  <p key={idx}>{intl.formatMessage({id: school})}</p>
                 ))}
               </div>
             </div>

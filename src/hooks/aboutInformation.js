@@ -37,23 +37,23 @@ export const getActions = () => {
         {
             japTitle: "サーキューラーデザイン",
             engTitle: "Circular Design",
-            desc: "私たちは環境問題に向き合い、新しい資源の循環を設計し、そのサイクルの中でものづくりを行います。単なるものづくりに終始せず、使われる素材や廃棄されることを考えながら制作に取り組みます。個人のみならず集団もエンパワーメントすることで、新しい循環を支える仕組みから設計します。",
+            desc: "actions.0.desc",
             tags: [
                 {
-                    name: "マテリアル",
-                    desc: "自然素材や廃棄物などを採集し、これらを用いたマテリアルを開発し、新しい利用方法を提案します。"
+                    name: "actions.0.tags.0.name",
+                    desc: "actions.0.tags.0.desc"
                 },
                 {
-                    name: "ゴミ",
-                    desc: "ゴミや廃材を再び資源として集め、こうした廃棄物を転用したプロダクトや空間を設計します。"
+                    name: "actions.0.tags.1.name",
+                    desc: "actions.0.tags.1.desc"
                 },
                 {
-                    name: "修理",
-                    desc: "家具や建物からインフラまでを修理することで、持続可能な未来と都市の新しいつながりを生み出します。"
+                    name: "actions.0.tags.2.name",
+                    desc: "actions.0.tags.2.desc"
                 },
                 {
-                    name: "食品",
-                    desc: "廃棄された食品を地域で堆肥化し、地産地消の新しいサイクルをつくることで、地域コミュニティを盛り上げます。"
+                    name: "actions.0.tags.3.name",
+                    desc: "actions.0.tags.3.desc"
                 },
             ],
             filter: [false, false, true, false]
@@ -61,27 +61,27 @@ export const getActions = () => {
         {
             japTitle: "建築・都市",
             engTitle: "Architecture and Urbanism",
-            desc: "私たちはまちに存在するあらゆる問題に向き合い、人々とともに問題を乗り越えていくために、幅広く建築と都市のデザインに取り組みます。市民や企業、行政などとともに活動を展開し、コミュニティを形成・運営します。こうした活動を持続可能にするために、まちづくりや政策にまでアプローチします。",
+            desc: "actions.1.desc",
             tags: [
                 {
-                    name: "空間デザイン",
-                    desc: "自然素材や廃棄物などを採集し、これらを用いたマテリアルを開発し、新しい利用方法を提案します。"
+                    name: "actions.1.tags.0.name",
+                    desc: "actions.1.tags.0.desc"
                 },
                 {
-                    name: "公共空間",
-                    desc: "都市のなかで私たち市民の場所を生み出していくために、ストリートファニチャーのデザインからイベントの企画・運営も行います。"
+                    name: "actions.1.tags.1.name",
+                    desc: "actions.1.tags.1.desc"
                 },
                 {
-                    name: "ローカル",
-                    desc: "まちに開かれた場所やコミュニティの企画・運営から、地域のセーフティネットを設計します。"
+                    name: "actions.1.tags.2.name",
+                    desc: "actions.1.tags.2.desc"
                 },
                 {
-                    name: "まちづくり",
-                    desc: "まちのビジョンや開発に市民の声を反映させるための調査の実施や、ワークショップなどの開催とファシリテーションをします。"
+                    name: "actions.1.tags.3.name",
+                    desc: "actions.1.tags.3.desc"
                 },
                 {
-                    name: "行政",
-                    desc: "建築や都市に関する専門的な知見や先進的なリサーチを通じて、都市計画や政策のレベルで提案を行います。"
+                    name: "actions.1.tags.4.name",
+                    desc: "actions.1.tags.4.desc"
                 },
             ],
             filter: [false, false, true, false]
@@ -89,54 +89,169 @@ export const getActions = () => {
         {
             japTitle: "パブリケーション",
             engTitle: "Publication",
-            desc: "私たちは出版を通じて、人々の活動をサポートしていきます。企画から編集まで、そしてプロダクトとして完成させるためのグラフィックデザインから印刷まで行います。また印刷物に限らず、webメディアから映像メディアまで幅広く扱います。",
+            desc: "actions.2.desc",
             tags: [
                 {
-                    name: "印刷",
-                    desc: "リソグラフ印刷機を用いて、フライヤーや冊子などあらゆる印刷物を作成します。"
+                    name: "actions.2.tags.0.name",
+                    desc: "actions.2.tags.0.desc"
                 },
                 {
-                    name: "出版",
-                    desc: "自費出版誌（HUMARIZINE）の発刊を続けると同時に、これまでの知見を生かし、あらゆる出版活動を支援します。"
+                    name: "actions.2.tags.1.name",
+                    desc: "actions.2.tags.1.desc"
                 },
                 {
-                    name: "企画・編集",
-                    desc: "私たち独自のネットワークや切り口、専門性をもって、タウンペーパーからデザインなどの専門誌まで企画し、編集します。"
+                    name: "actions.2.tags.2.name",
+                    desc: "actions.2.tags.2.desc"
                 },
                 {
-                    name: "批評",
-                    desc: "デザイン・建築・都市・芸術といった領域への考察から、社会を写し出すテキストをあらゆるメディアで執筆します。"
+                    name: "actions.2.tags.3.name",
+                    desc: "actions.2.tags.3.desc"
                 },
                 {
-                    name: "写真・映像",
-                    desc: "テキストのみならず、写真や映像というメディアを駆使したドキュメンテーションを通じ、記録と作品をつくります。"
+                    name: "actions.2.tags.4.name",
+                    desc: "actions.2.tags.4.desc"
                 },
             ]
         },
         {
             japTitle: "キュレーション",
             engTitle: "Curation",
-            desc: "私たちは多様な人々との連携を通じて、複雑な社会のなかに新しいアクションを生み出していきます。東京から世界までという地理的なスケールから、芸術から社会までという学問的なスケールも横断しながら、あらゆるものごとを再編して、これからのありうべき社会を思索します。",
+            desc: "actions.3.desc",
             tags: [
                 {
-                    name: "コミュニケーション",
-                    desc: "通訳や翻訳といったコミュニケーションのサポートから、国際的なプロジェクトへの参画まで行います。"
+                    name: "actions.3.tags.0.name",
+                    desc: "actions.3.tags.0.desc"
                 },
                 {
-                    name: "共同制作",
-                    desc: "デザイナー・建築家・アーティストなどとの協働を行うと同時に、積極的にコラボレーションに参加します。"
+                    name: "actions.3.tags.1.name",
+                    desc: "actions.3.tags.1.desc"
                 },
                 {
-                    name: "イベント",
-                    desc: "新しい繋がりや価値観、プロジェクトを生み出していくために、イベントの企画や運営を行います。"
+                    name: "actions.3.tags.2.name",
+                    desc: "actions.3.tags.2.desc"
                 },
                 {
-                    name: "展覧会",
-                    desc: "あらゆる作品や事例、情報のキュレーションを行い、展示します。"
+                    name: "actions.3.tags.3.name",
+                    desc: "actions.3.tags.3.desc"
                 },
             ],
             filter: [false, false, true, false]
         },
     ]
     return actions
+}
+
+export const getMembers = () => {
+    const members = [
+        {
+            name: "Rei Terauchi",
+            kanji: "寺内 玲",
+            birth: "members.0.birth",
+            origin: "members.0.origin",
+            education: [
+              "members.0.education.0",
+              "members.0.education.1",
+              "members.0.education.2",
+              "members.0.education.3"
+            ],
+            page: "/rei",
+            left: [
+              {
+                name: "mail",
+                content: "rei[at]studio-ture.net",
+              },
+              {
+                name: "tel",
+                content: "080-7442-7180",
+              }
+            ],
+            center: [
+              {
+                name: "instagram",
+                content: "ponpon0505",
+                link: "https://www.instagram.com/ponpon0505"
+              },
+              {
+                name: "podcast",
+                content: "kasenzikiradio",
+              },
+              {
+                name: "twitter",
+                content: "@fujisanrei",
+                link: "https://twitter.com/fujisanrei"
+              },
+              {
+                name: "master thesis",
+                content: "MDEF 2021-2022",
+                link: "https://drive.google.com/file/d/1zlbgFdXZtRdhuHwarp2h-OcKmLO45aY-/view?usp=sharing"
+              },
+              {
+                name: "portfolio",
+                content: "portfolio",
+                link: "/documents/rei_portfolio.pdf"
+              },
+              {
+                name: "medium",
+                content: "@reiterauchi",
+                link: "https://medium.com/@reiterauchi"
+              }
+            ],
+            spotify: "spotify"
+        },
+        {
+            name: "Taiga Matsuoka",
+            kanji: "松岡 大雅",
+            birth: "members.1.birth",
+            origin: "members.1.origin",
+            education: [
+              "members.1.education.0",
+              "members.1.education.1",
+            ],
+            page: "/taiga",
+            left: [
+              {
+                name: "mail",
+                content: "taiga[at]studio-true.net",
+              },
+              {
+                name: "tell",
+                content: "080-9665-7230",
+              }
+            ],
+            center: [
+              {
+                name: "instagram",
+                content: "taigamatsuoka",
+                link: "https://www.instagram.com/taigamatsuoka/"
+              },
+              {
+                name: "podcast",
+                content: "河川敷のようなラジオ",
+                link: "https://linktr.ee/kasenzikiradio"
+              },
+              {
+                name: "twitter",
+                content: "@Taiga0628",
+                link: "https://twitter.com/Taiga0628"
+              },
+              {
+                name: "master thesis",
+                content: "廃棄物の転用による、つくることの探究",
+                link: "https://drive.google.com/file/d/1bniPj-BxArmtOoywpXOCIBKh5gLBgbgS/view?usp=sharing"
+              },
+              {
+                name: "portfolio",
+                content: "2022.10",
+                link: "https://drive.google.com/file/d/1gg-hUfAYbbfz16scIKqjL4mxB9iszyUs/view?usp=sharing"
+              },
+              {
+                name: "note",
+                content: "Taiga Matsuoka",
+                link: "https://note.com/taigamatsuoka"
+              }
+            ],
+            spotify: "spotify"
+        }
+    ];
+    return members;
 }

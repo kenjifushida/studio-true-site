@@ -7,9 +7,10 @@ import useWindowDimensions from "../hooks/useWindowDimensions"
 // import { useIntl } from "gatsby-plugin-react-intl"
 import { getActions } from "../hooks/aboutInformation"
 import * as styles from "../styles/actions.module.scss"
+import { useIntl } from "gatsby-plugin-react-intl"
 
 const Actions = () => {
-    // const intl = useIntl();
+    const intl = useIntl();
     const actions = getActions();
     const { width } = useWindowDimensions();
     const [currentTagBox, setCurrentTagBox] = useState(actions[0].engTitle);
@@ -24,7 +25,7 @@ const Actions = () => {
             <div style={
                 {
                     display: "flex", flexDirection: "column",
-                    gap: "2.5rem"
+                    gap: "2.5rem", zIndex: "2"
                 }
                 }>
                 {actions.map((action, actionIndex) => (
@@ -36,21 +37,21 @@ const Actions = () => {
                     <div className={styles.innerPost}>
                         <div className={styles.actionContent}>
                             <div className={styles.postTitle}>{action.japTitle}</div>
-                            <div className={styles.postDesc}>{action.desc}</div>
+                            <div className={styles.postDesc}>{intl.formatMessage({id: action.desc})}</div>
                         </div>
                         <div className={styles.hashtags}>
                             {action.tags.map((tag, tagIndex) => (
                                 <div key={tagIndex} 
                                   onMouseEnter={()=>handleTagBox(actionIndex, tagIndex)}
                                   onMouseLeave={()=>setCurrentTagBox("")}
-                                  >#{tag.name}</div>
+                                  >#{intl.formatMessage({id: tag.name})}</div>
                             ))}
                         </div>
                         { width > 720 ? 
                         <div className={styles.tagBox}
                           style={action.engTitle === currentTagBox ? 
                           {display: "block"} : {display:"none"}}>
-                            {currentTag}
+                            {currentTag !== "" ? intl.formatMessage({id: currentTag }) : null}
                         </div> : null
                         }
                     </div>

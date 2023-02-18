@@ -6,17 +6,24 @@ import SectionTitle from "./sectionTitle"
 import { getMembers } from "../hooks/aboutInformation"
 
 import { useIntl } from "gatsby-plugin-react-intl"
+import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image"
 
 const members = getMembers();
 
 const Members = ({ memberState, changeSelectedMember }) => {
   const intl = useIntl();
+  const memberImages = [
+    <StaticImage src="../images/rei.jpg" alt="profile-picture" />, 
+    <StaticImage src="../images/taiga.jpg" alt="profile-picture" />
+  ]
     return (
       <div>
           {memberState >= 0 ?
           <div className={styles.memberContent}>
             <div className={styles.profile}>
-              <div className={styles.profilePic}></div>
+              <div className={styles.profilePic}>
+                {memberImages[memberState]}
+              </div>
               <div className={styles.info}>
                 <div>{intl.locale === "ja" ? members[memberState].kanji : members[memberState].name}</div>
                 <p>{intl.formatMessage({id: members[memberState].birth})}</p>
@@ -26,6 +33,7 @@ const Members = ({ memberState, changeSelectedMember }) => {
                 ))}
               </div>
             </div>
+            <p className={styles.desc}>{intl.formatMessage({id: members[memberState].desc})}</p>
             <div className={styles.left}>
               {members[memberState].left.map((box, idx) => (
                 <div key={idx} className={styles.link}>
@@ -53,7 +61,7 @@ const Members = ({ memberState, changeSelectedMember }) => {
                   {members.map((member, idx) => (
                   <div key={idx} className={styles.member}>
                       <div onClick={()=>changeSelectedMember(idx)} className={styles.innerMember}>
-                        <div>{member.kanji}</div>
+                        <div className={styles.kanji}>{member.kanji}</div>
                         <div>
                             <p>{member.left[0].name}: {member.left[0].content}</p>
                             <p>{member.left[1].name}: {member.left[1].content}</p>

@@ -15,7 +15,7 @@ import MainArchives from "../components/mainArchives"
 import ViewToggle from "../components/viewToggle"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
-import { findPlace } from "../hooks/findCategory"
+import { findPlace } from "../hooks/findSortField"
 
 import { useIntl } from "gatsby-plugin-react-intl"
 
@@ -54,7 +54,7 @@ const Archives = ({data: {posts, postsEnglish, places, media, projects, authors}
         date: archive.node.date,
         slug: `/archives/${archive.node.slug}`,
         img: archive.node.featuredImage?.node.gatsbyImage,
-        place: findPlace(archive),
+        place: findPlace(archive.node),
         media: "",
         projects: ""
     }));
@@ -65,7 +65,7 @@ const Archives = ({data: {posts, postsEnglish, places, media, projects, authors}
     useEffect(() => {
         setHeaderHeight(ref.current.clientHeight);
     }, [ref, width]);
-    const [dateSort, setDateSort] = useState(false);
+    const [dateSort, setDateSort] = useState(true);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredArchives, setFiltered] = useState(archives);

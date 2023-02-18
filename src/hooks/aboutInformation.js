@@ -148,6 +148,8 @@ export const getMembers = () => {
             kanji: "寺内 玲",
             birth: "members.0.birth",
             origin: "members.0.origin",
+            desc: "members.0.desc",
+            img: "../images/rei.jpg",
             education: [
               "members.0.education.0",
               "members.0.education.1",
@@ -203,6 +205,8 @@ export const getMembers = () => {
             kanji: "松岡 大雅",
             birth: "members.1.birth",
             origin: "members.1.origin",
+            desc: "members.1.desc",
+            img: "../images/taiga.jpg",
             education: [
               "members.1.education.0",
               "members.1.education.1",

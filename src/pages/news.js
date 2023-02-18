@@ -12,7 +12,7 @@ import SideBar from "../components/sideBar"
 import SlideMenu from "../components/slideMenu"
 import ViewToggle from "../components/viewToggle"
 
-import findCategory from "../hooks/findCategory"
+import findCategory from "../hooks/findSortField"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import { useIntl } from "gatsby-plugin-react-intl"
 
@@ -41,11 +41,11 @@ const News = ({ data: {posts, postsEnglish, weAre} }) => {
         title: intl.locale === "ja" ? news.node.title : news.node.translations[0].title,
         desc: intl.locale === "ja" ? news.node.excerpt : news.node.translations[0].excerpt,
         slug: `/news/${news.node.slug}`,
-        category: findCategory(news),
+        category: findCategory(news.node),
         img: news.node.featuredImage?.node.gatsbyImage,
     }));
 
-    const [dateSort, setDateSort] = useState(false);
+    const [dateSort, setDateSort] = useState(true);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
 

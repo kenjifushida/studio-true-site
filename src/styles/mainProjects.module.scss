@@ -88,7 +88,12 @@
                 justify-content: center;
                 border: 1px solid var(--color-border);
                 background: var(--box-bg);
-                .title {
+                .name {
+                    text-align: center;
+                    margin: 0;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                     font-size: 1rem;
                 }
                 .date {
@@ -114,6 +119,11 @@
                     flex-direction: row;
                     justify-content: space-between;
                     margin-bottom: 0.5rem;
+                    .name {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
                     .right {
                         font-size: 0.875rem;
                         margin: 0;

@@ -14,7 +14,7 @@ import PageTitle from "../components/pageTitle"
 import ViewToggle from "../components/viewToggle"
 
 import { activeFilter } from "./news"
-import { findAction, findPlace } from "../hooks/findCategory"
+import { findAction, findPlace } from "../hooks/findSortField"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
 import { useIntl } from "gatsby-plugin-react-intl"
@@ -50,11 +50,11 @@ const Projects = ({ data: { posts, postsEnglish, places, actions} }) => {
         desc: intl.locale === "ja" ? project.node.excerpt : project.node.translations[0].excerpt,
         slug: `/projects/${project.node.slug}`,
         img: project.node.featuredImage?.node.gatsbyImage,
-        actions: findAction(project),
-        place: findPlace(project)
+        actions: findAction(project.node),
+        place: findPlace(project.node)
     }));
 
-    const [dateSort, setDateSort] = useState(false);
+    const [dateSort, setDateSort] = useState(true);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredProjects, setFiltered] = useState(projects);

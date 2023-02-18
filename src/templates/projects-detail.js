@@ -11,6 +11,7 @@ import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
 import { useIntl } from "gatsby-plugin-react-intl"
+import { findAction, findPlace } from "../hooks/findSortField"
 
 const NewsDetail = ({ data: { post, posts, postsEnglish, places, actions} }) => {
     const categories = [
@@ -32,31 +33,21 @@ const NewsDetail = ({ data: { post, posts, postsEnglish, places, actions} }) => 
         content: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].content : post.content,
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
-        actions: "make to platform",
-        place: () => {
-            const hasPlace = post.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            )
-            return hasPlace !== -1 ? hasPlace.name : "";
-        },
+        actions: findAction(post),
+        place: findPlace(post),
     };
     const initialPosts = intl.locale === "ja" ? posts : postsEnglish;
     const projects = initialPosts.edges.map(post => ({
         date: post.node.date,
         title: intl.locale === "ja" ? post.node.title : post.node.translations[0].title,
         slug: `/projects/${post.node.slug}`,
-        actions: "make to platform",
-        place: () => {
-            const hasPlace = post.node.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            )
-            return hasPlace !== -1 ? hasPlace.name : "";
-        }
+        actions: findPlace(post.node),
+        place: findPlace(post.node)
     }));
     
     const headerRef = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
-    const [ dateSort, setDateSort ] = useState(false);
+    const [ dateSort, setDateSort ] = useState(true);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories[currFilter].states);
     const [filteredProjects, setFilteredProjects] = useState(projects);

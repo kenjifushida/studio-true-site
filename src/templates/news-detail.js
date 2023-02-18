@@ -10,7 +10,7 @@ import PageTitle from "../components/pageTitle"
 import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
-import findCategory from "../hooks/findCategory"
+import findCategory from "../hooks/findSortField"
 import { useIntl } from "gatsby-plugin-react-intl"
 
 const NewsDetail = ({ data: {post, posts, postsEnglish, weAre} }) => {
@@ -22,24 +22,19 @@ const NewsDetail = ({ data: {post, posts, postsEnglish, weAre} }) => {
         content: (intl.locale === "en") && (post.translations.length > 0) ? post.translations[0].content : post.content,
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
-        category: () => {
-            const hasCategory = post.categories.nodes.find(
-                    node => node.ancestors?.nodes[0].name === "we are"
-                )
-            return hasCategory !== undefined ? hasCategory.name : ""
-            }
+        category: findCategory(post)
     };
     const initialPosts = intl.locale === "ja" ? posts : postsEnglish;
     const newsArticles = initialPosts.edges.map(news => ({
         date: news.node.date,
         title: intl.locale === "ja" ? news.node.title : news.node.translations[0].title,
         slug: `/news/${news.node.slug}`,
-        category: findCategory(news)
+        category: findCategory(news.node)
     }));
 
     const headerRef = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
-    const [ dateSort, setDateSort ] = useState(false);
+    const [ dateSort, setDateSort ] = useState(true);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
     const { width } = useWindowDimensions();

@@ -11,6 +11,7 @@ import SideBar from "../components/sideBar"
 
 import { activeFilter } from "../pages/news"
 import { useIntl } from "gatsby-plugin-react-intl"
+import { findPlace } from "../hooks/findSortField"
 
 const NewsDetail = ({ data: {post, posts, postsEnglish, places, media, projects, authors} }) => {
     const categories = [
@@ -43,12 +44,7 @@ const NewsDetail = ({ data: {post, posts, postsEnglish, places, media, projects,
         by: post.author.node.firstName.toLowerCase(),
         author: `${post.author.node.firstName} ${post.author.node.lastName}`,
         date: post.date,
-        place: () => {
-            const hasPlace = post.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            )
-            return hasPlace !== -1 ? hasPlace.name : "";
-        },
+        place: findPlace(post),
         media: "",
         project: "",
 
@@ -59,19 +55,14 @@ const NewsDetail = ({ data: {post, posts, postsEnglish, places, media, projects,
         title: intl.locale === "ja" ? post.node.title : post.node.translations[0].title,
         by: post.node.author.node.firstName.toLowerCase(),
         slug: `/archives/${post.node.slug}`,
-        place: () => {
-            const hasPlace = post.node.categories.nodes.find(
-                node=> node.ancestors?.nodes[0].name === "place"
-            )
-            return hasPlace !== -1 ? hasPlace.name : "";
-        },
+        place: findPlace(post.node),
         media: "",
         project: "",
     }));
     
     const headerRef = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
-    const [ dateSort, setDateSort ] = useState(false);
+    const [ dateSort, setDateSort ] = useState(true);
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredArchives, setFilteredArchives] = useState(archivesArticles);

@@ -23,7 +23,7 @@ const MainProjects = ({filteredProjects}) => {
                             {featuredImage !== undefined ? <GatsbyImage image={featuredImage} alt={project.title}/> : null}
                         </div>
                         <div className={styles.overlay}>
-                            <div className={styles.name}>{project.name}</div>
+                            <span className={styles.name}>{project.name}</span>
                             <div className={styles.place}>{project.place}</div>
                         </div>
                         <div className={styles.actions}>{project.actions}</div>
@@ -31,12 +31,12 @@ const MainProjects = ({filteredProjects}) => {
                             <div className={styles.top}>
                                 <div className={styles.name}>{project.name}</div>
                                 <div className={styles.right}>
-                                    <div className={styles.date}>
+                                    {/* <div className={styles.date}>
                                         {project.date.replaceAll("-",".")}
                                     </div>
                                     <div className={styles.place}>
                                         {project.place.charAt(0).toUpperCase()+project.place.slice(1)}
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <div className={styles.bottom}>

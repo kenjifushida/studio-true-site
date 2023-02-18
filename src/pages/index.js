@@ -148,6 +148,7 @@ export const query = graphql`
     }
     projects: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
+      sort: {date: DESC}
     ) {
       edges {
         node {
@@ -198,6 +199,7 @@ export const query = graphql`
     }
     archives: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
+      sort: {date: DESC}
     ) {
       edges {
         node {

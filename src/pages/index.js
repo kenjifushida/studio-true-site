@@ -8,7 +8,7 @@ import Links from "../components/links"
 import MenuRow from "../components/menuRow"
 import Seo from "../components/seo"
 
-import { getVision, getApproaches, getActions } from "../hooks/aboutInformation"
+import { getMission, getVision, getApproaches, getActions } from "../hooks/aboutInformation"
 import { useIntl } from "gatsby-plugin-react-intl"
 
 
@@ -29,12 +29,17 @@ const menuOptions = [
 
 const aboutPosts = [];
 const visionContent = getVision();
+const missionContent = getMission();
 const approaches = getApproaches();
 const actions = getActions();
 
 aboutPosts.push({
   name: "vision",
   ...visionContent
+});
+aboutPosts.push({
+  name: "mission",
+  ...missionContent
 });
 approaches.forEach((approach) => {
   aboutPosts.push({

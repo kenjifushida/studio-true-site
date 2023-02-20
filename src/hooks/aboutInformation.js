@@ -3,9 +3,20 @@ export const getVision = () => {
         japTitle: "社会をサバイブする共同体をつくる",
         engTitle: "Creating a Community to Survive in Society",
         desc: "vision.desc",
-        filter: [true, false, false, false]
+        filter: [true, false, false, false, false]
     }
     return vision
+}
+
+export const getMission = () => {
+  const mission = {
+    japTitle: "オルタナティブな場所や仕組みからうまれる人や物のネットワークを都市から地球までのスケールでデザインする",
+    engTitle: "We design a network of people and things that emerge from alternative places and systems on a scale ranging from urbanism to the earth.",
+    desc: "mission.desc",
+    filter: [false, true, false, false, false]
+
+  }
+  return mission
 }
 
 export const getApproaches = () => {
@@ -14,19 +25,19 @@ export const getApproaches = () => {
             japTitle: "偶発性と身体性",
             engTitle: "Contingency and Embodiment",
             desc: "approaches.0.desc",
-            filter: [false, true, false, false]
+            filter: [false, false, true, false, false]
         },
         {
             japTitle: "小さいけれど継続的",
             engTitle: "Small but Continuous",
             desc: "approaches.1.desc",
-            filter: [false, true, false, false]
+            filter: [false, false, true, false, false]
         },
         {
             japTitle: "リサーチとアーカイブ",
             engTitle: "Research and Archive",
             desc: "approaches.2.desc",
-            filter: [false, true, false, false]
+            filter: [false, false, true, false, false]
         }
     ]
     return approaches
@@ -56,7 +67,7 @@ export const getActions = () => {
                     desc: "actions.0.tags.3.desc"
                 },
             ],
-            filter: [false, false, true, false]
+            filter: [false, false, false, true, false]
         },
         {
             japTitle: "建築・都市",
@@ -84,7 +95,7 @@ export const getActions = () => {
                     desc: "actions.1.tags.4.desc"
                 },
             ],
-            filter: [false, false, true, false]
+            filter: [false, false, false, true, false]
         },
         {
             japTitle: "パブリケーション",
@@ -135,7 +146,7 @@ export const getActions = () => {
                     desc: "actions.3.tags.3.desc"
                 },
             ],
-            filter: [false, false, true, false]
+            filter: [false, false, false, true, false]
         },
     ]
     return actions

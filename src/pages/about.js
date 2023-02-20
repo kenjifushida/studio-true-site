@@ -6,6 +6,7 @@ import Actions from "../components/actions"
 import Approaches from "../components/approaches"
 import Layout from "../components/layout"
 import Members from "../components/members"
+import Mission from "../components/mission"
 import Seo from "../components/seo"
 import SlideMenu from "../components/slideMenu"
 import SideBar from "../components/sideBar"
@@ -15,11 +16,7 @@ import Vision from "../components/vision"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const initialState = [
-  false, false, false, false
-]
-
-const sectionNames = [
-  "vision", "approaches", "actions", "members"
+  false, false, false, false, false
 ]
 
 const About = ({ location }) => {
@@ -39,6 +36,7 @@ const About = ({ location }) => {
   const [selectedMember, setSelectedMember] = useState(-1);
   const sections = [
     <Vision />,
+    <Mission />,
     <Approaches />,
     <Actions />,
     <Members memberState={selectedMember} changeSelectedMember={changeSelectedMember} />
@@ -89,12 +87,15 @@ const About = ({ location }) => {
             >vision</li>
           <li onClick={() => changeFilter(1)}
           style={{background: filtered[1] ? "var(--primary-color)" : "var(--box-bg)"}}
-          >approaches</li>
+          >mission</li>
           <li onClick={() => changeFilter(2)}
           style={{background: filtered[2] ? "var(--primary-color)" : "var(--box-bg)"}}
-          >actions</li>
+          >approaches</li>
           <li onClick={() => changeFilter(3)}
           style={{background: filtered[3] ? "var(--primary-color)" : "var(--box-bg)"}}
+          >actions</li>
+          <li onClick={() => changeFilter(4)}
+          style={{background: filtered[4] ? "var(--primary-color)" : "var(--box-bg)"}}
           >members</li>
         </ul>
         {filtered[3] ? 
@@ -114,12 +115,15 @@ const About = ({ location }) => {
             >vision</li>
           <li onClick={() => changeFilter(1)}
           style={{background: filtered[1] ? "var(--primary-color)" : "var(--box-bg)"}}
-          >approaches</li>
+          >mission</li>
           <li onClick={() => changeFilter(2)}
           style={{background: filtered[2] ? "var(--primary-color)" : "var(--box-bg)"}}
-          >actions</li>
+          >approaches</li>
           <li onClick={() => changeFilter(3)}
           style={{background: filtered[3] ? "var(--primary-color)" : "var(--box-bg)"}}
+          >actions</li>
+          <li onClick={() => changeFilter(4)}
+          style={{background: filtered[4] ? "var(--primary-color)" : "var(--box-bg)"}}
           >members</li>
         </ul>
         {filtered[3] ? 

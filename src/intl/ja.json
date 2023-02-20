@@ -2,10 +2,15 @@
     "vision": {
         "japTitle": "社会をサバイブする共同体をつくる",
         "engTitle": "Creating a Community to Survive in Society",
-        "desc": "私たちはデザインを通じて、複雑で多様な社会を生き抜く共同体をつくることを目指します。私たちはこの社会に生きづらさを感じています。しかし、仲間とともに目の前にある問題にひとつずつ向き合うことで、この社会を共同体としてサバイブできると考えます。共同体は社会をともに生き抜いていくために重要な仲間との連帯であり、その社会を変えることのできる活動のネットワークだと信じています。私たちは世の中の様々な場所で共同体を生み出し、独自のアプローチからたくさんの仲間と協働し、社会をより良くしていけるようにアクションを展開させます。",
+        "desc": "共同体とは私たちが社会を共に生き抜いていくために重要な仲間との連帯であり、循環とは私たちが生態系の中で共存するために必要な他者や他種との関係性です。studioTRUEはデザインを通じて、複雑で多様な社会を生き抜くべく、新しい共同体と循環をつくることを目指します。",
         "graph": "graph",
         "pdf": "studio-true_vision.pdf",
         "filter": "[true, false, false, false]"
+    },
+    "mission": {
+        "japTitle": "オルタナティブな場所や仕組みからうまれる人や物のネットワークを都市から地球までのスケールでデザインする",
+        "engTitle": "We design a network of people and things that emerge from alternative places and systems on a scale ranging from urbanism to the earth.",
+        "desc": "社会に溢れる様々な問題を乗り越えるために、オルタナティブな場所や仕組みを実装し、人・物の新しいつながりをつくります。studioTRUEはそのつながりを、まちづくりや出版、イベント開催やコンポストなどの幅広いスケールで探究し、デザインしていきます。"
     },
     "approaches": {
         "0": {

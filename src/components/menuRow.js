@@ -37,7 +37,7 @@ const MenuRow = ({ option, posts}) => {
                 style={post.img ===undefined ? {background: "var(--box-bg)"}:{}}
                 >
                   {option === "news" ? post.date.replaceAll("-","").slice(2) : null}
-                  {option === "about" ? <div className={styles.aboutTitle}>{post.engTitle}</div>: null}
+                  {option === "about" ? <span className={styles.aboutTitle}>{post.engTitle}</span>: null}
                 </div>
               </Link>
             ))}

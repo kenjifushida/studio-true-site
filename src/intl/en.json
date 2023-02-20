@@ -2,10 +2,15 @@
     "vision": {
         "japTitle": "社会をサバイブする共同体をつくる",
         "engTitle": "Creating a Community to Survive in Society",
-        "desc": "Through design, we aim to create a community to survive in a complex and diverse society. It is difficult to live in this society. However, we believe that we can survive in this society as a community by facing the problems that lie ahead of us one by one, together with our people. We believe that community is solidarity with others, which is essential for surviving in society and is a network of activities that can change that society. We will create a community in various places in the world, collaborate with many others from our unique approach, and develop actions to improve society.",
+        "desc": "Community is solidarity with our fellow human beings, which is important for us to survive in society, and circulation is the relationship with others and other species that is necessary for us to coexist in an ecosystem. Through design, studioTRUE aims to create a new community and circulations to survive in a complex and diverse society.",
         "graph": "graph",
         "pdf": "studio-true_vision.pdf",
         "filter": "[true, false, false, false]"
+    },
+    "mission": {
+        "japTitle": "オルタナティブな場所や仕組みからうまれる人や物のネットワークを都市から地球までのスケールでデザインする",
+        "engTitle": "We design a network of people and things that emerge from alternative places and systems on a scale ranging from urbanism to the earth.",
+        "desc": "In order to overcome the various problems of our society, we create new connections of people or things by implementing alternative places and systems. studioTRUE explores and designs these connections on a wide range of scales, including community development, publishing, event organization, and composting."
     },
     "approaches": {
         "0": {

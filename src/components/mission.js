@@ -4,7 +4,7 @@ import SectionTitle from "./sectionTitle"
 import DownloadBtn from "./downloadBtn"
 import { useIntl } from "gatsby-plugin-react-intl"
 import { getMission } from "../hooks/aboutInformation"
-import * as styles from "../styles/vision.module.scss"
+import * as styles from "../styles/mission.module.scss"
 
 const Mission = () => {
   const missionContent = getMission();

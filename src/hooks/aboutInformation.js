@@ -1,7 +1,7 @@
 export const getVision = () => {
     const vision = {
-        japTitle: "社会をサバイブする共同体をつくる",
-        engTitle: "Creating a Community to Survive in Society",
+        japTitle: "社会をサバイブするための共同体と循環をつくる",
+        engTitle: "Creating Community and Circulations to Survive Society",
         desc: "vision.desc",
         filter: [true, false, false, false, false]
     }

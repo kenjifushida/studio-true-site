@@ -22,7 +22,7 @@ module.exports = {
       options: {
         url:
           process.env.WP_GRAPHQL_URL ||
-          `http://studio-true.online/graphql`,
+          `https://studio-true.online/graphql`,
       },
     },
     {

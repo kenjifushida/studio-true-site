@@ -2,10 +2,11 @@ import * as React from "react"
 import { useState } from "react"
 import * as styles from "../styles/slideMenu.module.scss"
 
+import LanguageToggle from "./languageToggle"
 import ViewToggle from "./viewToggle"
 const SlideMenu = ({ 
     categories, filters, handleFilter, 
-    view, changeView, children
+    needView, children
 }) => {
     const [active, setActive] = useState(false);
 
@@ -25,7 +26,8 @@ const SlideMenu = ({
             style={active ? activeMenu : {}}>menu</div>
             <div className={styles.wrapper} style={active ? {height:"15rem"}: {height:"0"}}>
                 <div className={styles.slideMenu}>
-                    <ViewToggle view={view} changeView={changeView} className={styles.viewSwitch}/>
+                    <LanguageToggle />
+                    { needView ? <ViewToggle className={styles.viewSwitch}/> : null}
                     {children}
                     {categories ?
                     <ul className={styles.row}>

@@ -69,7 +69,7 @@ const Archives = ({data: {posts, postsEnglish, places, media, projects, authors}
     const [currFilter, setCurrFilter] = useState(0);
     const [filters, setFilters] = useState(categories.find((el) => el.category === categories[currFilter].category).states);
     const [filteredArchives, setFiltered] = useState(archives);
-    const [viewMode, setView] = useState(false);
+    const needView = true;
 
     const handleFilterAll = () => {
         if(filters[0]) {
@@ -134,9 +134,9 @@ const Archives = ({data: {posts, postsEnglish, places, media, projects, authors}
     return (
         <Layout headerRef={ref} pageTitle={pageTitle}>
             <SlideMenu categories={categories[currFilter].options}
-              viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
-              dateSort={dateSort} setDateSort={setDateSort} >
+              dateSort={dateSort} setDateSort={setDateSort}
+              needView={needView} >
                 <ul>
                     <li className={slideMenuStyles.option}
                         onClick={()=>setDateSort(!dateSort)}

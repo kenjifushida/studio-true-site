@@ -60,6 +60,8 @@ const Projects = ({ data: { posts, postsEnglish, places, actions} }) => {
     const [filteredProjects, setFiltered] = useState(projects);
     const initialView = useContext(ThemeContext);
     const [viewMode, setView] = useState(initialView);
+    const needView = true;
+
 
     const handleFilterAll = () => {
         if(filters[0]) {
@@ -128,7 +130,8 @@ const Projects = ({ data: { posts, postsEnglish, places, actions} }) => {
             <SlideMenu categories={categories[currFilter].options}
               viewMode={viewMode} setView={setView}
               filters={filters} handleFilter={handleFilter}
-              dateSort={dateSort} setDateSort={setDateSort} >
+              dateSort={dateSort} setDateSort={setDateSort}
+              needView={needView} >
                 <ul>
                     <li className={slideMenuStyles.option}
                         onClick={()=>setDateSort(!dateSort)}

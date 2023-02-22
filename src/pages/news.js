@@ -48,6 +48,7 @@ const News = ({ data: {posts, postsEnglish, weAre} }) => {
     const [dateSort, setDateSort] = useState(true);
     const [filters, setFilters] = useState(categories.map(opt=>true));
     const [filteredNews, setFilteredNews] = useState(newsArticles);
+    const needView = true;
 
     const handleFilterAll = () => {
         if(filters[0]) {
@@ -104,7 +105,8 @@ const News = ({ data: {posts, postsEnglish, weAre} }) => {
             <SlideMenu categories={categories} 
             view={view} changeView={setView}
             filters = {filters} handleFilter={handleFilter}
-            dateSort={dateSort} setDateSort={setDateSort} >
+            dateSort={dateSort} setDateSort={setDateSort}
+            needView={needView} >
                 <ul>
                     <li className={childStyles.option}
                         onClick={()=>setDateSort(!dateSort)}

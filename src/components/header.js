@@ -6,6 +6,7 @@ import * as styles from "../styles/header.module.scss"
 import LanguageToggle from "./languageToggle"
 import Logo from "../images/logo.svg"
 import ColorLogo from "../images/colorLogo.svg"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 export const menuOptions = [
   "about",
@@ -15,11 +16,12 @@ export const menuOptions = [
   "contact"
 ]
 
-const Header = ({ headerRef, pageTitle, siteTitle }) => {
+const Header = ({ headerRef, pageTitle }) => {
   const [nav, setNav] = useState(false);
+  const { width } = useWindowDimensions();
 
   const mobileNavStyles = {
-    height: nav ? "10.087rem" : "0"
+    height: nav ? "12.087rem" : "0"
   }
 
   return (
@@ -40,8 +42,9 @@ const Header = ({ headerRef, pageTitle, siteTitle }) => {
                 to={'/' + option}>{option}</Link>
             ))}
           </nav>
-          <LanguageToggle />
+          { width >= 720 ?  <LanguageToggle /> : null }
         </div>
+        {pageTitle === undefined ? 
         <button 
           type="button"
           className={styles.menuBtn}
@@ -52,10 +55,11 @@ const Header = ({ headerRef, pageTitle, siteTitle }) => {
             transition: "all 0.4s ease"
           }}>
           <h3>menu</h3>
-        </button>
+        </button> : null}
       </div>
       <nav className={styles.mobileNav} style={mobileNavStyles}>
         <ul>
+          <LanguageToggle /> 
           {menuOptions.map(option => (
             <li><Link to={'/'+option}><span>{option}</span></Link></li>
           ))}

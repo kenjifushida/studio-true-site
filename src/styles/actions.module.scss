@@ -69,10 +69,12 @@
         }
     }
 }
+
 .post:hover {
     min-height: 5rem;
     max-height: 16rem;
     border-color: var(--primary-color);
+    cursor: url(https://studio-true.online/wp-content/uploads/2023/02/cursor32.png), pointer;
     .inner-post {
         position: relative;
         opacity: 1;
@@ -103,6 +105,9 @@
             .hashtags {
                 max-width: 25%;
                 font-size: 0.875rem;
+                div {
+                    cursor: url(https://studio-true.online/wp-content/uploads/2023/02/cursor32.png), pointer;
+                }
             }
             .tag-box {
                 display: block;

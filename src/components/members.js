@@ -15,7 +15,7 @@ const Members = ({ memberState, changeSelectedMember }) => {
   const memberImages = [
     <StaticImage src="../images/rei.jpg" alt="profile-picture" />, 
     <StaticImage src="../images/taiga.jpg" alt="profile-picture" />
-  ]
+  ];
     return (
       <div>
           {memberState >= 0 ?
@@ -60,6 +60,7 @@ const Members = ({ memberState, changeSelectedMember }) => {
               <div className={styles.members}>
                   {members.map((member, idx) => (
                   <div key={idx} className={styles.member}>
+                      {memberImages[idx]}
                       <div onClick={()=>changeSelectedMember(idx)} className={styles.innerMember}>
                         <div className={styles.kanji}>{member.kanji}</div>
                         <div>

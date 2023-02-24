@@ -14,12 +14,12 @@ const Mission = () => {
           <SectionTitle title={"mission"} />
           <div className={styles.post}>
             <div className={styles.innerPost}>
-              <div className={styles.postTitle}>{missionContent.japTitle}</div>
+              <div className={styles.postTitle} dangerouslySetInnerHTML={{__html: missionContent.japTitle}}></div>
               <div className={styles.postDesc}>{intl.formatMessage({id: missionContent.desc})}</div>
             </div>
             <div className={styles.overlay}>
-              <div className={styles.postTitle}>{missionContent.japTitle}</div>
-              <div className={styles.overlayTitle}>{missionContent.engTitle}</div>
+              <div className={styles.postTitle} dangerouslySetInnerHTML={{__html: missionContent.japTitle}}></div>
+              <div className={styles.overlayTitle} dangerouslySetInnerHTML={{__html: missionContent.engTitle}}></div>
             </div>
           </div>
           <DownloadBtn hyperlink={"/documents/230102_leaflet.pdf"} fileName={"mission"}/>

@@ -8,7 +8,7 @@
         border: 1px solid var(--primary-txt);
         background: var(--primary-color);
         position: relative;
-        transition: all 0.4s ease;
+        transition: min-height 0.4s ease, max-height 0.4s ease;
         overflow: hidden;
         .inner-post {
             font-family: "Avenir Next Medium", "Yu Gothic Bold";
@@ -18,6 +18,10 @@
                 font-family: "Noto Serif Bold";
                 font-size: 0.825rem;
                 margin-bottom: 0.5rem;
+                span {
+                    display: inline-block;
+                    word-break: keep-all;
+                }
             }
             .post-desc {
                 font-family: inherit;
@@ -40,6 +44,10 @@
             .post-title {
                 font-family: "Noto Serif Bold";
                 font-size: 0.825rem;
+                span {
+                    display: inline-block;
+                    word-break: keep-all;
+                }
             }
             .overlay-title {
                 font-family: "Avenir Next Medium", "Yu Gothic Bold";
@@ -48,6 +56,10 @@
                 color: var(--secondary-txt);
                 margin-bottom: 0.25rem;
                 max-width: 20rem;
+                span {
+                    display: inline-block;
+                    word-break: keep-all;
+                }
             }
         }
         .overlay:hover {
@@ -61,6 +73,10 @@
         .inner-post {
             position: relative;
         }
+        .overlay {
+            position: absolute;
+            opacity: 0;
+        }
     }
 }
 
@@ -68,7 +84,7 @@
 @media only screen and (min-width: 720px) {
     .article {
         .post {
-            min-height: 26rem;
+            min-height: 40rem;
             .inner-post > .post-title, 
             .overlay > .post-title, .overlay .overlay-title {
                 max-width: 60%;
@@ -94,10 +110,26 @@
     }
 }
 
+@media only screen and (min-width: 920px) {
+    .article {
+        .post {
+            min-height: 30rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 1220px) {
+    .article {
+        .post {
+            min-height: 26rem;
+        }
+    }
+}
+
 @media only screen and (min-width: 1440px) {
     .article {
         .post {
-            min-height: 24rem;
+            min-height: 25rem;
             .inner-post > .post-title, .overlay > .post-title {
                 font-size: 1.25rem;
             }
@@ -107,6 +139,14 @@
             .overlay > .overlay-title {
                 font-size: 2.25rem;
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 1880px) {
+    .article {
+        .post {
+            min-height: 20rem;
         }
     }
 }

@@ -10,8 +10,8 @@ export const getVision = () => {
 
 export const getMission = () => {
   const mission = {
-    japTitle: "オルタナティブな場所や仕組みからうまれる人や物のネットワークを都市から地球までのスケールでデザインする",
-    engTitle: "We design a network of people and things that emerge from alternative places and systems on a scale ranging from urbanism to the earth.",
+    japTitle: "<span>オルタナティブな場所や仕組みから</span><span>うまれる人や物のネットワークを</span><span>都市から地球までのスケールで</span><span>デザインする</span>",
+    engTitle: "We design a network<br>of people and things that emerge from alternative places and systems on a scale ranging from urbanism to the earth.",
     desc: "mission.desc",
     filter: [false, true, false, false, false]
 
@@ -196,7 +196,7 @@ export const getMembers = () => {
               {
                 name: "master thesis",
                 content: "MDEF 2021-2022",
-                link: "https://drive.google.com/file/d/1zlbgFdXZtRdhuHwarp2h-OcKmLO45aY-/view?usp=sharing"
+                link: "https://drive.google.com/file/d/1qMvhaobtWDckUDdOud9zZa8pwc3dSqHy/view?usp=share_link"
               },
               {
                 name: "portfolio",

@@ -5,8 +5,9 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import * as styles from "../styles/mainProjects.module.scss"
 
 const MainProjects = ({filteredProjects}) => {
-    const lines = [...Array(15).keys()];
-    const {viewMode, setViewMode } = React.useContext(ThemeContext);
+    const numLines = filteredProjects.length > 15 ? filteredProjects.length+5 : 15;
+    const lines = [...Array(numLines).keys()];
+    const {viewMode } = React.useContext(ThemeContext);
 
     if(!viewMode) {
         return null;

@@ -5,7 +5,8 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import * as styles from "../styles/mainArchives.module.scss"
 
 const MainArchives = ({filteredArchives}) => {
-    const lines = [...Array(15).keys()];
+    const numLines = filteredArchives.length > 15 ? filteredArchives.length+5 : 15;
+    const lines = [...Array(numLines).keys()];
     const {viewMode } = React.useContext(ThemeContext);
 
     if(!viewMode) {

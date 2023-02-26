@@ -5,7 +5,8 @@ import * as styles from "../styles/mainNews.module.scss"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const MainNews = ({ filteredNews }) => {
-    const lines = [...Array(15).keys()];
+    const numLines = filteredNews.length > 15 ? filteredNews.length+5 : 15;
+    const lines = [...Array(numLines).keys()];
     const {viewMode } = React.useContext(ThemeContext);
 
     if(!viewMode) {

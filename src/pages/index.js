@@ -102,7 +102,7 @@ export const query = graphql`
   query MyQuery {
     news: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {
@@ -126,7 +126,7 @@ export const query = graphql`
     }
     newsEnglish: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "news"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {
@@ -153,7 +153,7 @@ export const query = graphql`
     }
     projects: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {
@@ -177,7 +177,7 @@ export const query = graphql`
     }
     projectsEnglish: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "projects"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {
@@ -204,7 +204,7 @@ export const query = graphql`
     }
     archives: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {
@@ -228,7 +228,7 @@ export const query = graphql`
     }
     archivesEnglish: allWpPost(
       filter: {categories: {nodes: {elemMatch: {name: {eq: "archives"}}}}, translations: {elemMatch: {language: {code: {eq: EN}}}}}
-      sort: {date: DESC}
+      sort: {fields: date, order: DESC}
     ) {
       edges {
         node {

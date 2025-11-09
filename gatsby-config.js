@@ -23,6 +23,11 @@ module.exports = {
         url:
           process.env.WP_GRAPHQL_URL ||
           `https://studio-true.online/graphql`,
+        type: {
+          Comment: {
+            limit: 0,
+          },
+        },
       },
     },
     {

@@ -294,7 +294,7 @@ export const pageQuery = graphql`
             }
         }
         authors: allWpPost {
-            distinct(field: {author: {node: {firstName: SELECT}}})
+            distinct(field: author___node___firstName)
         }
     }
 `

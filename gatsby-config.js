@@ -28,6 +28,29 @@ module.exports = {
             limit: 0,
           },
         },
+        // Add retry logic for connection issues
+        schema: {
+          timeout: 90000, // 90 seconds (increased from 60)
+          requestConcurrency: 2, // Reduced from 5 to be gentler on server
+          previewRequestConcurrency: 1,
+          perPage: 50, // Fetch fewer items per request
+        },
+        develop: {
+          hardCacheMediaFiles: true,
+          hardCacheData: false,
+        },
+        production: {
+          hardCacheMediaFiles: true,
+          allow404Images: true,
+          allow401Images: true,
+        },
+        // Add debug logging
+        verbose: true,
+        debug: {
+          graphql: {
+            writeQueriesToDisk: false,
+          },
+        },
       },
     },
     {

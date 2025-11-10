@@ -1,20 +1,8 @@
 [build]
-  command = "npm run build"
+  # Skip building on Netlify - deploy pre-built site instead
+  # Use: npm run build && netlify deploy --prod
+  command = "echo 'Skipping build - deploy pre-built site'"
   publish = "public"
 
 [build.environment]
   NODE_VERSION = "18"
-  # Increase timeout for WordPress data fetching
-  NODE_OPTIONS = "--max-old-space-size=8192"
-  # Add timeout settings
-  GATSBY_CPU_COUNT = "4"
-  # Increase network timeout
-  GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = "true"
-
-# Optional: Add Gatsby cache plugin for faster rebuilds
-[[plugins]]
-  package = "@netlify/plugin-gatsby"
-
-# Increase function timeout if using Netlify Functions
-[functions]
-  node_bundler = "esbuild"

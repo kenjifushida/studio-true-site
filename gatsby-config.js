@@ -51,6 +51,13 @@ module.exports = {
             writeQueriesToDisk: false,
           },
         },
+        // Add custom headers to help bypass bot protection
+        auth: process.env.WPGRAPHQL_AUTH ? {
+          htaccess: {
+            username: process.env.WPGRAPHQL_USERNAME,
+            password: process.env.WPGRAPHQL_PASSWORD,
+          }
+        } : undefined,
       },
     },
     {

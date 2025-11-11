@@ -1,8 +1,25 @@
 [build]
-  # Skip building on Netlify - deploy pre-built site instead
-  # Use: npm run build && netlify deploy --prod
-  command = "echo 'Skipping build - deploy pre-built site'"
+  command = "npm run build"
   publish = "public"
 
 [build.environment]
   NODE_VERSION = "18"
+
+# Increase build timeout for WordPress data fetching
+[build.processing]
+  skip_processing = false
+
+# Optimize builds
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true

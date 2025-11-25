@@ -40,7 +40,7 @@ module.exports = {
           hardCacheData: false,
         },
         production: {
-          hardCacheMediaFiles: true,
+          hardCacheMediaFiles: false, // Don't cache to always fetch latest data
           allow404Images: true,
           allow401Images: true,
         },

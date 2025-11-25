@@ -3,6 +3,9 @@
 # Deploy script for Netlify
 # This builds locally and deploys to Netlify, bypassing Hostinger firewall issues
 
+echo "🧹 Cleaning cache..."
+npm run clean
+
 echo "🏗️  Building site locally..."
 npm run build
 
